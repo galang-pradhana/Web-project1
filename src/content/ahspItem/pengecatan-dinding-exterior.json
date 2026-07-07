@@ -1,0 +1,26 @@
+{
+  "namaPekerjaan": "Pengecatan Dinding Tembok Baru Exterior (3 Lapis)",
+  "kodeAHSP": "A.4.7.1.10",
+  "kategoriPekerjaan": "Pekerjaan Finishing/Cat",
+  "satuanVolume": "m2",
+  "bahanKomponen": [
+    {
+      "bahanRef": "cat-tembok-dulux",
+      "koefisien": 0.36
+    }
+  ],
+  "upahKomponen": [
+    {
+      "upahRef": "pekerja",
+      "koefisien": 0.07
+    },
+    {
+      "upahRef": "tukang-cat",
+      "koefisien": 0.06
+    },
+    {
+      "upahRef": "mandor",
+      "koefisien": 0.005
+    }
+  ]
+}

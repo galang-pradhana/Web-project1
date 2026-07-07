@@ -1,0 +1,21 @@
+{
+  "namaPaket": "Paket Menengah",
+  "jenisPekerjaan": "Bangun Baru",
+  "hargaPerM2": 4800000,
+  "persenStruktur": 32,
+  "persenDinding": 22,
+  "persenAtap": 15,
+  "persenFinishing": 16,
+  "persenMEP": 10,
+  "persenLainnya": 5,
+  "deskripsi": "Cocok untuk rumah modern minimalis dengan struktur beton kokoh, finishing granit tile 60x60, cat dinding kualitas menengah ke atas, kusen aluminium, dan sanitair TOTO.",
+  "contohMaterial": [
+    "Semen Dynamix / Holcim",
+    "Bata Ringan (Hebel)",
+    "Granit Lantai 60x60 Indogress / Roman",
+    "Kusen Aluminium Alexindo",
+    "Cat Dinding Dulux / Jotun",
+    "Atap Genteng Keramik Kanmuri + Baja Ringan Tasoso",
+    "Sanitair TOTO Standar"
+  ]
+}

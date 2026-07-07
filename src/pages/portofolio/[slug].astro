@@ -1,0 +1,208 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
+import { MapPin, Ruler, CalendarDays, User, Layers, ArrowLeft, Quote } from 'lucide-react';
+
+export async function getStaticPaths() {
+  const reader = createReader(process.cwd(), keystaticConfig);
+  const projects = await reader.collections.projects.all();
+  return projects.map(p => ({
+    params: { slug: p.slug },
+    props: { project: p.entry }
+  }));
+}
+
+const { project } = Astro.props;
+const { slug } = Astro.params;
+---
+
+<BaseLayout title={`${project.title} — Creativa Studio`} hideFooter={true}>
+  
+  <div class="py-24 px-[6vw] max-w-7xl mx-auto space-y-16 text-text-primary relative">
+    
+    {/* Back Button */}
+    <div>
+      <a href="/portofolio" class="group inline-flex items-center gap-3 font-sans text-[10px] tracking-[0.25em] font-medium uppercase text-stone-500 hover:text-stone-900 transition-colors">
+        <ArrowLeft class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" /> KEMBALI KE PORTOFOLIO
+      </a>
+    </div>
+
+    {/* Hero Section / Title & Header */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end border-b border-stone-200 pb-12">
+      <div class="lg:col-span-8 space-y-4">
+        <div class="flex items-center gap-3">
+          <span class="bg-accent/10 text-accent font-sans text-[9px] font-semibold uppercase tracking-[0.2em] px-3 py-1 border border-accent/20">
+            {project.category}
+          </span>
+          <span class="text-stone-300 font-sans text-xs">/</span>
+          <span class="font-sans text-[10px] text-stone-400 uppercase tracking-widest">PROJECT ARCHIVE</span>
+        </div>
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight text-stone-900">
+          {project.title}
+        </h1>
+      </div>
+      <div class="lg:col-span-4 lg:text-right font-sans text-[11px] tracking-widest text-stone-500 uppercase space-y-1">
+        <div>Tahun Konstruksi: <span class="font-semibold text-stone-850">{project.year}</span></div>
+        <div>Status Pengerjaan: <span class="font-semibold text-stone-850 text-accent">COMPLETED // VERIFIED</span></div>
+      </div>
+    </div>
+
+    {/* Cover Image with elegant framing */}
+    <div class="border border-stone-200/80 bg-[#FAF9F6] p-4 relative shadow-sm">
+      <div class="aspect-video w-full overflow-hidden bg-stone-100 relative">
+        <img 
+          src={project.coverImage} 
+          alt={project.title}
+          class="w-full h-full object-cover filter sepia-[0.1] brightness-[0.98]"
+        />
+        <div class="absolute inset-0 bg-stone-900/5 pointer-events-none"></div>
+      </div>
+      <div class="mt-3 font-sans text-[10px] text-stone-450 tracking-wider text-right italic">
+        Cover: Dokumentasi Penyelesaian Konstruksi {project.title}
+      </div>
+    </div>
+
+    {/* Content Breakdown */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 pt-6">
+      
+      {/* Description & Testimonial */}
+      <div class="lg:col-span-8 space-y-16">
+        
+        <div class="space-y-6">
+          <h2 class="font-serif text-2xl font-light text-stone-900 pb-3 border-b border-stone-200">
+            Konsep & Esensi Desain
+          </h2>
+          <p class="font-sans text-stone-600 text-[14px] sm:text-base leading-relaxed font-light whitespace-pre-line">
+            {project.description}
+          </p>
+        </div>
+
+        {/* Testimonial Box with editorial styling (Drop Cap) */}
+        {project.testimonialContent && (
+          <div class="border border-stone-200/80 bg-[#FAF9F6] p-10 relative overflow-hidden">
+            <Quote class="w-16 h-16 text-accent/10 absolute -top-2 -right-2 transform rotate-12" />
+            <p class="font-serif italic text-base sm:text-lg text-stone-800 leading-relaxed mb-6 relative z-10 first-letter:font-serif first-letter:text-5xl first-letter:font-normal first-letter:float-left first-letter:mr-3 first-letter:text-accent first-letter:leading-none">
+              "{project.testimonialContent}"
+            </p>
+            <div class="flex items-center gap-3 font-sans text-[10px] font-semibold text-accent uppercase tracking-widest relative z-10">
+              <span class="w-6 h-[1px] bg-accent/60"></span>
+              <span>{project.testimonialAuthor || 'Klien Kami'}</span>
+            </div>
+          </div>
+        )}
+
+      </div>
+
+      {/* Sidebar Metadata */}
+      <div class="lg:col-span-4 space-y-8">
+        <div class="border border-stone-200/85 p-8 bg-[#FAF9F6] relative shadow-sm space-y-8">
+          
+          {/* Integration Badge/Stamp (Differentiation Anchor) */}
+          <div class="flex items-center gap-4 border-b border-stone-200 pb-6">
+            <div class="relative w-14 h-14 rounded-full border border-stone-300 bg-[#FAF9F6] flex items-center justify-center shrink-0 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.8),_inset_-1px_-1px_2px_rgba(0,0,0,0.05),_2px_2px_5px_rgba(0,0,0,0.03)]">
+              <span class="font-serif text-[13px] font-normal tracking-widest text-stone-650">CS</span>
+              <div class="absolute inset-1 rounded-full border border-dashed border-stone-300 animate-[spin_30s_linear_infinite]"></div>
+            </div>
+            <div>
+              <h3 class="font-serif text-lg font-light text-stone-900 leading-none">Spesifikasi Karya</h3>
+              <span class="font-sans text-[9px] text-stone-400 tracking-widest uppercase">Verified Construction</span>
+            </div>
+          </div>
+          
+          <div class="space-y-4 font-sans text-xs">
+            <div class="flex justify-between py-2.5 border-b border-stone-200/60">
+              <span class="text-stone-500 flex items-center gap-2 tracking-wider">
+                <User class="w-4 h-4 text-accent/80" /> KLIEN
+              </span>
+              <span class="font-medium text-stone-950">{project.client}</span>
+            </div>
+            
+            <div class="flex justify-between py-2.5 border-b border-stone-200/60">
+              <span class="text-stone-500 flex items-center gap-2 tracking-wider">
+                <MapPin class="w-4 h-4 text-accent/80" /> LOKASI
+              </span>
+              <span class="font-medium text-stone-950">{project.location}</span>
+            </div>
+
+            <div class="flex justify-between py-2.5 border-b border-stone-200/60">
+              <span class="text-stone-500 flex items-center gap-2 tracking-wider">
+                <Ruler class="w-4 h-4 text-accent/80" /> LUAS AREA
+              </span>
+              <span class="font-medium text-stone-950">{project.area} m²</span>
+            </div>
+
+            <div class="flex justify-between py-2.5 border-b border-stone-200/60">
+              <span class="text-stone-500 flex items-center gap-2 tracking-wider">
+                <Layers class="w-4 h-4 text-accent/80" /> ESTIMASI BUDGET
+              </span>
+              <span class="font-medium text-accent">{project.budgetRange}</span>
+            </div>
+
+            <div class="flex justify-between py-2.5">
+              <span class="text-stone-500 flex items-center gap-2 tracking-wider">
+                <CalendarDays class="w-4 h-4 text-accent/80" /> TAHUN SELESAI
+              </span>
+              <span class="font-medium text-stone-950">{project.year}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick CTA to Estimator */}
+        <div class="border border-stone-200/85 p-8 bg-[#FAF9F6] text-center space-y-5 shadow-sm">
+          <h4 class="font-serif text-lg font-light text-stone-900">Ingin Membangun Proyek Serupa?</h4>
+          <p class="font-sans text-xs text-stone-500 leading-relaxed font-light">
+            Estimasikan anggaran pembangunan hunian impian, renovasi komersial, atau proyek arsitektur Anda secara instan menggunakan kalkulator RAB kami.
+          </p>
+          <a href="/#estimator" class="w-full py-3.5 bg-stone-900 text-stone-100 hover:bg-accent hover:text-stone-100 transition-colors duration-300 font-sans text-[11px] tracking-widest uppercase block font-medium">
+            MULAI ESTIMASI BIAYA
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    {/* Photo Gallery Grid - Asymmetric Art Gallery Collage */}
+    {project.gallery && project.gallery.length > 0 && (
+      <div class="space-y-10 pt-16 border-t border-stone-200">
+        <div class="flex justify-between items-baseline pb-4 border-b border-stone-200">
+          <h2 class="font-serif text-2xl lg:text-3xl font-light text-stone-900">
+            Dokumentasi Detail Pengerjaan
+          </h2>
+          <span class="font-sans text-[10px] text-stone-400 tracking-widest uppercase">
+            {project.gallery.length} FOTO KARYA
+          </span>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          {project.gallery.map((img: string, idx: number) => {
+            const mod = idx % 4;
+            const spanClass = mod === 0 ? "md:col-span-2 aspect-[16/9]" : 
+                              mod === 1 ? "md:col-span-1 aspect-[3/4]" : 
+                              mod === 2 ? "md:col-span-1 aspect-square" : 
+                                          "md:col-span-2 aspect-[16/10]";
+            
+            return (
+              <div class={`border border-stone-200/80 p-3 bg-[#FAF9F6] shadow-sm group hover:border-stone-900/40 transition-colors duration-500 ${spanClass}`}>
+                <div class="w-full h-full overflow-hidden bg-stone-100 relative">
+                  <img 
+                    src={img} 
+                    alt={`${project.title} Gallery ${idx + 1}`}
+                    class="w-full h-full object-cover filter sepia-[0.15] brightness-[0.98] hover:sepia-0 hover:scale-[1.02] transition-all duration-1000"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-stone-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-550 pointer-events-none"></div>
+                  <span class="absolute bottom-3 right-3 bg-stone-950/80 text-stone-100 font-sans text-[8px] font-medium tracking-widest px-2 py-0.5 uppercase">
+                    DETAIL {String(idx + 1).padStart(2, '0')}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    )}
+
+  </div>
+
+</BaseLayout>

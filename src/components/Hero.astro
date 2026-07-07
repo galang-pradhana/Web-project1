@@ -1,0 +1,591 @@
+---
+// Hero.astro
+// Clean, warm editorial design for Creativa Studio with interactive background transition via project thumbnails
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  tagline?: string;
+}
+
+const { 
+  eyebrow = 'CREATIVA STUDIO — KONTRAKTOR & ARSITEKTUR',
+  title = 'STRUKTUR PRESTISIUS,\nARSITEKTUR &\nJASA KONTRAKTOR.',
+  tagline = 'Kami merancang, merencana, dan membangun residensial serta komersial premium — menghadirkan integrasi arsitektur visioner dengan eksekusi kontraktor yang presisi.'
+} = Astro.props;
+
+const titleLines = title.split('\n');
+---
+
+<section class="hero">
+  <!-- Multi-layer Background for Smooth Parallax & Cross-Fade -->
+  <div id="heroBg" class="hero-bg">
+    <div class="bg-layer active" style="background-image: url('/projects/creativa-house.png'); background-position: center 42%;" data-bg-id="0"></div>
+    <div class="bg-layer" style="background-image: url('/projects/mg-atelier.png'); background-position: center;" data-bg-id="1"></div>
+    <div class="bg-layer" style="background-image: url('/projects/brut-office.png'); background-position: center;" data-bg-id="2"></div>
+    <div class="bg-layer" style="background-image: url('/projects/monolith-villa.png'); background-position: center;" data-bg-id="3"></div>
+  </div>
+  <div class="hero-scrim"></div>
+
+  <!-- Subtle, elegant corner lines -->
+  <div class="crop tl"></div>
+  <div class="crop tr"></div>
+  <div class="crop bl"></div>
+  <div class="crop br"></div>
+
+  <div class="hero-inner">
+    <div class="eyebrow">
+      {eyebrow}
+      <span class="dash"></span>
+    </div>
+
+    <h1>
+      {titleLines.map((line, idx) => {
+        const uppercaseLine = line.toUpperCase();
+        const hasArsitektur = uppercaseLine.includes('ARSITEKTUR');
+        
+        return (
+          <>
+            {hasArsitektur ? (
+              line.split(/ARSITEKTUR/i).map((part, pIdx, arr) => (
+                <>
+                  {part}
+                  {pIdx < arr.length - 1 && <em>ARSITEKTUR</em>}
+                </>
+              ))
+            ) : (
+              line
+            )}
+            {idx < titleLines.length - 1 && <br />}
+          </>
+        );
+      })}
+    </h1>
+
+    <p class="tagline">
+      {tagline}
+    </p>
+
+    <div class="hero-cta">
+      <a href="/kalkulator-rab" class="btn btn-solid">Mulai Estimasi RAB</a>
+      <a href="/portofolio" class="btn btn-ghost">Lihat Portofolio</a>
+    </div>
+  </div>
+
+  <!-- Floating Project Thumbnails (Bottom Right) -->
+  <div class="hero-thumbnails-container">
+    <div class="thumbnails-header">PROYEK PILIHAN / <em>CONCEPT SHOWCASE</em></div>
+    <div class="hero-thumbnails">
+      <button class="thumb-btn" data-slot-idx="0" data-project-id="1">
+        <div class="thumb-img-wrapper">
+          <img class="thumb-img" src="/projects/mg-atelier.png" alt="MG Atelier" />
+        </div>
+        <div class="thumb-info">
+          <span class="thumb-title">MG ATELIER</span>
+          <span class="thumb-category">Residential</span>
+        </div>
+      </button>
+
+      <button class="thumb-btn" data-slot-idx="1" data-project-id="2">
+        <div class="thumb-img-wrapper">
+          <img class="thumb-img" src="/projects/brut-office.png" alt="Brut Office" />
+        </div>
+        <div class="thumb-info">
+          <span class="thumb-title">BRUT OFFICE</span>
+          <span class="thumb-category">Commercial</span>
+        </div>
+      </button>
+
+      <button class="thumb-btn" data-slot-idx="2" data-project-id="3">
+        <div class="thumb-img-wrapper">
+          <img class="thumb-img" src="/projects/monolith-villa.png" alt="Monolith Villa" />
+        </div>
+        <div class="thumb-info">
+          <span class="thumb-title">MONOLITH VILLA</span>
+          <span class="thumb-category">Villa Resort</span>
+        </div>
+      </button>
+    </div>
+    <div class="thumbnails-footer">Klik thumbnail untuk merotasi latar belakang utama.</div>
+  </div>
+
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee">
+      <span>Creativa Studio</span>
+      <span>Desain Arsitektur</span>
+      <span>Pembangunan Konstruksi</span>
+      <span>Residensial Premium</span>
+      <span>Manajemen Proyek</span>
+      <span>Tata Ruang Modern</span>
+      <span>Creativa Studio</span>
+      <span>Desain Arsitektur</span>
+      <span>Pembangunan Konstruksi</span>
+      <span>Residensial Premium</span>
+      <span>Manajemen Proyek</span>
+      <span>Tata Ruang Modern</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    height: 100vh;
+    min-height: 600px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #FFFFFF;
+  }
+
+  /* Background image wrapper */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    transform: none;
+    will-change: transform;
+  }
+
+  /* Layers for cross-fade & parallax */
+  .bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    opacity: 0;
+    transform: none;
+    transition: opacity 1.4s cubic-bezier(0.25, 1, 0.3, 1);
+    filter: grayscale(0.12) contrast(1.02) sepia(0.06);
+    will-change: opacity;
+  }
+
+  .bg-layer.active {
+    opacity: 1;
+    z-index: 1;
+    transform: none;
+  }
+
+  /* Warm overlay scrim */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      180deg,
+      rgba(18,18,18,0.65) 0%,
+      rgba(18,18,18,0.30) 30%,
+      rgba(18,18,18,0.50) 70%,
+      rgba(18,18,18,0.95) 100%
+    );
+  }
+
+  /* Elegant Crop Lines */
+  .hero .crop::before,
+  .hero .crop::after {
+    background: rgba(237,233,227,0.3);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 0 6vw;
+    padding-top: clamp(110px, 14vh, 150px);
+    margin-bottom: auto;
+    max-width: 75%;
+  }
+
+  .eyebrow {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: clamp(12px, 2vh, 18px);
+    opacity: .9;
+    color: #ede9e3;
+  }
+
+  .eyebrow .dash {
+    width: 30px;
+    height: 1px;
+    background: currentColor;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .hero h1 {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.2rem, 5.4vw, 4.6rem);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    margin: 0;
+    color: #FFFFFF;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    font-family: serif;
+    color: #C5A078;
+  }
+
+  .tagline {
+    margin-top: clamp(14px, 2.5vh, 18px);
+    max-width: 500px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: clamp(13px, 1.6vw, 14.5px);
+    line-height: 1.6;
+    font-weight: 350;
+    opacity: .95;
+    color: #ede9e3;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    margin-top: clamp(18px, 3vh, 26px);
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    padding: 12px 24px;
+    border: 1px solid currentColor;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: background .3s, color .3s, border-color .3s;
+    text-decoration: none;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  .btn-solid {
+    background: #FFFFFF;
+    color: #121212;
+    border-color: #FFFFFF;
+  }
+  .btn-solid:hover { 
+    background: transparent; 
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+  }
+
+  .btn-ghost {
+    color: #FFFFFF;
+    border-color: rgba(255,255,255,0.4);
+    background: transparent;
+  }
+  .btn-ghost:hover { 
+    background: rgba(255,255,255,0.1); 
+    border-color: #FFFFFF;
+  }
+
+  /* Floating Thumbnails Container (Bottom Right) */
+  .hero-thumbnails-container {
+    position: absolute;
+    bottom: clamp(65px, 9vh, 95px);
+    right: 6vw;
+    z-index: 10;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .thumbnails-header {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ede9e3;
+    opacity: 0.8;
+  }
+
+  .thumbnails-header em {
+    font-style: italic;
+    font-family: serif;
+    font-weight: 300;
+    opacity: 0.7;
+    text-transform: none;
+  }
+
+  .hero-thumbnails {
+    display: flex;
+    gap: 12px;
+  }
+
+  .thumb-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0.75;
+  }
+
+  .thumb-btn:hover {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+
+  .thumb-btn.swapping {
+    opacity: 0.05;
+    transform: scale(0.92) translateY(0);
+  }
+
+  .thumb-img-wrapper {
+    width: 100%;
+    aspect-ratio: 3/2;
+    overflow: hidden;
+    border: 1px solid rgba(237, 233, 227, 0.25);
+    background: #1c1917;
+    transition: border-color 0.4s, box-shadow 0.4s;
+  }
+
+  .thumb-btn:hover .thumb-img-wrapper {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(133, 77, 14, 0.2);
+  }
+
+  .thumb-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.15) contrast(1.05);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s;
+  }
+
+  .thumb-btn:hover img {
+    filter: grayscale(0) contrast(1.05);
+    transform: scale(1.06);
+  }
+
+  .thumb-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .thumb-title {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+  }
+
+  .thumb-category {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 8px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #ede9e3;
+    opacity: 0.65;
+  }
+
+  .thumbnails-footer {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 8px;
+    font-weight: 500;
+    color: #ede9e3;
+    opacity: 0.5;
+  }
+
+  /* Marquee at bottom */
+  .marquee-wrap {
+    position: relative;
+    z-index: 2;
+    margin-top: auto;
+    border-top: 1px solid rgba(237,233,227,0.15);
+    overflow: hidden;
+    padding: 14px 0;
+  }
+
+  .marquee {
+    display: flex;
+    gap: 48px;
+    white-space: nowrap;
+    width: max-content;
+    animation: scroll-left 28s linear infinite;
+  }
+
+  .marquee span {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .8;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #ede9e3;
+  }
+
+  .marquee span::after { content: '—'; opacity: .4; }
+
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* RESPONSIVE LAYOUT */
+  @media (max-width: 1024px) {
+    .hero-inner {
+      max-width: 100%;
+    }
+    
+    .hero-thumbnails-container {
+      position: relative;
+      bottom: auto;
+      right: auto;
+      margin-top: clamp(24px, 4vh, 48px);
+      padding: 0 6vw;
+      max-width: 100%;
+    }
+
+    .hero-thumbnails {
+      max-width: 500px;
+    }
+
+    .hero {
+      height: auto;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-cta {
+      flex-direction: column;
+    }
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .hero-thumbnails-container {
+      margin-top: 20px;
+    }
+  }
+</style>
+
+<script>
+  // Data Proyek Lengkap (4 proyek untuk rotary swap murni tanpa duplikasi)
+  const projects = [
+    {
+      id: 0,
+      title: "CREATIVA HOUSE",
+      category: "Residential",
+      img: "/projects/creativa-house.png"
+    },
+    {
+      id: 1,
+      title: "MG ATELIER",
+      category: "Residential",
+      img: "/projects/mg-atelier.png"
+    },
+    {
+      id: 2,
+      title: "BRUT OFFICE",
+      category: "Commercial",
+      img: "/projects/brut-office.png"
+    },
+    {
+      id: 3,
+      title: "MONOLITH VILLA",
+      category: "Villa Resort",
+      img: "/projects/monolith-villa.png"
+    }
+  ];
+
+  // State awal background utama aktif
+  let currentHeroProjectId = 0;
+
+  // DOM Elements
+  const bgLayers = document.querySelectorAll('.bg-layer');
+  const thumbBtns = document.querySelectorAll('.thumb-btn');
+
+  // Interactive Rotary Background Switcher
+  thumbBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const clickedProjectId = parseInt(btn.getAttribute('data-project-id') || '0');
+      
+      const oldProject = projects.find(p => p.id === currentHeroProjectId);
+      const newProject = projects.find(p => p.id === clickedProjectId);
+      
+      if (!oldProject || !newProject) return;
+
+      // Ambil elemen anak thumbnail untuk di-update datanya
+      const img = btn.querySelector('.thumb-img') as HTMLImageElement | null;
+      const title = btn.querySelector('.thumb-title');
+      const cat = btn.querySelector('.thumb-category');
+
+      // Animasi transisi mikro (fade-out swap)
+      btn.style.pointerEvents = 'none';
+      btn.classList.add('swapping');
+
+      setTimeout(() => {
+        // Rotary Swap: Ganti data di thumbnail yang diklik dengan proyek background yang digantikannya
+        btn.setAttribute('data-project-id', String(oldProject.id));
+        if (img) {
+          img.src = oldProject.img;
+          img.alt = oldProject.title;
+        }
+        if (title) title.textContent = oldProject.title;
+        if (cat) cat.textContent = oldProject.category;
+
+        // Perbarui background utama yang aktif (dengan transisi CSS cross-fade & transform parallax)
+        bgLayers.forEach(layer => {
+          const layerId = parseInt(layer.getAttribute('data-bg-id') || '0');
+          if (layerId === newProject.id) {
+            layer.classList.add('active');
+          } else {
+            layer.classList.remove('active');
+          }
+        });
+
+        currentHeroProjectId = newProject.id;
+      }, 250); // Waktu di tengah-tengah pemudaran
+
+      setTimeout(() => {
+        btn.classList.remove('swapping');
+        btn.style.pointerEvents = '';
+      }, 500); // Selesai swap
+    });
+  });
+
+  // Parallax scroll on hero background layers
+  (function () {
+    const bg = document.getElementById('heroBg');
+    if (!bg) return;
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const ratio = Math.min(window.scrollY / window.innerHeight, 1);
+          // Parallax scroll murni tanpa scale zoom
+          bg.style.transform = `translateY(${ratio * -8}%)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  })();
+</script>

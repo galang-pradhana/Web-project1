@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { EstimatorTabWrapper } from '../components/EstimatorTabWrapper';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+
+// Load live data from Keystatic CMS
+const rawAHSP = await reader.collections.ahspItem.all();
+const rawMaterials = await reader.collections.hargaBahan.all();
+const rawWages = await reader.collections.hargaUpah.all();
+const rawPackages = await reader.collections.rabPaket.all();
+const rawSiteSettings = await reader.singletons.siteSettings.read();
+
+const whatsappNumber = rawSiteSettings?.whatsapp || '628123456789';
+
+// Map raw Keystatic data to types required by rab-formula / DetailEstimator
+const ahspItems = rawAHSP.map(item => ({
+  slug: item.slug,
+  namaPekerjaan: item.entry.namaPekerjaan,
+  kodeAHSP: item.entry.kodeAHSP,
+  kategoriPekerjaan: item.entry.kategoriPekerjaan,
+  satuanVolume: item.entry.satuanVolume,
+  bahanKomponen: (item.entry.bahanKomponen || []).map(b => ({
+    bahanRef: b.bahanRef || '',
+    koefisien: b.koefisien || 0
+  })),
+  upahKomponen: (item.entry.upahKomponen || []).map(u => ({
+    upahRef: u.upahRef || '',
+    koefisien: u.koefisien || 0
+  }))
+}));
+
+const materials = rawMaterials.map(m => ({
+  slug: m.slug,
+  nama: m.entry.nama,
+  satuan: m.entry.satuan,
+  hargaSatuan: m.entry.hargaSatuan || 0,
+  kategori: m.entry.kategori || 'Lainnya'
+}));
+
+const wages = rawWages.map(w => ({
+  slug: w.slug,
+  jenisPekerja: w.entry.jenisPekerja,
+  satuan: w.entry.satuan || 'OH',
+  hargaSatuan: w.entry.hargaSatuan || 0
+}));
+
+const packages = rawPackages.map(p => ({
+  slug: p.slug,
+  namaPaket: p.entry.namaPaket,
+  jenisPekerjaan: p.entry.jenisPekerjaan,
+  hargaPerM2: p.entry.hargaPerM2 || 0,
+  persenStruktur: p.entry.persenStruktur || 0,
+  persenDinding: p.entry.persenDinding || 0,
+  persenAtap: p.entry.persenAtap || 0,
+  persenFinishing: p.entry.persenFinishing || 0,
+  persenMEP: p.entry.persenMEP || 0,
+  persenLainnya: p.entry.persenLainnya || 0,
+  deskripsi: p.entry.deskripsi || '',
+  contohMaterial: p.entry.contohMaterial || []
+}));
+---
+
+<BaseLayout title="Kalkulator RAB Premium — Creativa Studio">
+  
+  <div class="py-24 px-[6vw] max-w-7xl mx-auto relative">
+    
+    {/* Page Header */}
+    <div class="border-b border-stone-300 dark:border-stone-800 pb-8 mb-12">
+      <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block mb-2">PRO ESTIMATOR TOOL</span>
+      <h1 class="font-serif text-4xl sm:text-5xl font-normal text-text-primary leading-[1.1] mb-4">
+        KALKULATOR RAB <span class="italic text-accent">CREATIVA</span>
+      </h1>
+      <p class="font-sans text-text-secondary text-[14px] sm:text-base max-w-3xl leading-relaxed">
+        Hitung perkiraan biaya proyek arsitektur, pembangunan baru, dan renovasi rumah Anda menggunakan estimasi cepat berbasis luas bangunan atau estimasi detail berstandar nasional Indonesia (AHSP-SNI).
+      </p>
+    </div>
+
+    {/* React Island Estimator Wrapper */}
+    <EstimatorTabWrapper 
+      client:load 
+      packages={packages}
+      ahspItems={ahspItems} 
+      materials={materials} 
+      wages={wages} 
+      whatsappNumber={whatsappNumber} 
+    />
+
+  </div>
+
+</BaseLayout>
+

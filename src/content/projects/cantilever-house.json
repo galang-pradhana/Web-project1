@@ -1,0 +1,17 @@
+{
+  "title": "Timber Frame Cantilever House",
+  "category": "residential",
+  "coverImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+  "gallery": [
+    "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
+  ],
+  "area": 280,
+  "location": "Sentul, Jawa Barat",
+  "client": "Bpk. Hermawan",
+  "year": 2024,
+  "budgetRange": "Rp 2.5M - Rp 3M",
+  "testimonialContent": "Kombinasi struktur melayang cantilever dengan sistem kusen kayu jati premium di sekeliling rumah memberikan kehangatan dan kebanggaan tersendiri bagi keluarga kami. Sambungan kayunya sangat rapi dan presisi.",
+  "testimonialAuthor": "Bpk. Hermawan",
+  "description": "Rumah hunian modern yang memadukan keindahan struktur kantilever baja dengan dinding tirai kayu (timber frame curtain wall). Kusen jendela dan pintu kayu jati premium dirancang khusus untuk memastikan kedap suara dan efisiensi energi yang tinggi, sekaligus menciptakan transisi ruang dalam-luar yang menyatu secara mulus."
+}

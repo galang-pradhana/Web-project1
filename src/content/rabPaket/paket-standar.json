@@ -1,0 +1,20 @@
+{
+  "namaPaket": "Paket Standar",
+  "jenisPekerjaan": "Bangun Baru",
+  "hargaPerM2": 3500000,
+  "persenStruktur": 35,
+  "persenDinding": 20,
+  "persenAtap": 15,
+  "persenFinishing": 15,
+  "persenMEP": 10,
+  "persenLainnya": 5,
+  "deskripsi": "Cocok untuk hunian sederhana dengan struktur beton bertulang standar, finishing cat dinding standar, keramik lantai lokal, dan atap genteng metal baja ringan.",
+  "contohMaterial": [
+    "Semen Tiga Roda / Gresik",
+    "Bata Merah Lokal",
+    "Keramik 40x40 Mulia",
+    "Kusen Kayu Borneo",
+    "Cat Dinding Decolith / Catylac",
+    "Atap Genteng Metal Pasir + Baja Ringan"
+  ]
+}

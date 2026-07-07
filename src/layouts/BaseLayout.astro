@@ -1,0 +1,119 @@
+---
+// BaseLayout.astro
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  heroFullBleed?: boolean;
+  hideFooter?: boolean;
+}
+
+const { 
+  title = "Creativa Studio - Kontraktor & Arsitektur Premium", 
+  description = "Kontraktor pembangunan hunian mewah, renovasi komersial presisi, dan desain arsitektur premium dengan hasil akhir berkelas tinggi.",
+  heroFullBleed = false,
+  hideFooter = false
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Theme Initialization to force Clean White (Light Mode) -->
+    <script is:inline>
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col justify-between selection:bg-accent selection:text-bg-primary">
+    
+    <!-- Ruler Navigation Progress Indicator -->
+    <div id="ruler"><div id="ruler-fill"></div></div>
+    <div id="ruler-label">0.00 M</div>
+
+    <!-- Navbar -->
+    <Navbar />
+
+    <!-- Content Slot -->
+    <main class={heroFullBleed ? 'flex-grow' : 'flex-grow pt-24'}>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    {!hideFooter && <Footer />}
+
+    <!-- Scroll & Transition Effects -->
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      // Register ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Initialize Lenis smooth scroll
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+
+      // Bind Lenis scroll to ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+
+      // Scroll Ruler progress indicator
+      const rulerFill = document.getElementById('ruler-fill');
+      const rulerLabel = document.getElementById('ruler-label');
+
+      if (rulerFill && rulerLabel) {
+        ScrollTrigger.create({
+          start: 0,
+          end: 'max',
+          onUpdate: (self) => {
+            const p = self.progress;
+            rulerFill.style.width = (p * 100).toFixed(1) + '%';
+            rulerLabel.textContent = (p * 20).toFixed(2) + ' M';
+          }
+        });
+      }
+
+      // Navbar solid transition on scroll
+      const nav = document.getElementById('siteNav');
+      if (nav) {
+        ScrollTrigger.create({
+          start: 60,
+          end: 99999,
+          onUpdate: (self) => {
+            if (self.scroll() > 60) {
+              nav.classList.add('solid');
+            } else {
+              nav.classList.remove('solid');
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

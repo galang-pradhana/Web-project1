@@ -1,0 +1,30 @@
+{
+  "namaPekerjaan": "Plesteran Dinding Tebal 15mm 1:4",
+  "kodeAHSP": "A.4.4.2.1",
+  "kategoriPekerjaan": "Pekerjaan Dinding",
+  "satuanVolume": "m2",
+  "bahanKomponen": [
+    {
+      "bahanRef": "semen-portland",
+      "koefisien": 0.125
+    },
+    {
+      "bahanRef": "pasir-pasang",
+      "koefisien": 0.024
+    }
+  ],
+  "upahKomponen": [
+    {
+      "upahRef": "pekerja",
+      "koefisien": 0.15
+    },
+    {
+      "upahRef": "tukang-batu",
+      "koefisien": 0.075
+    },
+    {
+      "upahRef": "mandor",
+      "koefisien": 0.01
+    }
+  ]
+}

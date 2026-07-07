@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-brutal-border: var(--border-color);
+  --color-wood: var(--wood);
+  
+  --font-serif: "Plus Jakarta Sans", sans-serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "Plus Jakarta Sans", monospace;
+  
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-full: 9999px;
+}
+
+/* Default Theme: Clean White (Light Mode) */
+:root {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F9FA;
+  --text-primary: #121212;
+  --text-secondary: #5A5A5A;
+  --accent: #121212;
+  --border-color: rgba(18, 18, 18, 0.12);
+  --wood: #121212;
+  --line: rgba(18, 18, 18, 0.08);
+  --line-strong: rgba(18, 18, 18, 0.18);
+  color-scheme: light;
+}
+
+/* Dark Mode: Deep charcoal/warm black */
+[data-theme="dark"] {
+  --bg-primary: #1C1A17;
+  --bg-secondary: #161412;
+  --text-primary: #F2EFEA;
+  --text-secondary: #8C8579;
+  --accent: #C5A078;
+  --border-color: rgba(242, 239, 234, 0.2);
+  --wood: #C5A078;
+  --line: rgba(242, 239, 234, 0.12);
+  --line-strong: rgba(242, 239, 234, 0.28);
+  color-scheme: dark;
+}
+
+/* Base resets */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+/* Ruler Navigation styles */
+#ruler {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  z-index: 999;
+  background: repeating-linear-gradient(90deg, var(--line-strong) 0 1px, transparent 1px 24px);
+}
+
+#ruler-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--wood);
+  transition: width 0.1s ease-out;
+}
+
+#ruler-label {
+  position: fixed;
+  top: 14px;
+  right: 1.5vw;
+  z-index: 999;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 11px;
+  letter-spacing: .08em;
+  padding: 3px 8px;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  opacity: 0.9;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Crop marks styling */
+.crop {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.crop::before, .crop::after {
+  content: '';
+  position: absolute;
+  background: var(--line-strong);
+}
+
+.crop::before {
+  width: 100%;
+  height: 1px;
+  top: 50%;
+  left: 0;
+}
+
+.crop::after {
+  width: 1px;
+  height: 100%;
+  left: 50%;
+  top: 0;
+}
+
+.crop.tl { top: 18px; left: 18px; }
+.crop.tr { top: 18px; right: 18px; }
+.crop.bl { bottom: 18px; left: 18px; }
+.crop.br { bottom: 18px; right: 18px; }
+
+/* Dimensions indicator line */
+.dim {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 6vw;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 11px;
+  letter-spacing: .06em;
+  color: var(--text-secondary);
+  padding: 26px 0;
+}
+
+.dim .tick {
+  width: 1px;
+  height: 10px;
+  background: var(--line-strong);
+}
+
+.dim .rule {
+  flex: 1;
+  height: 1px;
+  background: var(--line-strong);
+  position: relative;
+}
+
+.dim span.mlabel {
+  white-space: nowrap;
+}
+
+/* Brutalist Button base */
+.btn-brutal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--text-primary);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-brutal:hover {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+.btn-brutal-accent {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-brutal-accent:hover {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+}
+
+/* Sticky Overlap transition classes */
+.sticky-hero-container {
+  position: relative;
+  width: 100%;
+  background-color: var(--bg-primary);
+}
+
+.sticky-hero-section {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.scroll-overlay-section {
+  position: relative;
+  z-index: 20;
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Marquee visual */
+.marquee-wrap {
+  position: relative;
+  z-index: 2;
+  margin-top: 56px;
+  border-top: 1px solid var(--line);
+  overflow: hidden;
+  padding: 18px 0;
+}
+
+.marquee {
+  display: flex;
+  gap: 48px;
+  white-space: nowrap;
+  width: max-content;
+  animation: scroll-left 26s linear infinite;
+}
+
+.marquee span {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .75;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.marquee span::after {
+  content: '—';
+  opacity: .5;
+}
+
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Lenis smooth scrolling integration */
+html.lenis {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overflow: anchor;
+}

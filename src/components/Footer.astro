@@ -1,0 +1,242 @@
+---
+// Footer.astro — Redesigned with Skyline Silhouette and Classic layout from the reference image
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const siteSettings = await reader.singletons.siteSettings.read();
+
+const brandName = siteSettings?.brandName || 'Creativa Studio';
+const description = siteSettings?.description || 'Creativa Studio adalah perusahaan jasa arsitektur & kontraktor premium satu pintu. Kami merancang, merencanakan, dan membangun residensial serta komersial dengan standar estetika tinggi.';
+const email = siteSettings?.email || 'info@creativastudio.com';
+const whatsapp = siteSettings?.whatsapp || '628123456789';
+const address = siteSettings?.address || 'Jl. Kayu Manis No. 88, Blok Jati, Kebayoran Baru, Jakarta Selatan';
+const instagram = siteSettings?.instagram || 'https://instagram.com/creativastudio';
+
+// Format whatsapp number for display
+const formattedPhone = whatsapp.startsWith('62') 
+  ? `+${whatsapp.slice(0,2)} ${whatsapp.slice(2,5)} ${whatsapp.slice(5,9)} ${whatsapp.slice(9)}`
+  : whatsapp;
+---
+
+<div class="w-full relative overflow-hidden bg-[#FAF9F6] pt-12">
+  
+  <!-- ===== Skyline Silhouette Top Border ===== -->
+  <div class="w-full block relative leading-[0] z-10 translate-y-[2px]">
+    <svg viewBox="0 0 1200 100" class="w-full h-[50px] sm:h-[75px] md:h-[100px] preserve-aspect-none" fill="#1C1A17" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <!-- High fidelity building skyline silhouette -->
+      <path d="M0,100 L0,50 L15,50 L15,70 L25,70 L25,45 L40,45 L40,80 L55,80 L55,30 L70,30 L70,90 L85,90 L85,40 L105,40 L105,65 L115,65 L115,20 L135,20 L135,75 L150,75 L150,55 L165,55 L165,35 L180,35 L180,85 L195,85 L195,45 L215,45 L215,60 L230,60 L230,25 L255,25 L255,80 L270,80 L270,50 L290,50 L290,70 L305,70 L305,30 L320,30 L320,85 L335,85 L335,40 L350,40 L350,65 L365,65 L365,15 L390,15 L390,75 L405,75 L405,50 L420,50 L420,35 L435,35 L435,80 L450,80 L450,45 L470,45 L470,60 L485,60 L485,25 L510,25 L510,80 L525,80 L525,50 L545,50 L545,70 L560,70 L560,30 L575,30 L575,85 L590,85 L590,40 L605,40 L605,65 L620,65 L620,15 L645,15 L645,75 L660,75 L660,50 L675,50 L675,35 L690,35 L690,80 L705,80 L705,45 L725,45 L725,60 L740,60 L740,25 L765,25 L765,80 L780,80 L780,50 L800,50 L800,70 L815,70 L815,30 L830,30 L830,85 L845,85 L845,40 L860,40 L860,65 L875,65 L875,15 L900,15 L900,75 L915,75 L915,50 L930,50 L930,35 L945,35 L945,80 L960,80 L960,45 L980,45 L980,60 L995,60 L995,25 L1020,25 L1020,80 L1035,80 L1035,50 L1055,50 L1055,70 L1070,70 L1070,30 L1085,30 L1085,85 L1100,85 L1100,40 L1115,40 L1115,65 L1130,65 L1130,15 L1155,15 L1155,75 L1170,75 L1170,50 L1185,50 L1185,35 L1200,35 L1200,100 Z" />
+    </svg>
+  </div>
+
+  <!-- ===== Footer Main Dark Container ===== -->
+  <footer class="bg-[#1C1A17] text-stone-300 pt-16 pb-12 px-[6vw] relative z-20">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+      
+      <!-- Col 1: About Us -->
+      <div class="lg:col-span-3 space-y-4">
+        <h3 class="font-serif text-[13px] tracking-[0.2em] text-white uppercase font-semibold pb-1 border-b border-stone-850">
+          ABOUT US
+        </h3>
+        <p class="font-sans text-[12px] text-stone-400 leading-relaxed font-light">
+          {description}
+        </p>
+      </div>
+
+      <!-- Col 2: Address -->
+      <div class="lg:col-span-3 space-y-4">
+        <h3 class="font-serif text-[13px] tracking-[0.2em] text-white uppercase font-semibold pb-1 border-b border-stone-850">
+          ADDRESS
+        </h3>
+        <div class="space-y-3 font-sans text-[12px] text-stone-400">
+          <p class="flex items-start gap-2.5">
+            <span class="text-accent mt-0.5">📍</span>
+            <span class="leading-relaxed">{address}</span>
+          </p>
+          <p class="flex items-center gap-2.5">
+            <span class="text-accent">📞</span>
+            <a href={`https://wa.me/${whatsapp}`} target="_blank" class="hover:text-white transition-colors duration-300">
+              {formattedPhone}
+            </a>
+          </p>
+          <p class="flex items-center gap-2.5">
+            <span class="text-accent">✉️</span>
+            <a href={`mailto:${email}`} class="hover:text-white transition-colors duration-300">
+              {email}
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Col 3: Company (Links) -->
+      <div class="lg:col-span-3 space-y-4">
+        <h3 class="font-serif text-[13px] tracking-[0.2em] text-white uppercase font-semibold pb-1 border-b border-stone-850">
+          COMPANY
+        </h3>
+        <ul class="space-y-2.5 font-sans text-[12px] text-stone-400">
+          <li>
+            <a href="/" class="hover:text-white transition-colors duration-300 flex items-center gap-1.5">
+              <span class="text-[9px] text-stone-600 font-bold font-mono">></span> Beranda
+            </a>
+          </li>
+          <li>
+            <a href="/layanan" class="hover:text-white transition-colors duration-300 flex items-center gap-1.5">
+              <span class="text-[9px] text-stone-600 font-bold font-mono">></span> Layanan
+            </a>
+          </li>
+          <li>
+            <a href="/portofolio" class="hover:text-white transition-colors duration-300 flex items-center gap-1.5">
+              <span class="text-[9px] text-stone-600 font-bold font-mono">></span> Portofolio
+            </a>
+          </li>
+          <li>
+            <a href="/tentang" class="hover:text-white transition-colors duration-300 flex items-center gap-1.5">
+              <span class="text-[9px] text-stone-600 font-bold font-mono">></span> Tentang Kami
+            </a>
+          </li>
+          <li>
+            <a href="/kontak" class="hover:text-white transition-colors duration-300 flex items-center gap-1.5">
+              <span class="text-[9px] text-stone-600 font-bold font-mono">></span> Kontak
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Newsletter -->
+      <div class="lg:col-span-3 space-y-4">
+        <h3 class="font-serif text-[13px] tracking-[0.2em] text-white uppercase font-semibold pb-1 border-b border-stone-850">
+          KONSULTASI
+        </h3>
+        <p class="font-sans text-[12px] text-stone-400 leading-relaxed font-light">
+          Kirim pertanyaan atau diskusikan rancangan Anda langsung via WhatsApp ke tim desainer kami.
+        </p>
+        
+        <!-- Input field styled like the image reference -->
+        <form id="footer-quick-wa" class="flex items-center w-full bg-[#292723] border border-stone-700/60 p-1 group focus-within:border-accent transition-colors duration-300">
+          <input 
+            type="text" 
+            id="footer-msg" 
+            placeholder="Tulis pesan cepat..." 
+            required 
+            class="w-full bg-transparent px-3 py-2 text-stone-200 text-[12px] focus:outline-none placeholder-stone-500 font-sans"
+          />
+          <button 
+            type="submit" 
+            aria-label="Kirim via WhatsApp" 
+            class="bg-stone-800 hover:bg-accent text-white p-2.5 transition-colors duration-300 flex items-center justify-center shrink-0 cursor-pointer"
+          >
+            <svg class="w-3.5 h-3.5 transform rotate-45" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- ===== Bottom Section: Separator, Logo & Copyright ===== -->
+    <div class="mt-16 pt-8 border-t border-stone-800 relative">
+      
+      <!-- Separator Line with Social Icons in the Center -->
+      <div class="absolute -top-[19px] left-0 w-full flex items-center justify-center pointer-events-none">
+        <div class="w-[30%] sm:w-[40%] h-[1px] bg-stone-800"></div>
+        <div class="flex items-center gap-3.5 px-6 pointer-events-auto bg-[#1C1A17]">
+          <a href={instagram} target="_blank" rel="noopener" aria-label="Instagram" class="w-8 h-8 rounded-full border border-stone-800 flex items-center justify-center text-stone-500 hover:text-white hover:border-white transition-all duration-300">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener" aria-label="WhatsApp" class="w-8 h-8 rounded-full border border-stone-800 flex items-center justify-center text-stone-500 hover:text-white hover:border-white transition-all duration-300">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </a>
+        </div>
+        <div class="w-[30%] sm:w-[40%] h-[1px] bg-stone-800"></div>
+      </div>
+
+      <!-- Real Estate Icon Logo and Name -->
+      <div class="flex flex-col items-center justify-center space-y-3 mt-6">
+        <!-- Minimalist Architect Logo (Skyline/Building Block) -->
+        <svg class="w-10 h-10 text-stone-500 hover:text-accent transition-colors duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="25" y="55" width="20" height="25" fill="currentColor" opacity="0.3"/>
+          <rect x="40" y="35" width="20" height="45" fill="currentColor" opacity="0.6"/>
+          <rect x="55" y="45" width="20" height="35" fill="currentColor" opacity="0.45"/>
+          <path d="M20 80 H80" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="font-serif text-[15px] font-normal tracking-[0.25em] text-white uppercase">
+          CREATIVA <span class="italic text-accent">STUDIO</span>
+        </span>
+      </div>
+
+      <!-- Copyright text -->
+      <p class="font-sans text-[10px] text-stone-600 uppercase tracking-[0.2em] text-center mt-6">
+        © {new Date().getFullYear()} {brandName}. ALL RIGHTS RESERVED. A PRODUCT OF CREATIVASTUDIO.COM
+      </p>
+    </div>
+  </footer>
+
+</div>
+
+<script define:vars={{ whatsappNumber: whatsapp }}>
+  const form = document.getElementById('footer-quick-wa');
+  const input = document.getElementById('footer-msg');
+  
+  if (form && input) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const rawMsg = input.value;
+      
+      // Validasi pesan kosong atau hanya whitespace
+      if (!rawMsg || !rawMsg.trim()) {
+        // Tambahkan efek getar dan border merah
+        form.classList.remove('border-stone-700/60', 'focus-within:border-accent');
+        form.classList.add('border-red-500', 'ring-1', 'ring-red-500', 'animate-shake');
+        
+        // Hapus kelas getar setelah animasi selesai agar bisa di-trigger ulang
+        setTimeout(() => {
+          form.classList.remove('animate-shake');
+        }, 500);
+        
+        // Fokuskan kembali ke input
+        input.focus();
+        return;
+      }
+      
+      // Bersihkan style error saat submit berhasil
+      form.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
+      form.classList.add('border-stone-700/60', 'focus-within:border-accent');
+      
+      const formatted = `Halo Creativa Studio,\n\n${rawMsg.trim()}`;
+      const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(formatted)}`;
+      window.open(waUrl, '_blank');
+      
+      // Reset input setelah dikirim
+      input.value = '';
+    });
+
+    // Reset style error ketika user mulai mengetik ulang
+    input.addEventListener('input', () => {
+      if (form.classList.contains('border-red-500')) {
+        form.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
+        form.classList.add('border-stone-700/60', 'focus-within:border-accent');
+      }
+    });
+  }
+</script>
+
+<style>
+  .preserve-aspect-none {
+    vector-effect: non-scaling-stroke;
+  }
+  
+  .animate-shake {
+    animation: shake 0.4s ease-in-out;
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-4px); }
+    40%, 80% { transform: translateX(4px); }
+  }
+</style>

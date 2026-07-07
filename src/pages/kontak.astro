@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+import { MapPin, Mail, Phone, Clock, Send } from 'lucide-react';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const rawSiteSettings = await reader.singletons.siteSettings.read();
+
+const siteSettings = rawSiteSettings || {
+  brandName: 'Creativa Studio',
+  email: 'info@creativastudio.com',
+  whatsapp: '628123456789',
+  address: 'Jl. Kayu Manis No. 88, Jakarta Selatan',
+  instagram: 'https://instagram.com/creativastudio'
+};
+---
+
+<BaseLayout title="Hubungi Kami — Creativa Studio">
+  
+  <div class="py-24 px-[6vw] max-w-7xl mx-auto relative text-text-primary">
+    
+    {/* Page Header */}
+    <div class="border-b border-stone-300 pb-8 mb-16">
+      <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block mb-2">HUBUNGI KAMI</span>
+      <h1 class="font-serif text-4xl sm:text-5xl font-normal text-text-primary leading-[1.1] mb-4">
+        KONTAK & <span class="italic text-accent">LOKASI</span>
+      </h1>
+      <p class="font-sans text-text-secondary text-[15px] sm:text-base max-w-3xl leading-relaxed">
+        Punya ide proyek arsitektur, rencana pembangunan, atau estimasi RAB untuk proyek properti Anda? Silakan hubungi kami melalui formulir di bawah ini atau kunjungi studio kami.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      {/* Contact Details Column */}
+      <div class="lg:col-span-5 space-y-8">
+        <div class="border border-stone-200/80 p-8 bg-[#FAF9F6] space-y-6">
+          <h3 class="font-serif text-lg font-normal text-text-primary border-b border-stone-200 pb-3">Informasi Studio</h3>
+          
+          <div class="space-y-5 font-sans text-xs">
+            <div class="flex items-start gap-4">
+              <MapPin class="w-4 h-4 text-accent shrink-0 mt-0.5" />
+              <div>
+                <span class="block font-semibold text-text-primary uppercase mb-1 tracking-wider">ALAMAT STUDIO</span>
+                <span class="text-text-secondary leading-relaxed">{siteSettings.address}</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <Mail class="w-4 h-4 text-accent shrink-0 mt-0.5" />
+              <div>
+                <span class="block font-semibold text-text-primary uppercase mb-1 tracking-wider">EMAIL RESMI</span>
+                <span class="text-text-secondary">{siteSettings.email}</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <Phone class="w-4 h-4 text-accent shrink-0 mt-0.5" />
+              <div>
+                <span class="block font-semibold text-text-primary uppercase mb-1 tracking-wider">TELEPON / WHATSAPP</span>
+                <span class="text-text-secondary">+{siteSettings.whatsapp}</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <Clock class="w-4 h-4 text-accent shrink-0 mt-0.5" />
+              <div>
+                <span class="block font-semibold text-text-primary uppercase mb-1 tracking-wider">JAM OPERASIONAL</span>
+                <span class="text-text-secondary">Senin - Jumat: 09:00 - 17:00 WIB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Map Placeholder */}
+        <div class="border border-stone-200/80 p-3 bg-[#FAF9F6]">
+          <div class="aspect-video w-full bg-stone-100 border border-stone-200 relative overflow-hidden flex items-center justify-center">
+            {/* Elegant Map Graphic using CSS */}
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(139,92,26,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(139,92,26,0.05)_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] opacity-50"></div>
+            <div class="absolute w-24 h-24 bg-accent/5 border border-accent/25 animate-pulse rounded-full"></div>
+            <div class="absolute w-4 h-4 bg-accent border-2 border-stone-100 rounded-full shadow-md"></div>
+            <span class="absolute bottom-2 right-2 font-sans text-[10px] bg-[#FAF9F6] px-2 py-0.5 border border-stone-200 text-stone-500 uppercase tracking-widest">
+              Jakarta Selatan
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Form Column */}
+      <div class="lg:col-span-7">
+        <div class="border border-stone-200/80 p-8 bg-[#FAF9F6]">
+          <h3 class="font-serif text-2xl font-normal text-text-primary mb-2">Kirim Pesan Langsung</h3>
+          <p class="font-sans text-xs text-text-secondary mb-6 leading-relaxed">
+            Pesan Anda akan diformat secara otomatis untuk dikirimkan secara langsung melalui WhatsApp ke customer service kami.
+          </p>
+          
+          <form id="contact-form" class="space-y-5 font-sans text-xs">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block mb-1.5 font-semibold text-text-primary tracking-wider">NAMA LENGKAP</label>
+                <input 
+                  type="text" 
+                  id="form-name"
+                  placeholder="Nama Lengkap Anda" 
+                  required
+                  class="w-full bg-[#FAF9F6] border border-stone-300 p-3 focus:outline-none focus:border-accent text-text-primary text-xs"
+                />
+              </div>
+              <div>
+                <label class="block mb-1.5 font-semibold text-text-primary tracking-wider">EMAIL</label>
+                <input 
+                  type="email" 
+                  id="form-email"
+                  placeholder="alamat@email.com" 
+                  required
+                  class="w-full bg-[#FAF9F6] border border-stone-300 p-3 focus:outline-none focus:border-accent text-text-primary text-xs"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block mb-1.5 font-semibold text-text-primary tracking-wider">SUBJEK PERTANYAAN</label>
+              <input 
+                type="text" 
+                id="form-subject"
+                placeholder="Konsultasi Arsitektur / Kontraktor Pembangunan / Penawaran Harga / Lainnya" 
+                required
+                class="w-full bg-[#FAF9F6] border border-stone-300 p-3 focus:outline-none focus:border-accent text-text-primary text-xs"
+              />
+            </div>
+
+            <div>
+              <label class="block mb-1.5 font-semibold text-text-primary tracking-wider">ISI PESAN</label>
+              <textarea 
+                id="form-message"
+                rows="6"
+                placeholder="Tuliskan detail rencana proyek Anda (misal: pembangunan rumah baru, renovasi vila, desain arsitektur, estimasi luas bangunan, lokasi proyek, dan detail pertanyaan Anda)..." 
+                required
+                class="w-full bg-[#FAF9F6] border border-stone-300 p-3 focus:outline-none focus:border-accent text-text-primary text-xs resize-none"
+              ></textarea>
+            </div>
+
+            <button 
+              type="submit" 
+              class="w-full py-4 bg-stone-900 text-stone-100 hover:bg-accent hover:text-stone-100 transition-colors font-semibold cursor-pointer flex items-center justify-center gap-2 text-xs uppercase tracking-wider"
+            >
+              KIRIM PESAN SEKARANG <Send class="w-3.5 h-3.5" />
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script define:vars={{ whatsappNumber: siteSettings.whatsapp }}>
+    const form = document.getElementById('contact-form');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('form-name').value;
+        const email = document.getElementById('form-email').value;
+        const subject = document.getElementById('form-subject').value;
+        const message = document.getElementById('form-message').value;
+
+        const formatted = `Halo Creativa Studio, saya *${name}* (${email}).\n` +
+          `*Subjek:* ${subject}\n\n` +
+          `*Pesan:*\n${message}`;
+
+        const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(formatted)}`;
+        window.open(waUrl, '_blank');
+      });
+    }
+  </script>
+
+</BaseLayout>

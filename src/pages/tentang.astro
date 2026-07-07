@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Award, ShieldCheck, Calculator, Shield } from 'lucide-react';
+---
+
+<BaseLayout title="Tentang Kami — Creativa Studio">
+  
+  <div class="py-24 px-[6vw] max-w-7xl mx-auto space-y-32 text-text-primary relative">
+    
+    {/* Page Header */}
+    <div class="border-b border-stone-300 pb-8">
+      <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block mb-2">PROFIL PERUSAHAAN</span>
+      <h1 class="font-serif text-4xl sm:text-5xl font-normal text-text-primary leading-[1.1] mb-4">
+        CRAFTING <span class="italic text-accent">WITH PASSION</span>
+      </h1>
+      <p class="font-sans text-text-secondary text-[15px] sm:text-base max-w-3xl leading-relaxed">
+        Creativa Studio adalah wujud dedikasi kami terhadap keindahan arsitektur visioner dan kekuatan konstruksi modern. Kami merancang, merencanakan, dan membangun residensial serta komersial premium yang dipersonalisasi.
+      </p>
+    </div>
+
+    {/* Narrative Section */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-5 space-y-6">
+        <h2 class="font-serif text-3xl font-normal text-text-primary leading-tight">
+          INTEGRASI <span class="italic text-accent">DESAIN &</span> STRUKTUR KOKOH
+        </h2>
+        <div class="aspect-[4/3] w-full overflow-hidden bg-stone-100 border border-stone-200">
+          <img 
+            src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800" 
+            alt="Construction project planning" 
+            class="w-full h-full object-cover filter sepia-[0.1]"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div class="lg:col-span-7 font-sans text-[15px] sm:text-[16px] text-text-secondary leading-relaxed space-y-6 pt-2">
+        <p>
+          Perjalanan Creativa Studio dimulai dari sebuah studio desain arsitektur independen yang memiliki mimpi besar untuk merevolusi integrasi antara rancang gambar dan realisasi konstruksi di lapangan. Kami menyadari bahwa sering kali terjadi kesenjangan antara keindahan estetika di atas kertas dan kualitas eksekusi fisik bangunan.
+        </p>
+        <p>
+          Kini, kami telah berkembang menjadi perusahaan jasa kontraktor & arsitektur premium satu pintu yang dipercaya oleh ratusan klien untuk mewujudkan hunian impian mereka. Layanan utama kami mencakup <strong>Perencanaan Arsitektur</strong> (konsep desain & cetak biru), <strong>Pembangunan Konstruksi</strong> (residensi mewah & vila), serta <strong>Manajemen Proyek</strong> terintegrasi.
+        </p>
+        <p>
+          Kami meyakini bahwa konstruksi yang andal bermula dari keterbukaan anggaran dan pemilihan material berspesifikasi tinggi. Oleh sebab itu, seluruh proyek kami didukung dengan estimasi Rencana Anggaran Biaya (RAB) yang detail dan transparan, pengerjaan oleh tim tukang & sipil berpengalaman, serta jaminan kualitas struktur yang kokoh selama bertahun-tahun.
+        </p>
+      </div>
+    </div>
+
+    {/* Values Section */}
+    <div class="space-y-16">
+      <div class="border-b border-stone-300 pb-6">
+        <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block mb-2">PRINSIP UTAMA</span>
+        <h2 class="font-serif text-3xl font-normal text-text-primary">NILAI YANG KAMI PEGANG</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="border border-stone-200/80 bg-[#FAF9F6] p-8 space-y-4 hover:border-accent/30 transition-all duration-300">
+          <div class="w-10 h-10 bg-stone-100 border border-stone-200 flex items-center justify-center text-accent">
+            <Award class="w-5 h-5" />
+          </div>
+          <h3 class="font-serif text-lg font-normal text-text-primary">Desain Visioner</h3>
+          <p class="font-sans text-xs sm:text-sm text-text-secondary leading-relaxed">
+            Merancang ruang yang memaksimalkan sirkulasi udara, pencahayaan alami, serta efisiensi ruang sesuai kebutuhan personal klien.
+          </p>
+        </div>
+
+        <div class="border border-stone-200/80 bg-[#FAF9F6] p-8 space-y-4 hover:border-accent/30 transition-all duration-300">
+          <div class="w-10 h-10 bg-stone-100 border border-stone-200 flex items-center justify-center text-accent">
+            <ShieldCheck class="w-5 h-5" />
+          </div>
+          <h3 class="font-serif text-lg font-normal text-text-primary">Konstruksi Presisi</h3>
+          <p class="font-sans text-xs sm:text-sm text-text-secondary leading-relaxed">
+            Menerapkan standar sipil yang ketat dan pengawasan berkala di lapangan untuk memastikan kualitas beton, besi, dan struktur bangunan sesuai cetak biru.
+          </p>
+        </div>
+
+        <div class="border border-stone-200/80 bg-[#FAF9F6] p-8 space-y-4 hover:border-accent/30 transition-all duration-300">
+          <div class="w-10 h-10 bg-stone-100 border border-stone-200 flex items-center justify-center text-accent">
+            <Calculator class="w-5 h-5" />
+          </div>
+          <h3 class="font-serif text-lg font-normal text-text-primary">RAB Transparan</h3>
+          <p class="font-sans text-xs sm:text-sm text-text-secondary leading-relaxed">
+            Menghadirkan rincian biaya material dan jasa secara terbuka, menghindari pembengkakan biaya tak terduga selama masa konstruksi.
+          </p>
+        </div>
+
+        <div class="border border-stone-200/80 bg-[#FAF9F6] p-8 space-y-4 hover:border-accent/30 transition-all duration-300">
+          <div class="w-10 h-10 bg-stone-100 border border-stone-200 flex items-center justify-center text-accent">
+            <Shield class="w-5 h-5" />
+          </div>
+          <h3 class="font-serif text-lg font-normal text-text-primary">Jaminan Struktur</h3>
+          <p class="font-sans text-xs sm:text-sm text-text-secondary leading-relaxed">
+            Memberikan komitmen jaminan pemeliharaan setelah proyek selesai serta garansi kekuatan struktur bangunan jangka panjang.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</BaseLayout>

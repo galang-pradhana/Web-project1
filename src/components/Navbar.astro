@@ -1,0 +1,128 @@
+---
+// Navbar.astro
+---
+
+<header 
+  id="siteNav" 
+  class="fixed top-[6px] left-0 right-0 z-50 h-[54px] border-b border-transparent bg-transparent backdrop-blur-[2px] transition-all duration-300 [&.solid]:bg-bg-primary [&.solid]:border-stone-300/40 [&.solid]:backdrop-blur-none"
+>
+  <div class="h-full flex items-center justify-between px-[6vw]">
+    
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-1 group">
+      <span class="font-serif font-normal text-lg tracking-wider text-text-primary group-hover:text-accent transition-colors duration-200">
+        CREATIVA<span class="font-sans font-light text-[10px] tracking-widest text-text-secondary ml-1.5">STUDIO</span>
+      </span>
+    </a>
+
+    {/* Desktop Navigation */}
+    <nav class="hidden md:flex items-center gap-8 font-sans text-[11px] font-semibold tracking-widest uppercase text-text-primary">
+      <a href="/" class="hover:text-accent transition-colors duration-200">HOME</a>
+      <a href="/portofolio" class="hover:text-accent transition-colors duration-200">PORTOFOLIO</a>
+      <a href="/layanan" class="hover:text-accent transition-colors duration-200">LAYANAN</a>
+      <a href="/tentang" class="hover:text-accent transition-colors duration-200">TENTANG KAMI</a>
+      <a href="/kontak" class="hover:text-accent transition-colors duration-200">KONTAK</a>
+    </nav>
+
+    {/* CTAs & Toggle */}
+    <div class="flex items-center gap-3 sm:mr-14">
+      {/* Theme Toggle Button */}
+      <button 
+        id="theme-toggle" 
+        class="hidden h-8 px-3 border border-stone-300 hover:border-accent hover:bg-stone-900 hover:text-stone-100 dark:hover:bg-accent transition-all duration-200 cursor-pointer text-text-primary font-sans text-[10px] tracking-wider uppercase font-medium"
+        aria-label="Toggle theme"
+      >
+        <span id="theme-toggle-text">THEME</span>
+      </button>
+
+      {/* RAB Calculator CTA */}
+      <a 
+        href="/kalkulator-rab" 
+        class="hidden sm:inline-flex items-center h-8 px-4 bg-stone-900 hover:bg-accent text-stone-100 transition-all duration-250 font-sans text-[10px] font-semibold tracking-wider"
+      >
+        ESTIMASI RAB
+      </a>
+
+      {/* Mobile Menu Toggle */}
+      <button 
+        id="mobile-menu-toggle" 
+        class="md:hidden h-8 w-8 flex items-center justify-center border border-stone-300 hover:border-accent hover:bg-stone-900 hover:text-stone-100 transition-colors duration-200 cursor-pointer text-text-primary"
+        aria-label="Open menu"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path id="hamburger-icon" class="block" d="M4 6h16M4 12h16M4 18h16"></path>
+          <path id="close-icon" class="hidden" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  {/* Mobile Dropdown Menu */}
+  <div 
+    id="mobile-menu" 
+    class="hidden md:hidden border-b border-stone-300/40 bg-bg-primary flex-col font-sans text-xs font-semibold tracking-widest uppercase"
+  >
+    <a href="/" class="px-[6vw] py-4 border-b border-stone-200/50 hover:bg-stone-100/30 text-text-primary transition-colors duration-200">HOME</a>
+    <a href="/portofolio" class="px-[6vw] py-4 border-b border-stone-200/50 hover:bg-stone-100/30 text-text-primary transition-colors duration-200">PORTOFOLIO</a>
+    <a href="/layanan" class="px-[6vw] py-4 border-b border-stone-200/50 hover:bg-stone-100/30 text-text-primary transition-colors duration-200">LAYANAN</a>
+    <a href="/tentang" class="px-[6vw] py-4 border-b border-stone-200/50 hover:bg-stone-100/30 text-text-primary transition-colors duration-200">TENTANG KAMI</a>
+    <a href="/kontak" class="px-[6vw] py-4 hover:bg-stone-100/30 text-text-primary transition-colors duration-200">KONTAK</a>
+    <div class="p-4 border-t border-stone-200/50 bg-[#FAF9F6]">
+      <a 
+        href="/kalkulator-rab" 
+        class="w-full text-center block py-3 bg-stone-900 hover:bg-accent text-stone-100 font-sans text-xs font-semibold tracking-wider"
+      >
+        MULAI ESTIMASI RAB
+      </a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  // Elements
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeToggleText = document.getElementById('theme-toggle-text');
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  // Initialize Theme UI
+  function updateThemeUI() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (themeToggleText) {
+      themeToggleText.textContent = isDark ? 'LIGHT' : 'DARK';
+    }
+  }
+
+  updateThemeUI();
+
+  // Toggle Theme
+  themeToggle?.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    if (currentTheme === 'dark') {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    }
+    updateThemeUI();
+  });
+
+  // Mobile Menu Toggle
+  mobileMenuToggle?.addEventListener('click', () => {
+    const isHidden = mobileMenu.classList.contains('hidden');
+    if (isHidden) {
+      mobileMenu.classList.remove('hidden');
+      mobileMenu.classList.add('flex');
+      hamburgerIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+    } else {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('flex');
+      hamburgerIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+    }
+  });
+</script>

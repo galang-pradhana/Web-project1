@@ -1,0 +1,34 @@
+{
+  "namaPekerjaan": "Pasang Lantai Keramik 60x60",
+  "kodeAHSP": "A.4.4.3.3",
+  "kategoriPekerjaan": "Pekerjaan Lantai",
+  "satuanVolume": "m2",
+  "bahanKomponen": [
+    {
+      "bahanRef": "keramik-60x60",
+      "koefisien": 1.05
+    },
+    {
+      "bahanRef": "semen-portland",
+      "koefisien": 0.2
+    },
+    {
+      "bahanRef": "pasir-pasang",
+      "koefisien": 0.045
+    }
+  ],
+  "upahKomponen": [
+    {
+      "upahRef": "pekerja",
+      "koefisien": 0.25
+    },
+    {
+      "upahRef": "tukang-batu",
+      "koefisien": 0.125
+    },
+    {
+      "upahRef": "mandor",
+      "koefisien": 0.013
+    }
+  ]
+}

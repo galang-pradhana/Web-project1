@@ -1,0 +1,375 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { QuickEstimator } from '../components/QuickEstimator';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+import { 
+  Compass, 
+  Calculator, 
+  Wrench,
+  MapPin, 
+  Ruler, 
+  ArrowUpRight
+} from 'lucide-react';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+
+// Load data from Keystatic CMS
+const rawSiteSettings = await reader.singletons.siteSettings.read();
+const siteSettings = rawSiteSettings || {
+  brandName: 'Creativa Studio',
+  description: 'Jasa kontraktor & arsitektur profesional spesialis kayu premium.',
+  whatsapp: '628123456789',
+  email: 'info@creativastudio.com',
+  address: 'Jl. Kayu Manis No. 88, Jakarta Selatan'
+};
+
+const rawHomePage = await reader.singletons.homePage.read();
+const homePage = rawHomePage || {
+  heroEyebrow: 'CREATIVA STUDIO — KONTRAKTOR & ARSITEKTUR',
+  heroTitle: 'STRUKTUR PRESTISIUS,\nARSITEKTUR &\nJASA KONTRAKTOR.',
+  heroTagline: 'Kami merancang, merencana, dan membangun residensial serta komersial premium — menghadirkan integrasi arsitektur visioner dengan eksekusi kontraktor yang presisi.',
+  philosophySubtitle: 'FILOSOFI KAMI',
+  philosophyTitle: 'DESAIN VISIONER<br/>& EKSEKUSI PRESISI',
+  philosophyDescription: 'Bagi kami, arsitektur adalah seni menyelaraskan ruang dengan alam dan penghuninya. Kami merancang arsitektur tropis modern yang tidak hanya estetik, tetapi juga fungsional dan adaptif terhadap iklim lokal. Melalui perencanaan matang dan eksekusi yang presisi, kami menghadirkan hunian premium yang tak lekang oleh waktu.',
+  faqs: []
+};
+
+const rawProjects = await reader.collections.projects.all();
+const projects = rawProjects.map(p => ({
+  slug: p.slug,
+  ...p.entry
+})).slice(0, 3); // Take top 3 projects for homepage showcase
+
+const rawServices = await reader.collections.services.all();
+const services = rawServices.map(s => ({
+  slug: s.slug,
+  ...s.entry
+}));
+
+const rawPackages = await reader.collections.rabPaket.all();
+const packages = rawPackages.map(pkg => ({
+  slug: pkg.slug,
+  ...pkg.entry
+}));
+
+// Helper to map icon names to Lucide Icon components
+const iconMap = {
+  'Compass': Compass,
+  'Calculator': Calculator,
+  'Wrench': Wrench
+};
+---
+
+<BaseLayout title={`${siteSettings.brandName} — Jasa Kontraktor & Arsitektur Premium`} heroFullBleed={true}>
+  
+  <!-- Hero: STICKY so it stays fixed while content section slides over it -->
+  <div class="sticky-hero" style="position:sticky; top:0; z-index:10; height:100vh;">
+    <Hero 
+      eyebrow={homePage.heroEyebrow} 
+      title={homePage.heroTitle} 
+      tagline={homePage.heroTagline} 
+    />
+  </div>  <!-- Scroll Overlay Section: slides OVER the sticky hero as user scrolls. -->
+  <div class="scroll-overlay-section relative z-20 shadow-[0_-15px_30px_rgba(28,25,23,0.08)]" style="background:var(--bg-primary); border-top:1px solid rgba(68,64,60,0.15); margin-top:-1px; padding-top:120px; padding-bottom:120px;">
+    <div class="max-w-7xl mx-auto px-[6vw] space-y-32">
+
+      <!-- Section: Filosofi & Karya Terpadu (Clean White & Editorial) -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch reveal-on-scroll">
+        <!-- Kolom Kiri: Judul, CTA, Deskripsi (lg:col-span-5) -->
+        <div class="lg:col-span-5 flex flex-col justify-between py-2">
+          <!-- Bagian Atas: Judul & CTA -->
+          <div class="space-y-12">
+            <div class="space-y-4">
+              <span class="font-sans text-[11px] font-semibold tracking-[0.25em] text-accent uppercase block">
+                {homePage.philosophySubtitle}
+              </span>
+              <h3 class="font-serif text-4xl sm:text-5xl lg:text-[3.6vw] font-extralight text-text-primary tracking-wider leading-[1.2] uppercase" set:html={homePage.philosophyTitle}>
+              </h3>
+            </div>
+            
+            <div>
+              <a href="/tentang" class="inline-flex items-center gap-1.5 text-text-primary font-sans text-xs font-semibold tracking-widest uppercase pb-1 border-b border-text-primary hover:text-text-secondary hover:border-text-secondary transition-all duration-300">
+                Tentang Kami ↗
+              </a>
+            </div>
+          </div>
+          
+          <!-- Bagian Bawah: Deskripsi -->
+          <div class="font-sans text-[14px] sm:text-[15px] text-text-secondary leading-relaxed max-w-md pt-12 lg:pt-0">
+            <p>
+              {homePage.philosophyDescription}
+            </p>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: 3 Kolom Card Project Vertikal (lg:col-span-7) -->
+        <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {projects.slice(0, 3).map((proj) => (
+            <a href={`/portofolio/${proj.slug}`} class="group relative block aspect-[3/4] overflow-hidden bg-stone-100/50 border border-stone-200/40 reveal-on-scroll">
+              <img 
+                src={proj.coverImage} 
+                alt={proj.title}
+                class="w-full h-full object-cover transition-transform duration-[1200ms] cubic-bezier(0.25, 1, 0.3, 1) group-hover:scale-[1.06]"
+                loading="lazy"
+              />
+              <!-- Premium Dark Overlay Gradient -->
+              <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 flex flex-col justify-between p-5">
+                <!-- Judul Proyek di Bagian Atas -->
+                <span class="font-sans text-[10px] font-medium text-stone-100 tracking-widest uppercase leading-snug line-clamp-3">
+                  {proj.category} — {proj.title}
+                </span>
+                
+                <!-- Link Selengkapnya di Bagian Bawah -->
+                <span class="font-sans text-[10px] font-bold text-stone-200 tracking-widest uppercase border-b border-stone-300/40 pb-0.5 self-start group-hover:text-white group-hover:border-white transition-all duration-300">
+                  Selengkapnya
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <!-- Minimal Divider Line -->
+      <div class="h-[1px] bg-stone-300/60 w-full reveal-on-scroll"></div>
+
+      <!-- Section: Sticky Stacking Services -->
+      <section class="space-y-16 reveal-on-scroll">
+        <div class="border-b border-stone-300/60 pb-6">
+          <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block mb-2">LAYANAN UTAMA</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-normal text-text-primary">FOKUS KEAHLIAN KAMI</h2>
+        </div>
+
+        <div class="space-y-12 lg:space-y-0 relative">
+          {services.map((srv, idx) => {
+            const indexValue = idx + 1;
+            return (
+              <div 
+                class="sticky-service-card w-full bg-[#eae7e1] border border-stone-300/40 overflow-hidden shadow-[0_-15px_40px_rgba(28,25,23,0.06)] grid grid-cols-1 lg:grid-cols-2 lg:h-[70vh] lg:min-h-[500px]"
+                style={`position: sticky; top: ${100 + idx * 24}px; z-index: ${indexValue}; margin-bottom: ${idx === services.length - 1 ? '0' : '10vh'};`}
+              >
+                <!-- Sisi Kiri: Editorial minimalis (bg krem, stempel timbul, foto vertikal kecil, teks info) -->
+                <div class="relative p-8 md:p-12 lg:p-16 flex flex-col justify-between min-h-[350px] lg:min-h-0 bg-[#eae7e1] select-none">
+                  <!-- Pojok Kiri Atas: Logo Stempel Lilin Cetak Timbul (Embossed Logo) -->
+                  <div class="absolute top-8 left-8 md:top-12 md:left-12 flex items-center justify-center">
+                    <div class="w-14 h-14 rounded-full flex items-center justify-center bg-[#eae7e1] shadow-[inset_2px_2px_5px_rgba(0,0,0,0.04),_inset_-2px_-2px_5px_rgba(255,255,255,0.65),_1.5px_1.5px_4px_rgba(0,0,0,0.04),_-1.5px_-1.5px_4px_rgba(255,255,255,0.65)] border border-stone-300/20">
+                      <span class="font-serif text-[10px] tracking-[0.2em] font-light text-stone-500/80 uppercase select-none">CS</span>
+                    </div>
+                  </div>
+
+                  <!-- Tengah: Bingkai Foto Vertikal Kecil Melayang -->
+                  <div class="flex-1 flex items-center justify-center py-10 lg:py-0">
+                    <div class="w-[38%] md:w-[32%] lg:w-[35%] aspect-[3/4] overflow-hidden bg-stone-200 border border-stone-300/50 shadow-[10px_10px_25px_rgba(0,0,0,0.04)] hover:scale-[1.03] transition-transform duration-700">
+                      <img 
+                        src={srv.coverImage} 
+                        alt={srv.name} 
+                        class="w-full h-full object-cover filter grayscale sepia-[0.1] opacity-90"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Pojok Kiri Bawah: Info Layanan (Judul & Deskripsi) -->
+                  <div class="space-y-3 mt-auto">
+                    <h3 class="font-serif text-xl md:text-2xl font-normal text-stone-800">
+                      Meet, {srv.name}
+                    </h3>
+                    <p class="font-sans text-[12px] md:text-[13px] text-stone-600 leading-relaxed max-w-sm">
+                      {srv.description}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Sisi Kanan: Gambar Utama Penuh -->
+                <div class="relative overflow-hidden aspect-video lg:aspect-auto h-full w-full bg-stone-100 border-t lg:border-t-0 lg:border-l border-stone-300/40 group">
+                  <img 
+                    src={srv.coverImage} 
+                    alt={`${srv.name} Cover`} 
+                    class="w-full h-full object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <!-- Elegant Subtle Vignette Overlay -->
+                  <div class="absolute inset-0 bg-gradient-to-r from-black/5 to-transparent pointer-events-none"></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div class="flex justify-center pt-8">
+          <a href="/layanan" class="inline-flex items-center gap-2 border border-stone-900 text-stone-900 font-sans text-xs font-semibold tracking-widest uppercase px-8 py-3.5 hover:bg-stone-900 hover:text-white transition-all duration-300">
+            Pelajari Seluruh Layanan
+            <ArrowUpRight class="w-4 h-4" />
+          </a>
+        </div>
+      </section>
+
+      <!-- Minimal Divider Line -->
+      <div class="h-[1px] bg-stone-300/60 w-full reveal-on-scroll"></div>
+
+      <!-- Section: Quick Estimator React Island -->
+      <section id="estimator" class="space-y-16 scroll-mt-24 reveal-on-scroll">
+        <div class="border-b border-stone-300/60 pb-6">
+          <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block mb-2">KALKULATOR INSTAN</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-normal text-text-primary">ESTIMASI BIAYA CEPAT</h2>
+        </div>
+
+        <QuickEstimator client:load packages={packages} whatsappNumber={siteSettings.whatsapp} />
+            </section>
+
+      <!-- Minimal Divider Line -->
+      <div class="h-[1px] bg-stone-300/60 w-full reveal-on-scroll"></div>
+
+      <!-- Section: FAQ Accordion -->
+      <section id="faq" class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 scroll-mt-24 reveal-on-scroll">
+        <!-- Kolom Kiri: Judul & Subtitle -->
+        <div class="lg:col-span-4 space-y-4">
+          <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block">FAQS</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-normal text-text-primary uppercase leading-tight">PERTANYAAN<br/>UMUM</h2>
+          <p class="font-sans text-xs text-text-secondary leading-relaxed max-w-sm">
+            Temukan jawaban dari pertanyaan yang sering diajukan mengenai proses kerja, garansi, estimasi biaya, dan layanan arsitektur/konstruksi Creativa Studio.
+          </p>
+        </div>
+
+        <!-- Kolom Kanan: Accordion List -->
+        <div class="lg:col-span-8 space-y-2">
+          {homePage.faqs && homePage.faqs.map((faq, idx) => (
+            <div class="faq-item border-b border-stone-300/60 py-4 transition-all duration-300">
+              <button class="faq-toggle w-full flex justify-between items-center text-left py-2 font-sans font-medium text-sm text-text-primary hover:text-accent transition-colors duration-300 focus:outline-none cursor-pointer">
+                <span>{faq.question}</span>
+                <span class="faq-icon transform transition-transform duration-300 text-stone-500 font-light text-xl ml-4 select-none">+</span>
+              </button>
+              <div class="faq-content overflow-hidden max-h-0 transition-all duration-300 ease-in-out opacity-0">
+                <p class="font-sans text-xs text-text-secondary leading-relaxed pt-2 pb-4 pr-6">
+                  {faq.answer}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+    </div>
+
+    <!-- CTA Section: Hanya tampil di halaman utama -->
+    <ContactCTA />
+  </div>
+
+  <style>
+    /* Premium Image Zoom Effect */
+    .zoom-image {
+      transition: transform 1.2s cubic-bezier(0.25, 1, 0.3, 1), filter 0.8s ease, opacity 0.8s ease;
+      will-change: transform;
+    }
+    .group:hover .zoom-image {
+      transform: scale(1.025);
+      filter: sepia(0);
+      opacity: 1;
+    }
+
+    /* Reveal on Scroll Transitions */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.9s cubic-bezier(0.25, 1, 0.3, 1), transform 0.9s cubic-bezier(0.25, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .reveal-on-scroll.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* FAQ Transitions */
+    .faq-content {
+      transition: max-height 0.4s cubic-bezier(0.25, 1, 0.3, 1), opacity 0.3s ease;
+    }
+  </style>
+
+  <script>
+    // Intersection Observer for Reveal-on-Scroll Animation
+    function initScrollReveal() {
+      const reveals = document.querySelectorAll('.reveal-on-scroll');
+      if (reveals.length === 0) return;
+
+      const observerOptions = {
+        root: null,
+        threshold: 0.05,
+        rootMargin: '0px 0px -60px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            obs.unobserve(entry.target); // Announce reveal once
+          }
+        });
+      }, observerOptions);
+
+      reveals.forEach(el => observer.observe(el));
+    }
+
+    // FAQ Accordion Interactivity
+    function initFaqAccordion() {
+      const toggles = document.querySelectorAll('.faq-toggle');
+      if (toggles.length === 0) return;
+
+      toggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const item = toggle.closest('.faq-item');
+          if (!item) return;
+
+          const content = item.querySelector('.faq-content');
+          const icon = item.querySelector('.faq-icon');
+          if (!content || !icon) return;
+
+          const isOpen = item.classList.contains('is-open');
+
+          // Tutup semua FAQ item lainnya
+          document.querySelectorAll('.faq-item').forEach(otherItem => {
+            if (otherItem !== item) {
+              otherItem.classList.remove('is-open');
+              const otherContent = otherItem.querySelector('.faq-content');
+              const otherIcon = otherItem.querySelector('.faq-icon');
+              if (otherContent) {
+                (otherContent as HTMLElement).style.maxHeight = '0px';
+                (otherContent as HTMLElement).style.opacity = '0';
+              }
+              if (otherIcon) {
+                otherIcon.textContent = '+';
+                otherIcon.classList.remove('rotate-45');
+              }
+            }
+          });
+
+          // Toggle item saat ini
+          if (isOpen) {
+            item.classList.remove('is-open');
+            (content as HTMLElement).style.maxHeight = '0px';
+            (content as HTMLElement).style.opacity = '0';
+            icon.textContent = '+';
+            icon.classList.remove('rotate-45');
+          } else {
+            item.classList.add('is-open');
+            (content as HTMLElement).style.maxHeight = `${content.scrollHeight}px`;
+            (content as HTMLElement).style.opacity = '1';
+            icon.textContent = '+'; // Keep character but rotate geometrically
+            icon.classList.add('rotate-45');
+          }
+        });
+      });
+    }
+
+    // Run on initial load and view transitions if enabled
+    function initAll() {
+      initScrollReveal();
+      initFaqAccordion();
+    }
+
+    document.addEventListener('DOMContentLoaded', initAll);
+    document.addEventListener('astro:after-swap', initAll);
+  </script>
+
+</BaseLayout>

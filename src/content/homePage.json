@@ -1,0 +1,30 @@
+{
+  "heroEyebrow": "CREATIVA STUDIO — KONTRAKTOR & ARSITEKTUR",
+  "heroTitle": "STRUKTUR PRESTISIUS,\nARSITEKTUR &\nJASA KONTRAKTOR.",
+  "heroTagline": "Kami merancang, merencana, dan membangun residensial serta komersial premium — menghadirkan integrasi arsitektur visioner dengan eksekusi kontraktor yang presisi.",
+  "philosophySubtitle": "FILOSOFI KAMI",
+  "philosophyTitle": "DESAIN VISIONER<br/>& EKSEKUSI PRESISI",
+  "philosophyDescription": "Bagi kami, arsitektur adalah seni menyelaraskan ruang dengan alam dan penghuninya. Kami merancang arsitektur tropis modern yang tidak hanya estetik, tetapi juga fungsional dan adaptif terhadap iklim lokal. Melalui perencanaan matang dan eksekusi yang presisi, kami menghadirkan hunian premium yang tak lekang oleh waktu.",
+  "faqs": [
+    {
+      "question": "Apakah Creativa Studio melayani proyek di luar area Jabodetabek?",
+      "answer": "Ya, kami melayani jasa desain arsitektur secara nasional di seluruh Indonesia. Untuk pekerjaan konstruksi fisik (pembangunan dan renovasi), kami memprioritaskan wilayah Jabodetabek dan sekitarnya. Namun, proyek konstruksi di luar Jabodetabek tetap dapat kami fasilitasi berdasarkan kesepakatan nilai proyek dan mobilisasi tim."
+    },
+    {
+      "question": "Berapa lama estimasi waktu pengerjaan proyek dari desain hingga pembangunan?",
+      "answer": "Durasi proyek sangat bergantung pada kompleksitas desain dan luas bangunan. Tahap desain arsitektur & interior umumnya membutuhkan waktu 1-3 bulan termasuk asistensi dan revisi. Tahap konstruksi fisik untuk rumah tinggal premium rata-rata memakan waktu 6-12 bulan. Jadwal pelaksanaan yang detail dan mengikat akan selalu dicantumkan dalam Kontrak Kerja Sama."
+    },
+    {
+      "question": "Bagaimana sistem garansi yang diberikan oleh Creativa Studio?",
+      "answer": "Kami berkomitmen terhadap kualitas jangka panjang. Untuk proyek konstruksi baru, kami memberikan masa pemeliharaan (retensi) selama 3 bulan setelah serah terima kunci untuk perbaikan minor. Khusus untuk struktur utama bangunan dan struktur kayu premium, kami memberikan garansi konstruksi tertulis hingga 1 tahun terhadap cacat struktural."
+    },
+    {
+      "question": "Apakah estimasi biaya dari Kalkulator RAB bersifat final?",
+      "answer": "Tidak. Kalkulator RAB instan di website kami dirancang sebagai perkiraan kasar acuan awal berdasarkan luas lantai dan spesifikasi umum paket material. Estimasi biaya final yang akurat akan kami susun secara mendetail (RAB Resmi) setelah tahap desain arsitektur selesai, disesuaikan dengan gambar kerja detail (DED) dan survei kondisi lapangan aktual."
+    },
+    {
+      "question": "Bagaimana langkah awal untuk mulai berkonsultasi?",
+      "answer": "Anda dapat menggunakan formulir \"Mulai Proyek Anda\" di bagian footer halaman ini untuk mengirimkan pesan WhatsApp otomatis secara langsung. Alternatif lain, Anda dapat menekan tombol konsultasi di menu utama untuk menjadwalkan pertemuan awal (baik tatap muka maupun online) guna membahas visi, lokasi lahan, serta anggaran proyek Anda."
+    }
+  ]
+}

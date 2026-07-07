@@ -1,0 +1,443 @@
+import { collection, config, fields, singleton } from "@keystatic/core";
+//#region keystatic.config.ts
+var keystatic_config_default = config({
+	storage: { kind: "local" },
+	collections: {
+		projects: collection({
+			label: "Proyek Portofolio",
+			slugField: "title",
+			path: "src/content/projects/*",
+			entryLayout: "form",
+			format: { data: "json" },
+			schema: {
+				title: fields.slug({ name: { label: "Judul Proyek" } }),
+				category: fields.select({
+					label: "Kategori",
+					options: [
+						{
+							label: "Residential",
+							value: "residential"
+						},
+						{
+							label: "Komersial",
+							value: "komersial"
+						},
+						{
+							label: "Renovasi",
+							value: "renovasi"
+						},
+						{
+							label: "Interior",
+							value: "interior"
+						}
+					],
+					defaultValue: "residential"
+				}),
+				coverImage: fields.text({
+					label: "URL Foto Cover (Statis atau path /images/projects/)",
+					defaultValue: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80"
+				}),
+				gallery: fields.array(fields.text({ label: "URL Foto Galeri" }), {
+					label: "Galeri Foto",
+					itemLabel: (props) => props.value || "Foto URL"
+				}),
+				area: fields.number({ label: "Luas Bangunan (m²)" }),
+				location: fields.text({ label: "Lokasi" }),
+				client: fields.text({ label: "Klien" }),
+				year: fields.number({ label: "Tahun Selesai" }),
+				budgetRange: fields.text({ label: "Range Budget (misal: Rp 1.5M - Rp 2M)" }),
+				testimonialContent: fields.text({
+					label: "Isi Testimoni Klien",
+					multiline: true
+				}),
+				testimonialAuthor: fields.text({ label: "Nama Pemberi Testimoni" }),
+				description: fields.text({
+					label: "Deskripsi Proyek",
+					multiline: true
+				})
+			}
+		}),
+		services: collection({
+			label: "Layanan",
+			slugField: "name",
+			path: "src/content/services/*",
+			format: { data: "json" },
+			schema: {
+				name: fields.slug({ name: { label: "Nama Layanan" } }),
+				icon: fields.text({
+					label: "Nama Ikon Lucide (contoh: Home, PenTool, Wrench)",
+					defaultValue: "Home"
+				}),
+				description: fields.text({
+					label: "Deskripsi Layanan",
+					multiline: true
+				}),
+				coverImage: fields.text({
+					label: "URL Foto Cover Layanan",
+					defaultValue: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+				})
+			}
+		}),
+		hargaBahan: collection({
+			label: "Harga Bahan Material",
+			slugField: "nama",
+			path: "src/content/hargaBahan/*",
+			format: { data: "json" },
+			schema: {
+				nama: fields.slug({ name: { label: "Nama Bahan" } }),
+				satuan: fields.select({
+					label: "Satuan",
+					options: [
+						{
+							label: "kg",
+							value: "kg"
+						},
+						{
+							label: "m³",
+							value: "m3"
+						},
+						{
+							label: "m²",
+							value: "m2"
+						},
+						{
+							label: "buah",
+							value: "buah"
+						},
+						{
+							label: "batang",
+							value: "batang"
+						},
+						{
+							label: "sak",
+							value: "sak"
+						},
+						{
+							label: "liter",
+							value: "liter"
+						},
+						{
+							label: "m1 (meter lari)",
+							value: "m1"
+						}
+					],
+					defaultValue: "buah"
+				}),
+				hargaSatuan: fields.number({ label: "Harga Satuan (Rp)" }),
+				kategori: fields.select({
+					label: "Kategori Material",
+					options: [
+						{
+							label: "Semen & Beton",
+							value: "Semen & Beton"
+						},
+						{
+							label: "Kayu & Besi",
+							value: "Kayu & Besi"
+						},
+						{
+							label: "Batu & Pasir",
+							value: "Batu & Pasir"
+						},
+						{
+							label: "Keramik & Lantai",
+							value: "Keramik"
+						},
+						{
+							label: "Cat & Finishing",
+							value: "Cat"
+						},
+						{
+							label: "Pipa & Sanitair",
+							value: "Pipa & Sanitair"
+						},
+						{
+							label: "Kelistrikan",
+							value: "Kelistrikan"
+						},
+						{
+							label: "Atap",
+							value: "Atap"
+						},
+						{
+							label: "Lainnya",
+							value: "Lainnya"
+						}
+					],
+					defaultValue: "Lainnya"
+				})
+			}
+		}),
+		hargaUpah: collection({
+			label: "Harga Upah Tenaga Kerja",
+			slugField: "jenisPekerja",
+			path: "src/content/hargaUpah/*",
+			format: { data: "json" },
+			schema: {
+				jenisPekerja: fields.slug({ name: { label: "Jenis Pekerja" } }),
+				satuan: fields.text({
+					label: "Satuan (misal: OH)",
+					defaultValue: "OH"
+				}),
+				hargaSatuan: fields.number({ label: "Tarif Harian (Rp)" })
+			}
+		}),
+		ahspItem: collection({
+			label: "Analisa Harga Satuan Pekerjaan (AHSP)",
+			slugField: "namaPekerjaan",
+			path: "src/content/ahspItem/*",
+			format: { data: "json" },
+			schema: {
+				namaPekerjaan: fields.slug({ name: { label: "Nama Item Pekerjaan" } }),
+				kodeAHSP: fields.text({ label: "Kode SNI/AHSP (misal: A.4.1.1.1)" }),
+				kategoriPekerjaan: fields.select({
+					label: "Kategori Pekerjaan",
+					options: [
+						{
+							label: "Pekerjaan Persiapan",
+							value: "Pekerjaan Persiapan"
+						},
+						{
+							label: "Pekerjaan Tanah",
+							value: "Pekerjaan Tanah"
+						},
+						{
+							label: "Pekerjaan Pondasi",
+							value: "Pekerjaan Pondasi"
+						},
+						{
+							label: "Pekerjaan Struktur (Beton/Kolom/Balok)",
+							value: "Pekerjaan Struktur"
+						},
+						{
+							label: "Pekerjaan Dinding & Pasangan",
+							value: "Pekerjaan Dinding"
+						},
+						{
+							label: "Pekerjaan Atap & Plafon",
+							value: "Pekerjaan Atap"
+						},
+						{
+							label: "Pekerjaan Lantai",
+							value: "Pekerjaan Lantai"
+						},
+						{
+							label: "Pekerjaan Pintu & Jendela",
+							value: "Pekerjaan Pintu & Jendela"
+						},
+						{
+							label: "Pekerjaan Sanitair",
+							value: "Pekerjaan Sanitair"
+						},
+						{
+							label: "Pekerjaan Listrik",
+							value: "Pekerjaan Listrik"
+						},
+						{
+							label: "Pekerjaan Finishing & Cat",
+							value: "Pekerjaan Finishing/Cat"
+						},
+						{
+							label: "Pekerjaan Lainnya",
+							value: "Pekerjaan Lainnya"
+						}
+					],
+					defaultValue: "Pekerjaan Struktur"
+				}),
+				satuanVolume: fields.select({
+					label: "Satuan Volume Pekerjaan",
+					options: [
+						{
+							label: "m³",
+							value: "m3"
+						},
+						{
+							label: "m²",
+							value: "m2"
+						},
+						{
+							label: "m1 (meter lari)",
+							value: "m1"
+						},
+						{
+							label: "unit",
+							value: "unit"
+						},
+						{
+							label: "titik",
+							value: "titik"
+						},
+						{
+							label: "ls (lump sum)",
+							value: "ls"
+						}
+					],
+					defaultValue: "m2"
+				}),
+				bahanKomponen: fields.array(fields.object({
+					bahanRef: fields.relationship({
+						label: "Pilih Bahan",
+						collection: "hargaBahan"
+					}),
+					koefisien: fields.number({ label: "Koefisien Bahan" })
+				}), {
+					label: "Komponen Bahan",
+					itemLabel: (props) => `${props.fields.bahanRef.value || "Pilih Bahan"} - Koef: ${props.fields.koefisien.value || 0}`
+				}),
+				upahKomponen: fields.array(fields.object({
+					upahRef: fields.relationship({
+						label: "Pilih Upah Tenaga Kerja",
+						collection: "hargaUpah"
+					}),
+					koefisien: fields.number({ label: "Koefisien Upah" })
+				}), {
+					label: "Komponen Upah",
+					itemLabel: (props) => `${props.fields.upahRef.value || "Pilih Pekerja"} - Koef: ${props.fields.koefisien.value || 0}`
+				})
+			}
+		}),
+		rabPaket: collection({
+			label: "Paket Estimasi Cepat (RAB Paket)",
+			slugField: "namaPaket",
+			path: "src/content/rabPaket/*",
+			format: { data: "json" },
+			schema: {
+				namaPaket: fields.slug({ name: { label: "Nama Paket (misal: Standar / Menengah / Premium)" } }),
+				jenisPekerjaan: fields.select({
+					label: "Jenis Pekerjaan",
+					options: [
+						{
+							label: "Bangun Baru",
+							value: "Bangun Baru"
+						},
+						{
+							label: "Renovasi Total",
+							value: "Renovasi Total"
+						},
+						{
+							label: "Renovasi Sebagian",
+							value: "Renovasi Sebagian"
+						},
+						{
+							label: "Interior Saja",
+							value: "Interior Saja"
+						}
+					],
+					defaultValue: "Bangun Baru"
+				}),
+				hargaPerM2: fields.number({ label: "Harga Rata-Rata per m² (Rp)" }),
+				persenStruktur: fields.number({
+					label: "Persen Struktur (%)",
+					defaultValue: 30
+				}),
+				persenDinding: fields.number({
+					label: "Persen Dinding & Lantai (%)",
+					defaultValue: 25
+				}),
+				persenAtap: fields.number({
+					label: "Persen Atap & Plafon (%)",
+					defaultValue: 15
+				}),
+				persenFinishing: fields.number({
+					label: "Persen Finishing & Pengecatan (%)",
+					defaultValue: 15
+				}),
+				persenMEP: fields.number({
+					label: "Persen Mekanikal Elektrikal Plambing (%)",
+					defaultValue: 10
+				}),
+				persenLainnya: fields.number({
+					label: "Persen Pekerjaan Lainnya (%)",
+					defaultValue: 5
+				}),
+				deskripsi: fields.text({
+					label: "Deskripsi Singkat Paket",
+					multiline: true
+				}),
+				contohMaterial: fields.array(fields.text({ label: "Material" }), {
+					label: "Daftar Contoh Material",
+					itemLabel: (props) => props.value || "Nama Material"
+				})
+			}
+		})
+	},
+	singletons: {
+		siteSettings: singleton({
+			label: "Pengaturan Situs",
+			path: "src/content/siteSettings",
+			format: { data: "json" },
+			schema: {
+				brandName: fields.text({
+					label: "Nama Brand",
+					defaultValue: "Creativa Studio"
+				}),
+				description: fields.text({
+					label: "Tagline & Deskripsi Singkat",
+					multiline: true
+				}),
+				email: fields.text({
+					label: "Email Kontak",
+					defaultValue: "info@creativastudio.com"
+				}),
+				whatsapp: fields.text({
+					label: "Nomor WhatsApp (format: 628xxxx)",
+					defaultValue: "628123456789"
+				}),
+				address: fields.text({
+					label: "Alamat Kantor",
+					multiline: true,
+					defaultValue: "Jl. Kayu Putih Raya No. 12, Kebayoran Baru, Jakarta Selatan"
+				}),
+				instagram: fields.text({
+					label: "URL Instagram",
+					defaultValue: "https://instagram.com/creativastudio"
+				})
+			}
+		}),
+		homePage: singleton({
+			label: "Halaman Utama",
+			path: "src/content/homePage",
+			format: { data: "json" },
+			schema: {
+				heroEyebrow: fields.text({
+					label: "Hero Eyebrow",
+					defaultValue: "CREATIVA STUDIO — KONTRAKTOR & ARSITEKTUR"
+				}),
+				heroTitle: fields.text({
+					label: "Hero Title",
+					defaultValue: "STRUKTUR PRESTISIUS, ARSITEKTUR & JASA KONTRAKTOR."
+				}),
+				heroTagline: fields.text({
+					label: "Hero Tagline",
+					multiline: true,
+					defaultValue: "Kami merancang, merencana, dan membangun residensial serta komersial premium — menghadirkan integrasi arsitektur visioner dengan eksekusi kontraktor yang presisi."
+				}),
+				philosophySubtitle: fields.text({
+					label: "Filosofi Subtitle",
+					defaultValue: "FILOSOFI KAMI"
+				}),
+				philosophyTitle: fields.text({
+					label: "Filosofi Title (gunakan <br/> untuk baris baru)",
+					defaultValue: "DESAIN VISIONER<br/>& EKSEKUSI PRESISI"
+				}),
+				philosophyDescription: fields.text({
+					label: "Filosofi Deskripsi",
+					multiline: true,
+					defaultValue: "Bagi kami, arsitektur adalah seni menyelaraskan ruang dengan alam dan penghuninya. Kami merancang arsitektur tropis modern yang tidak hanya estetik, tetapi juga fungsional dan adaptif terhadap iklim lokal. Melalui perencanaan matang dan eksekusi yang presisi, kami menghadirkan hunian premium yang tak lekang oleh waktu."
+				}),
+				faqs: fields.array(fields.object({
+					question: fields.text({ label: "Pertanyaan" }),
+					answer: fields.text({
+						label: "Jawaban",
+						multiline: true
+					})
+				}), {
+					label: "Daftar Pertanyaan Umum (FAQ)",
+					itemLabel: (props) => props.fields.question.value || "Pertanyaan"
+				})
+			}
+		})
+	}
+});
+//#endregion
+export { keystatic_config_default as t };
