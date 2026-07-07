@@ -1,8 +1,20 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 
+// Mode storage berdasarkan environment:
+// - 'cloud' saat di production (Vercel) → klien login via Keystatic Cloud
+// - 'local' saat di development lokal → edit langsung tanpa login
+const isProd = process.env.NODE_ENV === 'production';
+
 export default config({
-  storage: {
-    kind: 'local',
+  storage: isProd
+    ? {
+        kind: 'cloud',
+      }
+    : {
+        kind: 'local',
+      },
+  cloud: {
+    project: 'creativa-studio/web-kontraktor',
   },
   collections: {
     projects: collection({
