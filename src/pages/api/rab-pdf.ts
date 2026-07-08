@@ -1,10 +1,10 @@
 import type { APIRoute } from 'astro';
 import React from 'react';
-import { pdf } from '@react-pdf/renderer';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../../keystatic.config';
 import { calculateDetailedRAB } from '../../utils/rab-formula';
-import { RABPdfDocument } from '../../components/RABPdfDocument';
+// RABPdfDocument di-import secara dinamis di dalam handler untuk mencegah
+// @react-pdf/renderer dievaluasi saat cold-start serverless function Vercel.
 
 export const prerender = false; // Must be rendered server-side dynamically
 
@@ -59,7 +59,9 @@ export const POST: APIRoute = async ({ request }) => {
       profitRatePercent
     );
 
-    // 3. Render PDF document to blob
+    // 3. Render PDF document to blob — dynamic import agar tidak crash serverless bundle
+    const { pdf } = await import('@react-pdf/renderer');
+    const { RABPdfDocument } = await import('../../components/RABPdfDocument');
     const element = React.createElement(RABPdfDocument, {
       clientName,
       projectLocation,
