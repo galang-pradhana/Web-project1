@@ -1,0 +1,25 @@
+{
+  "title": "Cengkareng - Minimalis",
+  "category": "residential",
+  "coverImage": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566044/d6scibdlsnyc5we6bmjm.webp",
+  "coverVideo": "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783566052/sswqdfdr4gwuo5mfs6nc.mp4",
+  "gallery": [
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566044/d6scibdlsnyc5we6bmjm.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566044/lhs4h2trt2zsodn4oltj.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566044/azg4y6cwfv9zn2attebf.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566043/ydkhlrug5vaehaccucoz.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566043/tgk7qluzp9cqakpoavuf.webp"
+  ],
+  "videoGallery": [
+    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783566052/sswqdfdr4gwuo5mfs6nc.mp4",
+    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783566051/nu1l2wph7iqalhcz6r6b.mp4"
+  ],
+  "area": 180,
+  "location": "Cengkareng, Jakarta Barat",
+  "client": "Bpk. Albert",
+  "year": 2025,
+  "budgetRange": "Rp 1.5M - Rp 2.0M",
+  "testimonialContent": "Konsep minimalis yang fungsional dengan pemanfaatan ruang yang sangat efisien. Proses pembangunan berjalan tepat waktu dan hasil akhirnya sangat rapi.",
+  "testimonialAuthor": "Bpk. Albert",
+  "description": "Hunian tinggal di kawasan Cengkareng dengan konsep arsitektur minimalis modern. Desain ini mengutamakan efisiensi tata ruang (compact layout), garis-garis bersih tanpa dekorasi berlebih, serta optimalisasi pencahayaan alami melalui jendela besar untuk menciptakan kesan ruang yang lebih luas dan lapang."
+}

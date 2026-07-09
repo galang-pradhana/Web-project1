@@ -1,0 +1,33 @@
+{
+  "title": "Pamulang House",
+  "category": "residential",
+  "coverImage": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566939/dsnxzirnmhvodt4ly5aj.webp",
+  "coverVideo": "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783566994/tmi7bhnqufzhooyqsmwy.mp4",
+  "gallery": [
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566939/dsnxzirnmhvodt4ly5aj.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566938/kcz5ofs5dn2h6c9ew0x6.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566938/qjvx7gt4wkxtul3vm6ap.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566939/yj5uzixatmuts8ky3csd.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566939/wm1w7k9ugn22favhwnee.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566940/rs1yoibopzlnv2hituae.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566940/j7negq9o7uzflbncj8t7.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566939/hjyw9cfs2r8pt6qj3ath.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566940/vb4sxcruomgyhufoccuk.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566940/p1si2u5wt8hsqvdhlx7c.webp",
+    "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783566940/gvlgtl6vm4pscz85n8ar.webp"
+  ],
+  "videoGallery": [
+    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783566994/tmi7bhnqufzhooyqsmwy.mp4",
+    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783566955/dppuwlq5slq6qallak6g.mp4",
+    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783566946/exity57s4eqou1maf7om.mp4",
+    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783566948/zwriqkbu9cpovx86mpnh.mp4"
+  ],
+  "area": 210,
+  "location": "Pamulang, Tangerang Selatan",
+  "client": "Bpk. Hermawan",
+  "year": 2024,
+  "budgetRange": "Rp 1.8M - Rp 2.2M",
+  "testimonialContent": "Tim kontraktor bekerja dengan sangat teliti. Konsep minimalis yang clean terwujud sempurna mulai dari lantai presisi hingga detail pengerjaan atap.",
+  "testimonialAuthor": "Bpk. Hermawan",
+  "description": "Hunian keluarga di Pamulang dengan pendekatan arsitektur modern minimalis yang bersahaja. Berfokus pada perpaduan material kaca reflektif, semen ekspos, dan efisiensi pencahayaan siang hari untuk menekan konsumsi energi sekaligus menghadirkan suasana hunian yang asri."
+}

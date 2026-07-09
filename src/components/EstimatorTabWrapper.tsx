@@ -39,25 +39,23 @@ export const EstimatorTabWrapper: React.FC<EstimatorTabWrapperProps> = ({
     <div className="w-full">
       {/* Premium Editorial Tab Selector */}
       <div className="flex justify-center mb-12">
-        <div className="inline-flex p-1 bg-stone-100 dark:bg-stone-900/80 border border-stone-200 dark:border-stone-800 rounded-xl shadow-inner relative">
+        <div className="inline-flex p-1 bg-stone-100 border border-stone-200 rounded-xl shadow-inner relative">
           <button
             onClick={() => setActiveTab('quick')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-sans font-semibold tracking-wide transition-all duration-300 ${
-              activeTab === 'quick'
-                ? 'bg-white dark:bg-stone-800 text-accent shadow-sm'
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
+            className={activeTab === 'quick'
+              ? 'flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-sans font-semibold tracking-wide transition-all duration-300 bg-white text-amber-700 shadow-sm'
+              : 'flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-sans font-semibold tracking-wide transition-all duration-300 text-stone-500 hover:text-stone-800'
+            }
           >
             <Sparkles className="w-4 h-4" />
             Estimasi Cepat
           </button>
           <button
             onClick={() => setActiveTab('detail')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-sans font-semibold tracking-wide transition-all duration-300 ${
-              activeTab === 'detail'
-                ? 'bg-white dark:bg-stone-800 text-accent shadow-sm'
-                : 'text-text-secondary hover:text-text-primary'
-            }`}
+            className={activeTab === 'detail'
+              ? 'flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-sans font-semibold tracking-wide transition-all duration-300 bg-white text-amber-700 shadow-sm'
+              : 'flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-sans font-semibold tracking-wide transition-all duration-300 text-stone-500 hover:text-stone-800'
+            }
           >
             <ClipboardList className="w-4 h-4" />
             Estimasi Detail (SNI)

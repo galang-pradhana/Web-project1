@@ -28,7 +28,8 @@ pnpm-debug.log*
 public/projects/
 
 # Client portfolio content (data sensitif klien — jangan di-push)
-src/content/projects/
+# NOTE: Perlu di-push agar Vercel bisa render halaman portofolio
+# src/content/projects/  ← diaktifkan agar Vercel bisa baca data project
 
 # Local assets folder (file klien & aset offline)
 assets/
