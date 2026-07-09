@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { calculateDetailedRAB, formatRupiah } from '../utils/rab-formula';
 import type { AHSPItem, Material, Wage } from '../utils/rab-formula';
 import { 
   Plus, 
-  Minus, 
   Trash2, 
   FileText, 
-  Share2, 
   Phone, 
   User, 
   MapPin, 
-  Maximize2, 
   ShoppingBag, 
   ChevronUp, 
   X,
-  Sparkles,
   Calculator,
-  Sliders,
-  DollarSign
+  Sliders
 } from 'lucide-react';
 
 interface DetailEstimatorProps {
@@ -76,9 +71,6 @@ export const DetailEstimator: React.FC<DetailEstimatorProps> = ({
 
   // Loading States
   const [isPdfLoading, setIsPdfLoading] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [saveUrl, setSaveUrl] = useState<string | null>(null);
-  const [saveError, setSaveError] = useState<string | null>(null);
 
   // Map collections for fast lookup in formulas
   const ahspRecord = React.useMemo(() => {
@@ -137,61 +129,7 @@ export const DetailEstimator: React.FC<DetailEstimatorProps> = ({
     setSelectedItems(selectedItems.filter(item => item.slug !== slug));
   };
 
-  const handleSaveAndShare = async () => {
-    if (selectedItems.length === 0) {
-      alert('Pilih minimal satu item pekerjaan terlebih dahulu.');
-      return null;
-    }
-    if (!clientName || !clientWhatsapp) {
-      alert('Mohon isi Nama Klien dan Nomor WhatsApp di panel Informasi Proyek terlebih dahulu.');
-      return null;
-    }
 
-    setIsSaving(true);
-    setSaveError(null);
-    try {
-      const calcResponse = await fetch('/api/rab-save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jenisPekerjaan: 'Kustom Detail',
-          luasBangunan: projectArea,
-          lokasi: projectLocation,
-          items: selectedItems,
-          profitRate,
-          taxRate,
-          subtotal: calculation.subtotal,
-          totalCost: calculation.totalCost
-        })
-      });
-
-      if (!calcResponse.ok) throw new Error('Gagal menyimpan data kalkulasi.');
-      const calcData = await calcResponse.json();
-      const calcId = calcData.id;
-
-      await fetch('/api/rab-lead', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nama: clientName,
-          whatsapp: clientWhatsapp,
-          email: clientEmail,
-          calculationId: calcId,
-          sumberMode: 'detail'
-        })
-      });
-
-      const fullUrl = `${window.location.origin}/rab/hasil/${calcId}`;
-      setSaveUrl(fullUrl);
-      return calcId;
-    } catch (err: any) {
-      console.error(err);
-      setSaveError(err.message || 'Gagal menyimpan kalkulasi.');
-      return null;
-    } finally {
-      setIsSaving(false);
-    }
-  };
 
   const handleDownloadPDF = async () => {
     if (selectedItems.length === 0) {
@@ -245,7 +183,7 @@ export const DetailEstimator: React.FC<DetailEstimatorProps> = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          clientName: clientName || 'Klien Creativa Studio',
+          clientName: clientName || 'Klien PT. Dicko Jaya Construction',
           projectLocation: projectLocation || 'Indonesia',
           projectArea: projectArea || 0,
           items: selectedItems,
@@ -262,7 +200,7 @@ export const DetailEstimator: React.FC<DetailEstimatorProps> = ({
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `RAB_Creativa_Studio_${(clientName || 'Estimasi').replace(/\s+/g, '_')}.pdf`);
+      link.setAttribute('download', `RAB_PT_Dicko_Jaya_Construction_${(clientName || 'Estimasi').replace(/\s+/g, '_')}.pdf`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -280,44 +218,7 @@ export const DetailEstimator: React.FC<DetailEstimatorProps> = ({
       return;
     }
 
-    let calcId = null;
-    try {
-      const calcResponse = await fetch('/api/rab-save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jenisPekerjaan: 'Kustom Detail',
-          luasBangunan: projectArea,
-          lokasi: projectLocation,
-          items: selectedItems,
-          profitRate,
-          taxRate,
-          subtotal: calculation.subtotal,
-          totalCost: calculation.totalCost
-        })
-      });
-      if (calcResponse.ok) {
-        const calcData = await calcResponse.json();
-        calcId = calcData.id;
-
-        await fetch('/api/rab-lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nama: clientName,
-            whatsapp: clientWhatsapp,
-            email: clientEmail,
-            calculationId: calcId,
-            sumberMode: 'detail'
-          })
-        });
-      }
-    } catch (saveErr) {
-      console.warn('Gagal melakukan background save:', saveErr);
-    }
-
-    const shareInfo = calcId ? `\nLink Kalkulasi: ${window.location.origin}/rab/hasil/${calcId}` : '';
-    const message = `Halo Creativa Studio, nama saya *${clientName}* (${clientWhatsapp}).\nSaya telah menghitung estimasi RAB detail untuk proyek pembangunan dengan parameter berikut:\n\n` +
+    const message = `Halo PT. Dicko Jaya Construction, nama saya *${clientName}* (${clientWhatsapp}).\nSaya telah menghitung estimasi RAB detail untuk proyek pembangunan dengan parameter berikut:\n\n` +
       `*Detail Proyek:*\n` +
       `- Lokasi: ${projectLocation || '-'}\n` +
       `- Luas Bangunan: ${projectArea || '-'} m²\n` +
@@ -325,7 +226,7 @@ export const DetailEstimator: React.FC<DetailEstimatorProps> = ({
       `- Subtotal Pekerjaan: ${formatRupiah(calculation.subtotal)}\n` +
       `- Fee Kontraktor (${profitRate}%): ${formatRupiah(calculation.profitCost)}\n` +
       `- PPN (${taxRate}%): ${formatRupiah(calculation.taxCost)}\n` +
-      `*TOTAL BIAYA: ${formatRupiah(calculation.totalCost)}*${shareInfo}\n\n` +
+      `*TOTAL BIAYA: ${formatRupiah(calculation.totalCost)}*\n\n` +
       `Saya ingin berkonsultasi mengenai detail spesifikasi material dan penjadwalan pembangunan. Mohon informasinya!`;
 
     const encoded = encodeURIComponent(message);
@@ -379,45 +280,7 @@ export const DetailEstimator: React.FC<DetailEstimatorProps> = ({
           <Phone className="w-4 h-4" />
           KONSULTASI WA
         </button>
-        <button
-          onClick={handleSaveAndShare}
-          disabled={isSaving}
-          className="py-3 bg-transparent text-stone-800 hover:bg-stone-50 font-bold border border-stone-300 rounded-lg transition-colors text-xs uppercase tracking-wider cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-50"
-        >
-          <Share2 className="w-4 h-4" />
-          {isSaving ? 'MENYIMPAN...' : 'SHARE LINK'}
-        </button>
       </div>
-
-      {/* Share link and error message */}
-      {saveUrl && (
-        <div className="p-4 border border-stone-200 bg-stone-50/50 rounded-xl font-sans text-xs text-stone-800 space-y-1.5">
-          <span className="block text-[9px] text-stone-500 font-bold uppercase tracking-wider">LINK KALKULASI ANDA</span>
-          <div className="flex gap-2">
-            <input 
-              type="text" 
-              readOnly 
-              value={saveUrl} 
-              className="flex-1 bg-white border border-stone-300 rounded-lg p-2 text-stone-800 text-[11px] focus:outline-none"
-              onClick={(e) => (e.target as HTMLInputElement).select()}
-            />
-            <button 
-              onClick={() => {
-                navigator.clipboard.writeText(saveUrl);
-                alert('Link berhasil disalin ke clipboard!');
-              }}
-              className="px-4 py-2 bg-stone-900 text-stone-100 text-[10px] uppercase font-bold rounded-lg hover:bg-stone-800 transition-colors cursor-pointer"
-            >
-              Salin
-            </button>
-          </div>
-        </div>
-      )}
-      {saveError && (
-        <div className="p-3 border border-red-300 bg-red-50 text-red-700 font-sans text-[11px] uppercase tracking-wider font-semibold rounded-lg">
-          {saveError}
-        </div>
-      )}
     </div>
   );
 

@@ -1,10 +1,22 @@
 ---
 export const prerender = false;
 import '../styles/global.css';
-import { generateToken } from '../utils/auth';
+import { generateToken, verifyToken } from '../utils/auth';
 
 let errorMessage = '';
 const redirectUrl = Astro.url.searchParams.get('redirect') || '/keystatic';
+
+// Action handler for Logout
+const action = Astro.url.searchParams.get('action');
+if (action === 'logout') {
+  Astro.cookies.delete('keystatic-auth', { path: '/' });
+  Astro.cookies.delete('admin-logged-in', { path: '/' });
+  return Astro.redirect('/login-cms');
+}
+
+// Check if user is already logged in
+const sessionCookie = Astro.cookies.get('keystatic-auth')?.value;
+const isLoggedIn = sessionCookie && verifyToken(sessionCookie);
 
 if (Astro.request.method === 'POST') {
   try {
@@ -13,14 +25,14 @@ if (Astro.request.method === 'POST') {
     const password = data.get('password')?.toString();
     
     const envUsername = process.env.ADMIN_USERNAME || 'admin';
-    const envPassword = process.env.ADMIN_PASSWORD || 'creativa2026';
+    const envPassword = process.env.ADMIN_PASSWORD || 'dickojaya2026';
     
     if (username === envUsername && password === envPassword) {
       const timestamp = Date.now();
       const token = generateToken(username, timestamp);
       const cookieValue = `${username}:${timestamp}:${token}`;
       
-      // Set cookie auth
+      // Set secure httpOnly cookie for Keystatic/backend verification
       Astro.cookies.set('keystatic-auth', cookieValue, {
         path: '/',
         httpOnly: true,
@@ -28,8 +40,17 @@ if (Astro.request.method === 'POST') {
         sameSite: 'lax',
         maxAge: 60 * 60 * 24 // 1 hari
       });
+
+      // Set non-httpOnly cookie so client-side scripts can detect admin status
+      Astro.cookies.set('admin-logged-in', 'true', {
+        path: '/',
+        httpOnly: false,
+        secure: true,
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24 // 1 hari
+      });
       
-      return Astro.redirect(redirectUrl);
+      return Astro.redirect('/login-cms');
     } else {
       errorMessage = 'Nama pengguna atau kata sandi tidak valid.';
     }
@@ -43,12 +64,16 @@ if (Astro.request.method === 'POST') {
 <html lang="id">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Dicko Jaya" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     <meta name="robots" content="noindex, nofollow" />
-    <title>CMS Portal Login — Creativa Studio</title>
+    <title>CMS Portal Login — PT. Dicko Jaya Construction</title>
   </head>
   <body class="bg-[var(--bg-secondary)] min-h-screen flex items-center justify-center p-4 selection:bg-black selection:text-white relative overflow-hidden">
     
@@ -83,7 +108,7 @@ if (Astro.request.method === 'POST') {
       </div>
 
       <div class="mb-8">
-        <h1 class="text-2xl font-bold uppercase tracking-tight text-black mb-1">CREATIVA STUDIO</h1>
+        <h1 class="text-xl font-bold uppercase tracking-tight text-black mb-1">PT. DICKO JAYA CONSTRUCTION</h1>
         <p class="text-xs text-[var(--text-secondary)] uppercase tracking-widest">Administrative Panel Gateway</p>
       </div>
 
@@ -94,41 +119,62 @@ if (Astro.request.method === 'POST') {
         </div>
       )}
 
-      <form method="POST" class="space-y-6">
-        <div>
-          <label for="username" class="block text-[11px] font-bold uppercase tracking-wider text-black mb-2">Username</label>
-          <input 
-            type="text" 
-            id="username" 
-            name="username" 
-            required 
-            class="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border-color)] text-sm rounded-none text-black focus:outline-none focus:border-black transition-colors"
-            placeholder="Masukkan username"
-            autocomplete="username"
-          />
+      {isLoggedIn ? (
+        <div class="space-y-4">
+          <div class="p-4 bg-green-50 border border-green-200 text-green-800 text-xs font-mono uppercase mb-6 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-green-600 animate-pulse"></span>
+            <span>Anda terdeteksi aktif sebagai Admin</span>
+          </div>
+          
+          <a href="/keystatic" target="_blank" rel="noopener noreferrer" class="w-full btn-brutal btn-brutal-accent py-4 text-xs font-bold tracking-widest uppercase text-center block">
+            Masuk Ke Dashboard CMS
+          </a>
+          
+          <a href="/admin/upload-media" target="_blank" rel="noopener noreferrer" class="w-full btn-brutal py-4 text-xs font-bold tracking-widest uppercase text-center block bg-black text-white hover:bg-neutral-800 border-black">
+            Portal Media Cloudinary
+          </a>
+          
+          <a href="/login-cms?action=logout" class="w-full btn-brutal py-4 text-xs font-bold tracking-widest uppercase text-center block bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-900 border-red-200">
+            Logout / Keluar
+          </a>
         </div>
+      ) : (
+        <form method="POST" class="space-y-6">
+          <div>
+            <label for="username" class="block text-[11px] font-bold uppercase tracking-wider text-black mb-2">Username</label>
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              required 
+              class="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border-color)] text-sm rounded-none text-black focus:outline-none focus:border-black transition-colors"
+              placeholder="Masukkan username"
+              autocomplete="username"
+            />
+          </div>
 
-        <div>
-          <label for="password" class="block text-[11px] font-bold uppercase tracking-wider text-black mb-2">Password</label>
-          <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            required 
-            class="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border-color)] text-sm rounded-none text-black focus:outline-none focus:border-black transition-colors"
-            placeholder="Masukkan password"
-            autocomplete="current-password"
-          />
-        </div>
+          <div>
+            <label for="password" class="block text-[11px] font-bold uppercase tracking-wider text-black mb-2">Password</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              required 
+              class="w-full px-4 py-3 bg-[var(--bg-secondary)] border border-[var(--border-color)] text-sm rounded-none text-black focus:outline-none focus:border-black transition-colors"
+              placeholder="Masukkan password"
+              autocomplete="current-password"
+            />
+          </div>
 
-        <button type="submit" class="w-full btn-brutal btn-brutal-accent mt-2 py-4 text-xs font-bold tracking-widest uppercase">
-          Masuk Ke CMS
-        </button>
-      </form>
+          <button type="submit" class="w-full btn-brutal btn-brutal-accent mt-2 py-4 text-xs font-bold tracking-widest uppercase">
+            Masuk Ke CMS
+          </button>
+        </form>
+      )}
 
       <!-- Bottom metadata -->
       <div class="mt-8 pt-6 border-t border-[var(--line)] flex justify-between items-center text-[9px] font-mono tracking-widest uppercase opacity-50">
-        <span>© 2026 CREATIVA</span>
+        <span>© 2026 PT. DICKO JAYA CONSTRUCTION</span>
         <span>GATE: 0.00 M</span>
       </div>
     </div>

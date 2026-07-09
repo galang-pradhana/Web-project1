@@ -1,6 +1,6 @@
-# Creativa Studio - Website Kontraktor
+# PT. Dicko Jaya Construction - Website Kontraktor
 
-Website resmi Creativa Studio dibangun menggunakan Astro, React, Tailwind CSS, dan Keystatic CMS.
+Website resmi PT. Dicko Jaya Construction dibangun menggunakan Astro, React, Tailwind CSS, dan Keystatic CMS.
 
 ## 🚀 Perintah Lokal
 

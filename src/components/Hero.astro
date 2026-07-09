@@ -1,28 +1,47 @@
 ---
 // Hero.astro
-// Clean, warm editorial design for Creativa Studio with interactive background transition via project thumbnails
+// Clean, warm editorial design for PT. Dicko Jaya Construction with interactive background transition via project thumbnails
+interface HeroImage {
+  title: string;
+  category: string;
+  imageUrl: string;
+}
+
 interface Props {
   eyebrow?: string;
   title?: string;
   tagline?: string;
+  heroImages?: HeroImage[];
 }
 
+const defaultHeroImages: HeroImage[] = [
+  { title: 'DICKO JAYA HOUSE', category: 'Residential', imageUrl: '/projects/creativa-house.webp' },
+  { title: 'MG ATELIER', category: 'Residential', imageUrl: '/projects/mg-atelier.webp' },
+  { title: 'BRUT OFFICE', category: 'Commercial', imageUrl: '/projects/brut-office.webp' },
+  { title: 'MONOLITH VILLA', category: 'Villa Resort', imageUrl: '/projects/monolith-villa.webp' },
+];
+
 const { 
-  eyebrow = 'CREATIVA STUDIO — KONTRAKTOR & ARSITEKTUR',
+  eyebrow = 'PT. DICKO JAYA CONSTRUCTION — KONTRAKTOR & ARSITEKTUR',
   title = 'STRUKTUR PRESTISIUS,\nARSITEKTUR &\nJASA KONTRAKTOR.',
-  tagline = 'Kami merancang, merencana, dan membangun residensial serta komersial premium — menghadirkan integrasi arsitektur visioner dengan eksekusi kontraktor yang presisi.'
+  tagline = 'Kami merancang, merencana, dan membangun residensial serta komersial premium — menghadirkan integrasi arsitektur visioner dengan eksekusi kontraktor yang presisi.',
+  heroImages = defaultHeroImages
 } = Astro.props;
 
+const images = (heroImages && heroImages.length > 0) ? heroImages : defaultHeroImages;
 const titleLines = title.split('\n');
 ---
 
 <section class="hero">
   <!-- Multi-layer Background for Smooth Parallax & Cross-Fade -->
   <div id="heroBg" class="hero-bg">
-    <div class="bg-layer active" style="background-image: url('/projects/creativa-house.png'); background-position: center 42%;" data-bg-id="0"></div>
-    <div class="bg-layer" style="background-image: url('/projects/mg-atelier.png'); background-position: center;" data-bg-id="1"></div>
-    <div class="bg-layer" style="background-image: url('/projects/brut-office.png'); background-position: center;" data-bg-id="2"></div>
-    <div class="bg-layer" style="background-image: url('/projects/monolith-villa.png'); background-position: center;" data-bg-id="3"></div>
+    {images.map((img, idx) => (
+      <div 
+        class={`bg-layer ${idx === 0 ? 'active' : ''}`} 
+        style={`background-image: url('${img.imageUrl}'); background-position: center ${idx === 0 ? '42%' : 'center'};`}
+        data-bg-id={idx}
+      ></div>
+    ))}
   </div>
   <div class="hero-scrim"></div>
 
@@ -75,48 +94,30 @@ const titleLines = title.split('\n');
   <div class="hero-thumbnails-container">
     <div class="thumbnails-header">PROYEK PILIHAN / <em>CONCEPT SHOWCASE</em></div>
     <div class="hero-thumbnails">
-      <button class="thumb-btn" data-slot-idx="0" data-project-id="1">
-        <div class="thumb-img-wrapper">
-          <img class="thumb-img" src="/projects/mg-atelier.png" alt="MG Atelier" />
-        </div>
-        <div class="thumb-info">
-          <span class="thumb-title">MG ATELIER</span>
-          <span class="thumb-category">Residential</span>
-        </div>
-      </button>
-
-      <button class="thumb-btn" data-slot-idx="1" data-project-id="2">
-        <div class="thumb-img-wrapper">
-          <img class="thumb-img" src="/projects/brut-office.png" alt="Brut Office" />
-        </div>
-        <div class="thumb-info">
-          <span class="thumb-title">BRUT OFFICE</span>
-          <span class="thumb-category">Commercial</span>
-        </div>
-      </button>
-
-      <button class="thumb-btn" data-slot-idx="2" data-project-id="3">
-        <div class="thumb-img-wrapper">
-          <img class="thumb-img" src="/projects/monolith-villa.png" alt="Monolith Villa" />
-        </div>
-        <div class="thumb-info">
-          <span class="thumb-title">MONOLITH VILLA</span>
-          <span class="thumb-category">Villa Resort</span>
-        </div>
-      </button>
+      {images.slice(1).map((img, idx) => (
+        <button class="thumb-btn" data-slot-idx={idx} data-project-id={idx + 1}>
+          <div class="thumb-img-wrapper">
+            <img class="thumb-img" src={img.imageUrl} alt={img.title} loading="lazy" />
+          </div>
+          <div class="thumb-info">
+            <span class="thumb-title">{img.title}</span>
+            <span class="thumb-category">{img.category}</span>
+          </div>
+        </button>
+      ))}
     </div>
     <div class="thumbnails-footer">Klik thumbnail untuk merotasi latar belakang utama.</div>
   </div>
 
   <div class="marquee-wrap" aria-hidden="true">
     <div class="marquee">
-      <span>Creativa Studio</span>
+      <span>PT. Dicko Jaya Construction</span>
       <span>Desain Arsitektur</span>
       <span>Pembangunan Konstruksi</span>
       <span>Residensial Premium</span>
       <span>Manajemen Proyek</span>
       <span>Tata Ruang Modern</span>
-      <span>Creativa Studio</span>
+      <span>PT. Dicko Jaya Construction</span>
       <span>Desain Arsitektur</span>
       <span>Pembangunan Konstruksi</span>
       <span>Residensial Premium</span>
@@ -491,27 +492,27 @@ const titleLines = title.split('\n');
   const projects = [
     {
       id: 0,
-      title: "CREATIVA HOUSE",
+      title: "DICKO JAYA HOUSE",
       category: "Residential",
-      img: "/projects/creativa-house.png"
+      img: "/projects/creativa-house.webp"
     },
     {
       id: 1,
       title: "MG ATELIER",
       category: "Residential",
-      img: "/projects/mg-atelier.png"
+      img: "/projects/mg-atelier.webp"
     },
     {
       id: 2,
       title: "BRUT OFFICE",
       category: "Commercial",
-      img: "/projects/brut-office.png"
+      img: "/projects/brut-office.webp"
     },
     {
       id: 3,
       title: "MONOLITH VILLA",
       category: "Villa Resort",
-      img: "/projects/monolith-villa.png"
+      img: "/projects/monolith-villa.webp"
     }
   ];
 

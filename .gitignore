@@ -23,3 +23,31 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Local portfolio media assets
+public/projects/
+
+# Client portfolio content (data sensitif klien — jangan di-push)
+src/content/projects/
+
+# Local assets folder (file klien & aset offline)
+assets/
+
+# Scratch / temporary files
+scratch/
+
+# Favicon files yang tidak perlu di-track
+"public/favicon (3).zip"
+"public/favicon (3)/"
+
+# Docs / planning files (internal, bukan untuk production)
+docs/plans/
+
+# CMS media portal config (lokal)
+src/content/mediaPortal.json
+
+# Archived projects (cadangan lokal)
+src/content/projects_archive/
+
+# Admin page (akses lokal/private)
+src/pages/admin/

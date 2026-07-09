@@ -19,16 +19,16 @@ const reader = createReader(process.cwd(), keystaticConfig);
 // Load data from Keystatic CMS
 const rawSiteSettings = await reader.singletons.siteSettings.read();
 const siteSettings = rawSiteSettings || {
-  brandName: 'Creativa Studio',
-  description: 'Jasa kontraktor & arsitektur profesional spesialis kayu premium.',
-  whatsapp: '628123456789',
-  email: 'info@creativastudio.com',
-  address: 'Jl. Kayu Manis No. 88, Jakarta Selatan'
+  brandName: 'PT. Dicko Jaya Construction',
+  description: 'Jasa kontraktor & arsitektur profesional spesialis pembangunan & renovasi.',
+  whatsapp: '6281511536230',
+  email: 'info@djckontraktor.com',
+  address: 'Kp. Baru RT 010 / RW 003, Kel. Kosambi Dalam, Kec. Mekar Baru, Tangerang - Banten'
 };
 
 const rawHomePage = await reader.singletons.homePage.read();
 const homePage = rawHomePage || {
-  heroEyebrow: 'CREATIVA STUDIO — KONTRAKTOR & ARSITEKTUR',
+  heroEyebrow: 'PT. DICKO JAYA CONSTRUCTION — JASA KONTRAKTOR & ARSITEKTUR',
   heroTitle: 'STRUKTUR PRESTISIUS,\nARSITEKTUR &\nJASA KONTRAKTOR.',
   heroTagline: 'Kami merancang, merencana, dan membangun residensial serta komersial premium — menghadirkan integrasi arsitektur visioner dengan eksekusi kontraktor yang presisi.',
   philosophySubtitle: 'FILOSOFI KAMI',
@@ -63,14 +63,19 @@ const iconMap = {
 };
 ---
 
-<BaseLayout title={`${siteSettings.brandName} — Jasa Kontraktor & Arsitektur Premium`} heroFullBleed={true}>
+<BaseLayout 
+  title={`${siteSettings.brandName} — Jasa Kontraktor & Arsitektur Premium`} 
+  description={siteSettings.description}
+  heroFullBleed={true}
+>
   
   <!-- Hero: STICKY so it stays fixed while content section slides over it -->
   <div class="sticky-hero" style="position:sticky; top:0; z-index:10; height:100vh;">
     <Hero 
       eyebrow={homePage.heroEyebrow} 
       title={homePage.heroTitle} 
-      tagline={homePage.heroTagline} 
+      tagline={homePage.heroTagline}
+      heroImages={homePage.heroImages || []}
     />
   </div>  <!-- Scroll Overlay Section: slides OVER the sticky hero as user scrolls. -->
   <div class="scroll-overlay-section relative z-20 shadow-[0_-15px_30px_rgba(28,25,23,0.08)]" style="background:var(--bg-primary); border-top:1px solid rgba(68,64,60,0.15); margin-top:-1px; padding-top:120px; padding-bottom:120px;">
@@ -155,7 +160,7 @@ const iconMap = {
                   <!-- Pojok Kiri Atas: Logo Stempel Lilin Cetak Timbul (Embossed Logo) -->
                   <div class="absolute top-8 left-8 md:top-12 md:left-12 flex items-center justify-center">
                     <div class="w-14 h-14 rounded-full flex items-center justify-center bg-[#eae7e1] shadow-[inset_2px_2px_5px_rgba(0,0,0,0.04),_inset_-2px_-2px_5px_rgba(255,255,255,0.65),_1.5px_1.5px_4px_rgba(0,0,0,0.04),_-1.5px_-1.5px_4px_rgba(255,255,255,0.65)] border border-stone-300/20">
-                      <span class="font-serif text-[10px] tracking-[0.2em] font-light text-stone-500/80 uppercase select-none">CS</span>
+                      <span class="font-serif text-[10px] tracking-[0.2em] font-light text-stone-500/80 uppercase select-none">DJC</span>
                     </div>
                   </div>
 
@@ -229,7 +234,7 @@ const iconMap = {
           <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block">FAQS</span>
           <h2 class="font-serif text-3xl sm:text-4xl font-normal text-text-primary uppercase leading-tight">PERTANYAAN<br/>UMUM</h2>
           <p class="font-sans text-xs text-text-secondary leading-relaxed max-w-sm">
-            Temukan jawaban dari pertanyaan yang sering diajukan mengenai proses kerja, garansi, estimasi biaya, dan layanan arsitektur/konstruksi Creativa Studio.
+            Temukan jawaban dari pertanyaan yang sering diajukan mengenai proses kerja, garansi, estimasi biaya, dan layanan arsitektur/konstruksi PT. Dicko Jaya Construction.
           </p>
         </div>
 
@@ -252,6 +257,9 @@ const iconMap = {
       </section>
 
     </div>
+
+    <!-- Spacer to give FAQ section breathing room before the CTA section -->
+    <div class="h-28 md:h-40"></div>
 
     <!-- CTA Section: Hanya tampil di halaman utama -->
     <ContactCTA />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 // Simple helper to format currency
 const formatPDFRupiah = (value: number) => {
@@ -201,7 +201,7 @@ export const RABPdfDocument: React.FC<RABPdfDocumentProps> = ({
         
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>Creativa Studio — Rencana Anggaran Biaya (RAB)</Text>
+          <Text style={styles.title}>PT. Dicko Jaya Construction — Rencana Anggaran Biaya (RAB)</Text>
           <Text style={styles.subtitle}>Dokumen Estimasi Anggaran Pembangunan Konstruksi Standar AHSP SNI</Text>
         </View>
 
@@ -331,7 +331,7 @@ export const RABPdfDocument: React.FC<RABPdfDocumentProps> = ({
             Catatan: Hasil estimasi biaya (RAB) ini bersifat perkiraan kasar berdasarkan harga material dan upah harian standar nasional yang terdaftar pada sistem kami. Biaya sebenarnya dapat bervariasi bergantung pada spesifikasi teknis akhir, kondisi tanah lapangan, dan fluktuasi harga pasar riil.
           </Text>
           <Text style={{ marginTop: 4 }}>
-            Creativa Studio • Jl. Kayu Putih Raya No. 12, Kebayoran Baru, Jakarta Selatan
+            PT. Dicko Jaya Construction • Kp. Baru RT 010 / RW 003, Kel. Kosambi Dalam, Kec. Mekar Baru, Tangerang - Banten
           </Text>
         </View>
 

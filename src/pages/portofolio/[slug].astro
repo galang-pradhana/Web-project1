@@ -15,11 +15,138 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { slug } = Astro.params;
+
+const getGalleryCaption = (slug: string, idx: number, fallback: string) => {
+  if (slug === 'bogor-barat-kontemporer') {
+    const captions = [
+      "Fasad eksterior kontemporer menonjolkan kombinasi batu alam, kaca, dan aksen kayu hangat.",
+      "Ruang keluarga berkonsep open-plan terintegrasi langsung dengan taman samping.",
+      "Kamar tidur utama dengan bukaan jendela besar memaksimalkan pencahayaan alami.",
+      "Detail pengerjaan struktur kolom eksterior beton ekspos yang presisi.",
+      "Pemasangan dinding bata ringan pada pengerjaan konstruksi tahap akhir."
+    ];
+    return captions[idx] || fallback;
+  }
+  if (slug === 'cengkareng-minimalis') {
+    const captions = [
+      "Fasad modern dengan garis desain tegas dan perpaduan tekstur dinding plaster halus serta aksen metal gelap.",
+      "Optimalisasi sirkulasi udara dengan void tinggi dan penempatan jendela yang presisi.",
+      "Area komunal berkonsep open-space yang memaksimalkan setiap meter persegi area hunian.",
+      "Penerapan elemen fungsional minimalis pada kabinet terintegrasi di area dapur.",
+      "Detail presisi pengerjaan sudut ruangan (zero-radius alignment) pada dinding interior."
+    ];
+    return captions[idx] || fallback;
+  }
+  if (slug === 'jaya-imperial-sepatan') {
+    const captions = [
+      "Fasad eksterior modern minimalis yang memanfaatkan lebar lahan dengan bukaan kaca lebar.",
+      "Ambience ruang keluarga dengan pencahayaan interior alami yang hangat.",
+      "Detail ornamen fasad depan serta finishing cat eksterior anti-cuaca yang halus.",
+      "Pemandangan sudut atas fasad rumah menyoroti permainan bidang geometris yang dinamis."
+    ];
+    return captions[idx] || fallback;
+  }
+  if (slug === 'pamulang-minimalis') {
+    const captions = [
+      "Fasad utama minimalis modern bernuansa monokromatik dengan sentuhan semen ekspos.",
+      "Void ruang keluarga tinggi yang memberikan sirkulasi udara alami dan efek lapang.",
+      "Bukaan jendela kaca besar meminimalkan penggunaan lampu buatan di siang hari.",
+      "Desain tangga gantung minimalis dengan railing baja hitam yang rapi.",
+      "Tata cahaya lampu malam (warm white) menyoroti tekstur dinding semen ekspos.",
+      "Penerapan presisi zero-radius alignment pada sambungan lantai granit tile utama.",
+      "Proses pemasangan rangka baja atap pelana tahan gempa.",
+      "Detail pengerjaan instalasi pipa air kotor dan bersih tersembunyi.",
+      "Plesteran halus dinding luar dengan perlindungan ganda waterproof.",
+      "Finishing lantai keramik carport dengan batu sikat alam tahan beban.",
+      "Pemasangan instalasi listrik interior terencana rapi sebelum plesteran akhir."
+    ];
+    return captions[idx] || fallback;
+  }
+  if (slug === 'rajeg-skandinavian') {
+    const captions = [
+      "Desain fasad Skandinavian dengan atap pelana tinggi (gabled roof) dan aksen kayu.",
+      "Visualisasi detail material kayu tahan cuaca pada bagian langit-langit teras depan.",
+      "Efisiensi layout interior ruang tamu bersatu dengan ruang makan (open layout).",
+      "Desain kamar mandi minimalis bernuansa bersih dengan keramik subway tile putih.",
+      "Proses pemasangan bata merah presisi pada dinding utama lantai satu.",
+      "Pengerjaan struktur beton bertulang untuk kolom dan balok utama.",
+      "Struktur atap pelana baja ringan tinggi sebelum pemasangan genteng.",
+      "Plester dinding luar yang kokoh dengan campuran pasir silika terpilih.",
+      "Instalasi jalur kelistrikan utama rumah yang tertata rapi di dalam dinding.",
+      "Finishing cat eksterior warna putih abu-abu Skandinavian yang elegan.",
+      "Pemasangan kusen jendela aluminium powder coating hitam anti-rayap.",
+      "Pengerjaan lantai semen ekspos area carport tahan cuaca ekstrem.",
+      "Detail presisi sambungan ubin keramik kamar mandi dengan deviasi minimal.",
+      "Penyelesaian saluran air kotor eksterior terintegrasi dengan got lingkungan.",
+      "Proses finishing akhir dan pembersihan sisa material konstruksi (handover ready)."
+    ];
+    return captions[idx] || fallback;
+  }
+  if (slug === 'pasar-kemis-industrial') {
+    const captions = [
+      "Fasad Industrial Modern menonjolkan ekspos material mentah semen dan baja hitam.",
+      "Penerapan dinding plester semen ekspos bertekstur halus di ruang keluarga.",
+      "Detail pagar depan dari besi hollow hitam dan kombinasi expanded metal.",
+      "Konsep pencahayaan hangat (warm light) memperkuat karakter maskulin bangunan."
+    ];
+    return captions[idx] || fallback;
+  }
+  return fallback;
+};
+
+const getVideoCaption = (slug: string, idx: number, fallback: string) => {
+  if (slug === 'bogor-barat-kontemporer') {
+    const captions = [
+      "Sinematik Fasad Utama: Transisi pencahayaan dramatis dari siang menuju malam.",
+      "Sirkulasi Udara & Cahaya: Aliran udara melintasi void tengah bangunan.",
+      "Uji Kekuatan Beton: Proses inspeksi mutu cor beton lantai mezanin.",
+      "Perspektif Udara (Drone): Penataan hunian dalam lingkungan Bogor Barat."
+    ];
+    return captions[idx] || fallback;
+  }
+  if (slug === 'cengkareng-minimalis') {
+    const captions = [
+      "Estetika Fasad Minimalis: Pencahayaan sore hari yang menyoroti kesederhanaan bentuk bangunan.",
+      "Ambience & Pencahayaan Alami: Eksplorasi bayangan dan cahaya pada ruang utama sepanjang hari."
+    ];
+    return captions[idx] || fallback;
+  }
+  if (slug === 'jaya-imperial-sepatan') {
+    const captions = [
+      "Tur Animasi 3D Eksterior & Interior: Eksplorasi konsep tata ruang secara menyeluruh.",
+      "Dokumentasi Real-Time Fasad: Hasil akhir penyelesaian konstruksi fisik di lapangan."
+    ];
+    return captions[idx] || fallback;
+  }
+  if (slug === 'pamulang-minimalis') {
+    const captions = [
+      "Ambience sore hari menyoroti perpaduan kaca dan beton ekspos fasad.",
+      "Uji coba fungsionalitas pintu geser kaca lebar di ruang utama.",
+      "Inspeksi kekuatan struktur atap dan saluran air pembuangan atas.",
+      "Kunjungan lapangan bersama klien memverifikasi hasil finishing dinding interior."
+    ];
+    return captions[idx] || fallback;
+  }
+  if (slug === 'rajeg-skandinavian') {
+    const captions = [
+      "Desain Fasad Skandinavian: Perspektif 3D transisi atap pelana tinggi yang anggun.",
+      "Dokumentasi Fisik Konstruksi: Pemantauan langsung kekuatan struktur utama rumah."
+    ];
+    return captions[idx] || fallback;
+  }
+  if (slug === 'pasar-kemis-industrial') {
+    const captions = [
+      "Estetika Industrial Sore Hari: Sorot lampu interior berpadu dengan keindahan dinding semen ekspos."
+    ];
+    return captions[idx] || fallback;
+  }
+  return fallback;
+};
 ---
 
-<BaseLayout title={`${project.title} — Creativa Studio`} hideFooter={true}>
+<BaseLayout title={`${project.title} — PT. Dicko Jaya Construction`} hideFooter={true}>
   
-  <div class="py-24 px-[6vw] max-w-7xl mx-auto space-y-16 text-text-primary relative">
+  <div class="py-24 px-[6vw] max-w-7xl mx-auto space-y-20 text-text-primary relative">
     
     {/* Back Button */}
     <div>
@@ -28,7 +155,7 @@ const { slug } = Astro.params;
       </a>
     </div>
 
-    {/* Hero Section / Title & Header */}
+    {/* Hero Header Section */}
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end border-b border-stone-200 pb-12">
       <div class="lg:col-span-8 space-y-4">
         <div class="flex items-center gap-3">
@@ -48,7 +175,7 @@ const { slug } = Astro.params;
       </div>
     </div>
 
-    {/* Cover Image with elegant framing */}
+    {/* 1. Full-Width Hero Cover Image/Video */}
     <div class="border border-stone-200/80 bg-[#FAF9F6] p-4 relative shadow-sm">
       <div class="aspect-video w-full overflow-hidden bg-stone-100 relative">
         <img 
@@ -56,113 +183,128 @@ const { slug } = Astro.params;
           alt={project.title}
           class="w-full h-full object-cover filter sepia-[0.1] brightness-[0.98]"
         />
+        {project.coverVideo && (
+          <video
+            data-src={project.coverVideo}
+            class="lazy-portfolio-video absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 pointer-events-none"
+            muted
+            loop
+            playsinline
+            preload="none"
+          />
+        )}
         <div class="absolute inset-0 bg-stone-900/5 pointer-events-none"></div>
       </div>
-      <div class="mt-3 font-sans text-[10px] text-stone-450 tracking-wider text-right italic">
-        Cover: Dokumentasi Penyelesaian Konstruksi {project.title}
+      <div class="mt-3 flex justify-between font-sans text-[10px] text-stone-400 tracking-wider">
+        <span>COVER: PRESENTASI VISUAL KARYA</span>
+        <span class="italic">Dokumentasi Penyelesaian Konstruksi {project.title}</span>
       </div>
     </div>
 
-    {/* Content Breakdown */}
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 pt-6">
+    {/* 2. Middle Section (Grid 2 Kolom: Konten Kiri vs Sidebar Kanan) */}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start pt-6">
       
-      {/* Description & Testimonial */}
-      <div class="lg:col-span-8 space-y-16">
+      {/* Kolom Kiri: Deskripsi & Testimonial */}
+      <div class="lg:col-span-7 space-y-12">
         
+        {/* Concept & Description */}
         <div class="space-y-6">
-          <h2 class="font-serif text-2xl font-light text-stone-900 pb-3 border-b border-stone-200">
-            Konsep & Esensi Desain
+          <h2 class="font-sans text-[10px] text-stone-450 tracking-[0.25em] uppercase font-bold border-b border-stone-200 pb-3">
+            01 // KONSEP & ESENSI DESAIN
           </h2>
-          <p class="font-sans text-stone-600 text-[14px] sm:text-base leading-relaxed font-light whitespace-pre-line">
+          <p class="font-sans text-stone-600 text-[14px] sm:text-base leading-relaxed font-light whitespace-pre-line text-justify">
             {project.description}
           </p>
         </div>
 
-        {/* Testimonial Box with editorial styling (Drop Cap) */}
+        {/* Testimonial Box */}
         {project.testimonialContent && (
-          <div class="border border-stone-200/80 bg-[#FAF9F6] p-10 relative overflow-hidden">
-            <Quote class="w-16 h-16 text-accent/10 absolute -top-2 -right-2 transform rotate-12" />
-            <p class="font-serif italic text-base sm:text-lg text-stone-800 leading-relaxed mb-6 relative z-10 first-letter:font-serif first-letter:text-5xl first-letter:font-normal first-letter:float-left first-letter:mr-3 first-letter:text-accent first-letter:leading-none">
-              "{project.testimonialContent}"
-            </p>
-            <div class="flex items-center gap-3 font-sans text-[10px] font-semibold text-accent uppercase tracking-widest relative z-10">
-              <span class="w-6 h-[1px] bg-accent/60"></span>
-              <span>{project.testimonialAuthor || 'Klien Kami'}</span>
+          <div class="space-y-6">
+            <h2 class="font-sans text-[10px] text-stone-450 tracking-[0.25em] uppercase font-bold border-b border-stone-200 pb-3">
+              02 // PENGALAMAN MITRA
+            </h2>
+            <div class="border border-stone-200/80 bg-[#FAF9F6] p-8 relative overflow-hidden shadow-sm">
+              <Quote class="w-12 h-12 text-accent/5 absolute -top-2 -right-2 transform rotate-12" />
+              <p class="font-serif italic text-sm sm:text-base text-stone-850 leading-relaxed mb-4 relative z-10 first-letter:font-serif first-letter:text-4xl first-letter:font-normal first-letter:float-left first-letter:mr-2.5 first-letter:text-accent first-letter:leading-none">
+                "{project.testimonialContent}"
+              </p>
+              <div class="flex items-center gap-2.5 font-sans text-[9px] font-semibold text-accent uppercase tracking-widest relative z-10">
+                <span class="w-4 h-[1px] bg-accent/60"></span>
+                <span>{project.testimonialAuthor || 'Klien Kami'}</span>
+              </div>
             </div>
           </div>
         )}
 
       </div>
 
-      {/* Sidebar Metadata */}
-      <div class="lg:col-span-4 space-y-8">
-        <div class="border border-stone-200/85 p-8 bg-[#FAF9F6] relative shadow-sm space-y-8">
-          
-          {/* Integration Badge/Stamp (Differentiation Anchor) */}
-          <div class="flex items-center gap-4 border-b border-stone-200 pb-6">
-            <div class="relative w-14 h-14 rounded-full border border-stone-300 bg-[#FAF9F6] flex items-center justify-center shrink-0 shadow-[inset_1px_1px_2px_rgba(255,255,255,0.8),_inset_-1px_-1px_2px_rgba(0,0,0,0.05),_2px_2px_5px_rgba(0,0,0,0.03)]">
-              <span class="font-serif text-[13px] font-normal tracking-widest text-stone-650">CS</span>
-              <div class="absolute inset-1 rounded-full border border-dashed border-stone-300 animate-[spin_30s_linear_infinite]"></div>
-            </div>
-            <div>
-              <h3 class="font-serif text-lg font-light text-stone-900 leading-none">Spesifikasi Karya</h3>
-              <span class="font-sans text-[9px] text-stone-400 tracking-widest uppercase">Verified Construction</span>
-            </div>
-          </div>
-          
-          <div class="space-y-4 font-sans text-xs">
-            <div class="flex justify-between py-2.5 border-b border-stone-200/60">
+      {/* Kolom Kanan: Spesifikasi & CTA (Sticky) */}
+      <div class="lg:col-span-5 space-y-8 sticky top-24">
+        
+        {/* Specifications Table */}
+        <div class="space-y-6">
+          <h2 class="font-sans text-[10px] text-stone-450 tracking-[0.25em] uppercase font-bold border-b border-stone-200 pb-3">
+            {project.testimonialContent ? "03" : "02"} // SPESIFIKASI TEKNIS
+          </h2>
+          <div class="border border-stone-200/80 bg-[#FAF9F6] p-6 shadow-sm space-y-4 font-sans text-xs">
+            <div class="flex justify-between py-2 border-b border-stone-200/60">
               <span class="text-stone-500 flex items-center gap-2 tracking-wider">
-                <User class="w-4 h-4 text-accent/80" /> KLIEN
+                <User class="w-3.5 h-3.5 text-accent/80" /> KLIEN
               </span>
-              <span class="font-medium text-stone-950">{project.client}</span>
+              <span class="font-medium text-stone-900">{project.client}</span>
             </div>
             
-            <div class="flex justify-between py-2.5 border-b border-stone-200/60">
+            <div class="flex justify-between py-2 border-b border-stone-200/60">
               <span class="text-stone-500 flex items-center gap-2 tracking-wider">
-                <MapPin class="w-4 h-4 text-accent/80" /> LOKASI
+                <MapPin class="w-3.5 h-3.5 text-accent/80" /> LOKASI
               </span>
-              <span class="font-medium text-stone-950">{project.location}</span>
+              <span class="font-medium text-stone-900">{project.location}</span>
             </div>
 
-            <div class="flex justify-between py-2.5 border-b border-stone-200/60">
+            <div class="flex justify-between py-2 border-b border-stone-200/60">
               <span class="text-stone-500 flex items-center gap-2 tracking-wider">
-                <Ruler class="w-4 h-4 text-accent/80" /> LUAS AREA
+                <Ruler class="w-3.5 h-3.5 text-accent/80" /> LUAS AREA
               </span>
-              <span class="font-medium text-stone-950">{project.area} m²</span>
+              <span class="font-medium text-stone-900">{project.area} m²</span>
             </div>
 
-            <div class="flex justify-between py-2.5 border-b border-stone-200/60">
+            <div class="flex justify-between py-2 border-b border-stone-200/60">
               <span class="text-stone-500 flex items-center gap-2 tracking-wider">
-                <Layers class="w-4 h-4 text-accent/80" /> ESTIMASI BUDGET
+                <Layers class="w-3.5 h-3.5 text-accent/80" /> ESTIMASI BUDGET
               </span>
               <span class="font-medium text-accent">{project.budgetRange}</span>
             </div>
 
-            <div class="flex justify-between py-2.5">
+            <div class="flex justify-between py-2">
               <span class="text-stone-500 flex items-center gap-2 tracking-wider">
-                <CalendarDays class="w-4 h-4 text-accent/80" /> TAHUN SELESAI
+                <CalendarDays class="w-3.5 h-3.5 text-accent/80" /> TAHUN SELESAI
               </span>
-              <span class="font-medium text-stone-950">{project.year}</span>
+              <span class="font-medium text-stone-900">{project.year}</span>
             </div>
           </div>
         </div>
 
         {/* Quick CTA to Estimator */}
-        <div class="border border-stone-200/85 p-8 bg-[#FAF9F6] text-center space-y-5 shadow-sm">
-          <h4 class="font-serif text-lg font-light text-stone-900">Ingin Membangun Proyek Serupa?</h4>
-          <p class="font-sans text-xs text-stone-500 leading-relaxed font-light">
-            Estimasikan anggaran pembangunan hunian impian, renovasi komersial, atau proyek arsitektur Anda secara instan menggunakan kalkulator RAB kami.
+        <div class="border border-stone-200/80 p-6 bg-[#FAF9F6] text-center space-y-4 shadow-sm">
+          <div class="font-sans text-[10px] text-stone-450 tracking-[0.25em] uppercase font-bold text-left border-b border-stone-200/60 pb-2 mb-2">
+            {project.testimonialContent ? "04" : "03"} // LAYANAN & ESTIMASI
+          </div>
+          <h4 class="font-serif text-base font-light text-stone-900">Mulai Bangun Proyek Anda</h4>
+          <p class="font-sans text-[11px] text-stone-500 leading-relaxed font-light">
+            Hitung perkiraan Rencana Anggaran Biaya (RAB) pembangunan atau renovasi hunian impian Anda sekarang.
           </p>
-          <a href="/#estimator" class="w-full py-3.5 bg-stone-900 text-stone-100 hover:bg-accent hover:text-stone-100 transition-colors duration-300 font-sans text-[11px] tracking-widest uppercase block font-medium">
-            MULAI ESTIMASI BIAYA
+          <a href="/#estimator" class="w-full py-3 bg-stone-900 text-stone-100 hover:bg-accent hover:text-stone-100 transition-colors duration-300 font-sans text-[10px] tracking-widest uppercase block font-medium">
+            HITUNG ESTIMASI RAB
           </a>
         </div>
+
       </div>
 
     </div>
 
-    {/* Photo Gallery Grid - Asymmetric Art Gallery Collage */}
+    {/* 3. Bottom Section (3-Column Galleries) */}
+    
+    {/* Photo Gallery Grid */}
     {project.gallery && project.gallery.length > 0 && (
       <div class="space-y-10 pt-16 border-t border-stone-200">
         <div class="flex justify-between items-baseline pb-4 border-b border-stone-200">
@@ -174,16 +316,10 @@ const { slug } = Astro.params;
           </span>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          {project.gallery.map((img: string, idx: number) => {
-            const mod = idx % 4;
-            const spanClass = mod === 0 ? "md:col-span-2 aspect-[16/9]" : 
-                              mod === 1 ? "md:col-span-1 aspect-[3/4]" : 
-                              mod === 2 ? "md:col-span-1 aspect-square" : 
-                                          "md:col-span-2 aspect-[16/10]";
-            
-            return (
-              <div class={`border border-stone-200/80 p-3 bg-[#FAF9F6] shadow-sm group hover:border-stone-900/40 transition-colors duration-500 ${spanClass}`}>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {project.gallery.map((img: string, idx: number) => (
+            <div class="space-y-3">
+              <div class="border border-stone-200/80 p-2 bg-[#FAF9F6] shadow-sm group hover:border-stone-900/40 transition-colors duration-500 w-full aspect-[3/2]">
                 <div class="w-full h-full overflow-hidden bg-stone-100 relative">
                   <img 
                     src={img} 
@@ -192,17 +328,181 @@ const { slug } = Astro.params;
                     loading="lazy"
                   />
                   <div class="absolute inset-0 bg-stone-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-550 pointer-events-none"></div>
-                  <span class="absolute bottom-3 right-3 bg-stone-950/80 text-stone-100 font-sans text-[8px] font-medium tracking-widest px-2 py-0.5 uppercase">
+                  <span class="absolute bottom-3 right-3 bg-stone-950/80 text-stone-100 font-sans text-[8px] font-medium tracking-widest px-2 py-0.5 uppercase z-10">
                     DETAIL {String(idx + 1).padStart(2, '0')}
                   </span>
                 </div>
               </div>
-            );
-          })}
+              <p class="font-sans text-[11px] text-stone-500 leading-relaxed tracking-wide italic">
+                {getGalleryCaption(slug, idx, `Detail dokumentasi ${idx + 1}`)}
+              </p>
+            </div>
+          ))}
+
+          {/* Conditional Editorial Material Spec Block for Symmetrical 3x2 Grid */}
+          {slug === 'bogor-barat-kontemporer' && (
+            <div class="space-y-3">
+              <div class="border border-stone-200/80 p-6 bg-[#FAF9F6] shadow-sm flex flex-col justify-between aspect-[3/2] text-left">
+                <div class="space-y-4">
+                  <span class="font-sans text-[9px] text-accent tracking-[0.2em] font-semibold uppercase">Materialitas & Tekstur</span>
+                  <p class="font-serif text-xs font-light text-stone-700 leading-relaxed">
+                    Kombinasi material lokal terpilih seperti batu candi hitam, kayu meranti kering oven, dan cat semen ekspos bertekstur memberikan impresi alami yang jujur.
+                  </p>
+                </div>
+                <div class="border-t border-stone-200 pt-4 flex justify-between font-sans text-[8px] text-stone-400 tracking-wider uppercase">
+                  <span>Verified Materials</span>
+                  <span>06 // SPEC</span>
+                </div>
+              </div>
+              <p class="font-sans text-[11px] text-stone-500 leading-relaxed tracking-wide italic">
+                Kurasi material eksterior dan interior proyek.
+              </p>
+            </div>
+          )}
         </div>
+      </div>
+    )}
+
+    {/* Video Gallery Grid */}
+    {project.videoGallery && project.videoGallery.length > 0 && (
+      <div class="space-y-10 pt-16 border-t border-stone-200">
+        <div class="flex justify-between items-baseline pb-4 border-b border-stone-200">
+          <h2 class="font-serif text-2xl lg:text-3xl font-light text-stone-900">
+            Dokumentasi Video Proyek
+          </h2>
+          <span class="font-sans text-[10px] text-stone-400 tracking-widest uppercase">
+            {project.videoGallery.length} DOKUMENTASI VIDEO
+          </span>
+        </div>
+        
+        {(() => {
+          let gridClass = "grid-cols-1 md:grid-cols-3";
+          if (project.videoGallery.length === 1) {
+            gridClass = "grid-cols-1 max-w-3xl mx-auto";
+          } else if (project.videoGallery.length === 2) {
+            gridClass = "grid-cols-1 md:grid-cols-2 max-w-5xl mx-auto";
+          }
+          return (
+            <div class={`grid gap-8 ${gridClass}`}>
+              {project.videoGallery.map((videoUrl: string, idx: number) => {
+                const isTotalFour = project.videoGallery.length === 4;
+                const spanClass = (isTotalFour && idx === 0)
+                  ? "md:col-span-3 aspect-video"
+                  : "aspect-video";
+                return (
+                  <div class={`space-y-3 ${spanClass}`}>
+                    <div class="border border-stone-200/80 p-2 bg-[#FAF9F6] shadow-sm group hover:border-stone-900/40 transition-colors duration-500 w-full h-full">
+                      <div class="w-full h-full overflow-hidden bg-stone-100 relative">
+                        <video
+                          data-src={videoUrl}
+                          class="lazy-portfolio-video w-full h-full object-cover opacity-0 transition-opacity duration-700"
+                          controls
+                          muted
+                          loop
+                          playsinline
+                          preload="none"
+                        />
+                        <div class="play-overlay absolute inset-0 bg-stone-900/10 flex items-center justify-center transition-all duration-300 cursor-pointer">
+                          <span class="w-12 h-12 rounded-full border border-stone-100 flex items-center justify-center text-stone-100 bg-stone-900/30 backdrop-blur-sm transform group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </span>
+                        </div>
+                        <span class="absolute bottom-3 right-3 bg-stone-950/80 text-stone-100 font-sans text-[8px] font-medium tracking-widest px-2 py-0.5 uppercase z-10">
+                          VIDEO {String(idx + 1).padStart(2, '0')}
+                        </span>
+                      </div>
+                    </div>
+                    <p class="font-sans text-[11px] text-stone-500 leading-relaxed tracking-wide italic">
+                      {getVideoCaption(slug, idx, `Dokumentasi video ${idx + 1}`)}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })()}
       </div>
     )}
 
   </div>
 
 </BaseLayout>
+
+<script>
+  if ('IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target as HTMLVideoElement;
+        const isAmbient = !video.hasAttribute('controls');
+
+        if (entry.isIntersecting) {
+          if (!video.src && video.dataset.src) {
+            video.src = video.dataset.src;
+            video.load();
+          }
+          
+          if (isAmbient) {
+            video.play()
+              .then(() => {
+                video.style.opacity = '1';
+              })
+              .catch(() => {});
+          } else {
+            video.addEventListener('loadeddata', () => {
+              video.style.opacity = '1';
+            }, { once: true });
+            if (video.readyState >= 2) {
+              video.style.opacity = '1';
+            }
+          }
+        } else {
+          video.pause();
+          if (isAmbient) {
+            video.style.opacity = '0';
+          }
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.05
+    });
+
+    const videos = document.querySelectorAll('.lazy-portfolio-video');
+    videos.forEach((video) => {
+      videoObserver.observe(video);
+    });
+
+    videos.forEach((video) => {
+      if (video.hasAttribute('controls')) {
+        const overlay = video.nextElementSibling as HTMLElement;
+        
+        if (overlay && overlay.classList.contains('play-overlay')) {
+          overlay.addEventListener('click', () => {
+            video.play().catch(() => {});
+          });
+        }
+
+        video.addEventListener('play', () => {
+          if (overlay && overlay.classList.contains('play-overlay')) {
+            overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none';
+          }
+        });
+
+        video.addEventListener('pause', () => {
+          if (overlay && overlay.classList.contains('play-overlay')) {
+            overlay.style.opacity = '1';
+            overlay.style.pointerEvents = 'auto';
+          }
+        });
+      }
+    });
+
+    document.addEventListener('astro:before-preparation', () => {
+      videoObserver.disconnect();
+    }, { once: true });
+  }
+</script>
+

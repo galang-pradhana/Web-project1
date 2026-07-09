@@ -1,128 +1,512 @@
 ---
 // Navbar.astro
+const currentPath = Astro.url.pathname;
+const isHomepage = currentPath === '/';
 ---
 
-<header 
-  id="siteNav" 
-  class="fixed top-[6px] left-0 right-0 z-50 h-[54px] border-b border-transparent bg-transparent backdrop-blur-[2px] transition-all duration-300 [&.solid]:bg-bg-primary [&.solid]:border-stone-300/40 [&.solid]:backdrop-blur-none"
->
-  <div class="h-full flex items-center justify-between px-[6vw]">
-    
+<header id="siteNav" class="fixed top-0 left-0 right-0 z-50 pointer-events-none h-[80px]">
+  <div 
+    id="nav-inner" 
+    class={`pointer-events-auto mx-auto flex items-center justify-between transition-all duration-700 ease-in-out ${isHomepage ? 'navbar-full navbar-transparent' : 'navbar-collapsed'}`}
+  >
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-1 group">
-      <span class="font-serif font-normal text-lg tracking-wider text-text-primary group-hover:text-accent transition-colors duration-200">
-        CREATIVA<span class="font-sans font-light text-[10px] tracking-widest text-text-secondary ml-1.5">STUDIO</span>
-      </span>
-    </a>
+    <div id="nav-logo" class="flex items-center transition-all duration-500 origin-left flex-shrink-0">
+      <a href="/" class="flex items-center gap-3 group" aria-label="PT. Dicko Jaya Construction">
+        <img 
+          src="/logo-djc.png" 
+          alt="Logo DJC" 
+          class="h-9 w-auto object-contain flex-shrink-0 transition-all duration-300 group-hover:opacity-80" 
+        />
+        <div class="flex flex-col leading-none text-white transition-colors duration-500" id="logo-text-wrapper">
+          <span class="navbar-logo-text font-serif font-bold text-[13px] tracking-[0.12em] uppercase transition-all duration-300">
+            DICKO JAYA
+          </span>
+          <span class="navbar-logo-sub font-sans font-normal text-[8px] tracking-[0.3em] uppercase mt-[1px] transition-all duration-300">
+            CONSTRUCTION
+          </span>
+        </div>
+      </a>
+    </div>
 
-    {/* Desktop Navigation */}
-    <nav class="hidden md:flex items-center gap-8 font-sans text-[11px] font-semibold tracking-widest uppercase text-text-primary">
-      <a href="/" class="hover:text-accent transition-colors duration-200">HOME</a>
-      <a href="/portofolio" class="hover:text-accent transition-colors duration-200">PORTOFOLIO</a>
-      <a href="/layanan" class="hover:text-accent transition-colors duration-200">LAYANAN</a>
-      <a href="/tentang" class="hover:text-accent transition-colors duration-200">TENTANG KAMI</a>
-      <a href="/kontak" class="hover:text-accent transition-colors duration-200">KONTAK</a>
+    <!-- Desktop Navigation Links (Only visible in full navbar state) -->
+    <nav id="nav-links" class="hidden md:flex items-center gap-8 font-sans text-[11px] font-semibold tracking-widest uppercase transition-all duration-500 flex-shrink-0">
+      <a href="/" class="navbar-link transition-colors duration-200">HOME</a>
+      <a href="/portofolio" class="navbar-link transition-colors duration-200">PORTOFOLIO</a>
+      <a href="/layanan" class="navbar-link transition-colors duration-200">LAYANAN</a>
+      <a href="/tentang" class="navbar-link transition-colors duration-200">TENTANG KAMI</a>
+      <a href="/kontak" class="navbar-link transition-colors duration-200">KONTAK</a>
     </nav>
 
-    {/* CTAs & Toggle */}
-    <div class="flex items-center gap-3 sm:mr-14">
-      {/* Theme Toggle Button */}
-      <button 
-        id="theme-toggle" 
-        class="hidden h-8 px-3 border border-stone-300 hover:border-accent hover:bg-stone-900 hover:text-stone-100 dark:hover:bg-accent transition-all duration-200 cursor-pointer text-text-primary font-sans text-[10px] tracking-wider uppercase font-medium"
-        aria-label="Toggle theme"
-      >
-        <span id="theme-toggle-text">THEME</span>
-      </button>
-
-      {/* RAB Calculator CTA */}
+    <!-- CTAs & Toggle Buttons -->
+    <div id="nav-controls" class="flex items-center gap-3 flex-shrink-0">
+      <!-- RAB Calculator CTA -->
       <a 
         href="/kalkulator-rab" 
-        class="hidden sm:inline-flex items-center h-8 px-4 bg-stone-900 hover:bg-accent text-stone-100 transition-all duration-250 font-sans text-[10px] font-semibold tracking-wider"
+        id="rab-cta"
+        class="inline-flex items-center justify-center h-8 px-4 transition-all duration-300 font-sans text-[10px] font-semibold tracking-wider uppercase"
       >
-        ESTIMASI RAB
+        <span class="sm:inline hidden">ESTIMASI RAB</span>
+        <span class="sm:hidden inline">RAB</span>
       </a>
 
-      {/* Mobile Menu Toggle */}
+      <!-- Menu Toggle Trigger -->
       <button 
-        id="mobile-menu-toggle" 
-        class="md:hidden h-8 w-8 flex items-center justify-center border border-stone-300 hover:border-accent hover:bg-stone-900 hover:text-stone-100 transition-colors duration-200 cursor-pointer text-text-primary"
-        aria-label="Open menu"
+        id="menu-toggle-btn" 
+        class="h-8 px-3 flex items-center justify-center gap-2 transition-all duration-300 font-sans text-[10px] font-semibold tracking-wider cursor-pointer"
+        aria-label="Open Menu"
       >
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path id="hamburger-icon" class="block" d="M4 6h16M4 12h16M4 18h16"></path>
-          <path id="close-icon" class="hidden" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
+        <span class="hidden md:inline menu-text">MENU</span>
+        <span class="hamburger-icon-wrapper flex flex-col justify-between w-4 h-2.5">
+          <span class="h-[1.5px] w-full bg-current transition-all duration-300 transform origin-top-left bar-1"></span>
+          <span class="h-[1.5px] w-full bg-current transition-all duration-300 bar-2"></span>
+          <span class="h-[1.5px] w-full bg-current transition-all duration-300 transform origin-bottom-left bar-3"></span>
+        </span>
       </button>
-    </div>
-  </div>
-
-  {/* Mobile Dropdown Menu */}
-  <div 
-    id="mobile-menu" 
-    class="hidden md:hidden border-b border-stone-300/40 bg-bg-primary flex-col font-sans text-xs font-semibold tracking-widest uppercase"
-  >
-    <a href="/" class="px-[6vw] py-4 border-b border-stone-200/50 hover:bg-stone-100/30 text-text-primary transition-colors duration-200">HOME</a>
-    <a href="/portofolio" class="px-[6vw] py-4 border-b border-stone-200/50 hover:bg-stone-100/30 text-text-primary transition-colors duration-200">PORTOFOLIO</a>
-    <a href="/layanan" class="px-[6vw] py-4 border-b border-stone-200/50 hover:bg-stone-100/30 text-text-primary transition-colors duration-200">LAYANAN</a>
-    <a href="/tentang" class="px-[6vw] py-4 border-b border-stone-200/50 hover:bg-stone-100/30 text-text-primary transition-colors duration-200">TENTANG KAMI</a>
-    <a href="/kontak" class="px-[6vw] py-4 hover:bg-stone-100/30 text-text-primary transition-colors duration-200">KONTAK</a>
-    <div class="p-4 border-t border-stone-200/50 bg-[#FAF9F6]">
-      <a 
-        href="/kalkulator-rab" 
-        class="w-full text-center block py-3 bg-stone-900 hover:bg-accent text-stone-100 font-sans text-xs font-semibold tracking-wider"
-      >
-        MULAI ESTIMASI RAB
-      </a>
     </div>
   </div>
 </header>
 
-<script is:inline>
-  // Elements
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeToggleText = document.getElementById('theme-toggle-text');
-  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const hamburgerIcon = document.getElementById('hamburger-icon');
-  const closeIcon = document.getElementById('close-icon');
+<!-- GORGEOUS FULL-SCREEN OVERLAY MENU (OH Architecture Style) -->
+<div 
+  id="menu-overlay" 
+  class="fixed inset-0 z-[100] pointer-events-none opacity-0 invisible flex flex-col bg-black overflow-hidden h-[100dvh] w-screen"
+>
+  <!-- Overlay Header -->
+  <div class="flex items-center justify-between px-[6vw] h-[90px] w-full flex-shrink-0">
+    <a href="/" class="flex items-center gap-3 text-white hover:opacity-90 transition-opacity" id="overlay-logo">
+      <img 
+        src="/logo-djc.png" 
+        alt="Logo DJC" 
+        class="h-8 w-auto object-contain flex-shrink-0" 
+      />
+      <div class="flex flex-col leading-none text-left">
+        <span class="font-serif font-bold text-[16px] tracking-[0.12em] uppercase">
+          DICKO JAYA
+        </span>
+        <span class="font-sans font-normal text-[10px] tracking-[0.3em] uppercase mt-[2px] text-white/60">
+          CONSTRUCTION
+        </span>
+      </div>
+    </a>
+    <button 
+      id="overlay-close-btn" 
+      class="h-8 flex items-center justify-center font-sans text-[11px] font-bold tracking-widest text-white hover:text-white/70 transition-colors duration-300 cursor-pointer"
+    >
+      CLOSE
+    </button>
+  </div>
 
-  // Initialize Theme UI
-  function updateThemeUI() {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    if (themeToggleText) {
-      themeToggleText.textContent = isDark ? 'LIGHT' : 'DARK';
+  <!-- Overlay Content (Left-aligned Clean Links) -->
+  <div class="flex-1 flex flex-col justify-center px-[6vw] py-4 sm:py-6 min-h-0">
+    <div class="flex flex-col gap-2 max-w-4xl">
+      <!-- Link 1 -->
+      <div class="flex items-start group/item menu-item">
+        <a href="/" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+          <span class="roll-wrapper">
+            <span class="roll-text" data-text="HOME">HOME</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Link 2 -->
+      <div class="flex items-start group/item menu-item">
+        <a href="/portofolio" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+          <span class="roll-wrapper">
+            <span class="roll-text" data-text="PORTOFOLIO">PORTOFOLIO</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Link 3 -->
+      <div class="flex items-start group/item menu-item">
+        <a href="/layanan" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+          <span class="roll-wrapper">
+            <span class="roll-text" data-text="LAYANAN">LAYANAN</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Link 4 -->
+      <div class="flex items-start group/item menu-item">
+        <a href="/tentang" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+          <span class="roll-wrapper">
+            <span class="roll-text" data-text="TENTANG KAMI">TENTANG KAMI</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- Link 5 -->
+      <div class="flex items-start group/item menu-item">
+        <a href="/kontak" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+          <span class="roll-wrapper">
+            <span class="roll-text" data-text="KONTAK">KONTAK</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay Footer Info (Left-aligned & minimal) -->
+  <div class="px-[6vw] pb-12 pt-4 flex flex-col gap-6 flex-shrink-0 font-sans text-[11px] font-bold tracking-widest text-white">
+    <div class="footer-item">
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">INSTAGRAM</a>
+    </div>
+    <div class="footer-item flex flex-col gap-1 text-white/50">
+      <a href="/kebijakan-privasi" class="hover:text-white transition-colors">PRIVACY POLICY</a>
+      <a href="/syarat-ketentuan" class="hover:text-white transition-colors">TERMS OF SERVICE</a>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  const navInner = document.getElementById('nav-inner');
+  const menuToggleBtn = document.getElementById('menu-toggle-btn');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const overlayCloseBtn = document.getElementById('overlay-close-btn');
+
+  // Deteksi apakah ini halaman homepage
+  const isHomepage = window.location.pathname === '/';
+
+  function applyFullTransparentStyle() {
+    navInner.classList.remove('navbar-collapsed');
+    navInner.classList.add('navbar-full', 'navbar-transparent');
+  }
+
+  function applyCollapsedStyle() {
+    navInner.classList.remove('navbar-full', 'navbar-transparent');
+    navInner.classList.add('navbar-collapsed');
+  }
+
+  function handleScroll() {
+    if (!isHomepage) {
+      // Halaman selain homepage: SELALU collapsed
+      applyCollapsedStyle();
+      return;
+    }
+    // Homepage: full transparent di atas hero (< 75vh), collapsed setelah itu
+    const heroThreshold = window.innerHeight * 0.75;
+    if (window.scrollY > heroThreshold) {
+      applyCollapsedStyle();
+    } else {
+      applyFullTransparentStyle();
     }
   }
 
-  updateThemeUI();
+  // Init
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll(); // run immediately on load
 
-  // Toggle Theme
-  themeToggle?.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    if (currentTheme === 'dark') {
-      document.documentElement.removeAttribute('data-theme');
-      localStorage.setItem('theme', 'light');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      localStorage.setItem('theme', 'dark');
+  // Overlay Controls
+  menuToggleBtn?.addEventListener('click', () => {
+    menuOverlay.classList.remove('pointer-events-none', 'opacity-0', 'invisible');
+    menuOverlay.classList.add('pointer-events-auto', 'opacity-100', 'visible', 'menu-active');
+    document.body.classList.add('menu-open');
+    document.body.style.overflow = 'hidden';
+    
+    // Stop Lenis smooth scroll to prevent coordinates desynchronization
+    if (window.lenis) {
+      window.lenis.stop();
     }
-    updateThemeUI();
   });
 
-  // Mobile Menu Toggle
-  mobileMenuToggle?.addEventListener('click', () => {
-    const isHidden = mobileMenu.classList.contains('hidden');
-    if (isHidden) {
-      mobileMenu.classList.remove('hidden');
-      mobileMenu.classList.add('flex');
-      hamburgerIcon.classList.add('hidden');
-      closeIcon.classList.remove('hidden');
-    } else {
-      mobileMenu.classList.add('hidden');
-      mobileMenu.classList.remove('flex');
-      hamburgerIcon.classList.remove('hidden');
-      closeIcon.classList.add('hidden');
+  function closeOverlay() {
+    menuOverlay.classList.remove('menu-active');
+    menuOverlay.classList.add('pointer-events-none', 'opacity-0', 'invisible');
+    menuOverlay.classList.remove('pointer-events-auto', 'opacity-100', 'visible');
+    document.body.classList.remove('menu-open');
+    document.body.style.overflow = '';
+    
+    // Resume Lenis smooth scroll
+    if (window.lenis) {
+      window.lenis.start();
     }
+  }
+
+  overlayCloseBtn?.addEventListener('click', closeOverlay);
+
+  // Close overlay when any link inside it is clicked
+  const overlayLinks = menuOverlay?.querySelectorAll('a');
+  overlayLinks?.forEach(link => {
+    link.addEventListener('click', closeOverlay);
   });
 </script>
+
+<style is:global>
+  /* ============================================
+     NAVBAR STATE 1: FULL (Atas Hero)
+     ============================================ */
+  #nav-inner.navbar-full {
+    width: 100%;
+    max-width: 100%;
+    height: 58px;
+    margin: 0;
+    padding: 0 6vw;
+    border-radius: 0;
+  }
+  
+  #nav-inner.navbar-transparent {
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    box-shadow: none;
+  }
+
+  /* Full transparent item colors */
+  #nav-inner.navbar-transparent .navbar-logo-text {
+    color: rgba(255, 255, 255, 0.95);
+  }
+  #nav-inner.navbar-transparent .navbar-logo-sub {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  #nav-inner.navbar-transparent .navbar-link {
+    color: rgba(255, 255, 255, 0.88);
+  }
+  #nav-inner.navbar-transparent .navbar-link:hover {
+    color: #fff;
+  }
+  #nav-inner.navbar-transparent #rab-cta {
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.95);
+  }
+  #nav-inner.navbar-transparent #rab-cta:hover {
+    background-color: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+  #nav-inner.navbar-transparent #menu-toggle-btn {
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: white;
+  }
+  #nav-inner.navbar-transparent #menu-toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  /* ============================================
+     NAVBAR STATE 2: COLLAPSED (Pill / Scrolled)
+     ============================================ */
+  #nav-inner.navbar-collapsed {
+    width: 250px;
+    height: 48px;
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: 6vw;
+    border-radius: 9999px;
+    background: rgba(20, 18, 17, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    padding-left: 1.25rem;
+    padding-right: 0.5rem;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    #nav-inner.navbar-collapsed {
+      width: 290px;
+    }
+  }
+
+  /* Hiding elements smoothly in collapsed state - sliding rightwards (sucked into menu/RAB buttons) */
+  #nav-inner.navbar-collapsed #nav-logo {
+    opacity: 0;
+    max-width: 0;
+    transform: scale(0.7) translateX(120px);
+    pointer-events: none;
+    margin: 0;
+    overflow: hidden;
+  }
+  #nav-inner.navbar-collapsed #nav-links {
+    opacity: 0;
+    max-width: 0;
+    transform: scale(0.7) translateX(80px);
+    pointer-events: none;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  /* Collapsed item styling */
+  #nav-inner.navbar-collapsed #rab-cta {
+    background-color: #ffffff;
+    border: none;
+    color: #1c1917;
+    border-radius: 9999px;
+    height: 32px;
+    font-size: 10px;
+    padding: 0 1.25rem;
+  }
+  #nav-inner.navbar-collapsed #rab-cta:hover {
+    background-color: #C5A078;
+    color: #1c1917;
+  }
+  #nav-inner.navbar-collapsed #menu-toggle-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    border-radius: 9999px;
+    height: 32px;
+  }
+  #nav-inner.navbar-collapsed #menu-toggle-btn:hover {
+    background-color: #C5A078;
+    color: #1c1917;
+  }
+
+  /* Show/hide menu toggle button on desktop based on state with smooth scale/fade transition */
+  #menu-toggle-btn {
+    display: flex;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @media (min-width: 768px) {
+    /* Hide menu button in full state on desktop (since links are shown) */
+    #nav-inner.navbar-full #menu-toggle-btn {
+      opacity: 0;
+      max-width: 0;
+      transform: scale(0.5) translateX(20px);
+      pointer-events: none;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin: 0;
+      border-color: transparent !important;
+      overflow: hidden;
+    }
+    /* Show menu button in collapsed state on desktop */
+    #nav-inner.navbar-collapsed #menu-toggle-btn {
+      opacity: 1;
+      max-width: 120px;
+      transform: scale(1) translateX(0);
+      pointer-events: auto;
+    }
+  }
+
+  /* ============================================
+     SMOOTH TRANSITIONS
+     ============================================ */
+  #nav-inner {
+    transition: 
+      width 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      height 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      margin 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      padding 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      border-radius 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      background 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      backdrop-filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      -webkit-backdrop-filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #nav-logo,
+  #nav-links,
+  #rab-cta,
+  #menu-toggle-btn {
+    transition: 
+      opacity 0.5s ease,
+      transform 0.5s ease,
+      max-width 0.5s ease,
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease,
+      border-radius 0.5s ease,
+      height 0.5s ease,
+      padding 0.5s ease;
+  }
+
+  /* ============================================
+     ROLLING TEXT HOVER EFFECT
+     ============================================ */
+  .roll-link {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    line-height: 1.1;
+  }
+  .roll-wrapper {
+    display: block;
+    transition: transform 0.22s cubic-bezier(0.25, 1, 0.3, 1);
+  }
+  .roll-link:hover .roll-wrapper {
+    transform: translateY(-100%);
+  }
+  .roll-text {
+    position: relative;
+    display: block;
+  }
+  .roll-text::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    display: block;
+    color: #C5A078; /* warm gold accent on hover */
+  }
+
+  /* ============================================
+     OVERLAY ENTRY ANIMATIONS (STAGGERED)
+     ============================================ */
+  #menu-overlay .menu-item,
+  #menu-overlay .footer-item,
+  #menu-overlay #overlay-logo,
+  #menu-overlay #overlay-close-btn {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: 
+      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* When menu is active, fade in & slide up */
+  #menu-overlay.menu-active .menu-item,
+  #menu-overlay.menu-active .footer-item,
+  #menu-overlay.menu-active #overlay-logo,
+  #menu-overlay.menu-active #overlay-close-btn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Header elements delay */
+  #menu-overlay.menu-active #overlay-logo {
+    transition-delay: 100ms;
+  }
+  #menu-overlay.menu-active #overlay-close-btn {
+    transition-delay: 150ms;
+  }
+
+  /* Menu Links (1 to 5) stagger */
+  #menu-overlay.menu-active .menu-item:nth-child(1) {
+    transition-delay: 200ms;
+  }
+  #menu-overlay.menu-active .menu-item:nth-child(2) {
+    transition-delay: 250ms;
+  }
+  #menu-overlay.menu-active .menu-item:nth-child(3) {
+    transition-delay: 300ms;
+  }
+  #menu-overlay.menu-active .menu-item:nth-child(4) {
+    transition-delay: 350ms;
+  }
+  #menu-overlay.menu-active .menu-item:nth-child(5) {
+    transition-delay: 400ms;
+  }
+
+  /* Footer Items stagger */
+  #menu-overlay.menu-active .footer-item:nth-child(1) {
+    transition-delay: 450ms;
+  }
+  #menu-overlay.menu-active .footer-item:nth-child(2) {
+    transition-delay: 500ms;
+  }
+
+  /* Hide page scroll progress indicator (ruler & label) when menu is active */
+  #ruler, #ruler-label {
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.4s ease, color 0.4s ease;
+  }
+
+  body.menu-open #ruler,
+  body.menu-open #ruler-label {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+</style>

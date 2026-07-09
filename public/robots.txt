@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /keystatic/
+Disallow: /login-cms/
+
+Sitemap: https://djckontraktor.com/sitemap-index.xml

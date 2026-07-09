@@ -39,6 +39,9 @@ export default config({
           label: 'URL Foto Cover (Statis atau path /images/projects/)',
           defaultValue: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
         }),
+        coverVideo: fields.text({
+          label: 'URL Video Cover (Cloudinary MP4)',
+        }),
         gallery: fields.array(
           fields.text({
             label: 'URL Foto Galeri',
@@ -46,6 +49,15 @@ export default config({
           {
             label: 'Galeri Foto',
             itemLabel: (props) => props.value || 'Foto URL',
+          }
+        ),
+        videoGallery: fields.array(
+          fields.text({
+            label: 'URL Video Galeri',
+          }),
+          {
+            label: 'Galeri Video',
+            itemLabel: (props) => props.value || 'Video URL',
           }
         ),
         area: fields.number({ label: 'Luas Bangunan (m²)' }),
@@ -233,6 +245,8 @@ export default config({
         whatsapp: fields.text({ label: 'Nomor WhatsApp (format: 628xxxx)', defaultValue: '628123456789' }),
         address: fields.text({ label: 'Alamat Kantor', multiline: true, defaultValue: 'Jl. Kayu Putih Raya No. 12, Kebayoran Baru, Jakarta Selatan' }),
         instagram: fields.text({ label: 'URL Instagram', defaultValue: 'https://instagram.com/creativastudio' }),
+        mapsLink: fields.text({ label: 'Link Google Maps', defaultValue: 'https://maps.google.com' }),
+        keywords: fields.text({ label: 'Kata Kunci SEO (pisahkan dengan koma)', defaultValue: 'kontraktor bogor, kontraktor tangerang, jasa bangun rumah bogor, jasa bangun rumah tangerang, kontraktor bangun ruko, jasa arsitek bogor, jasa arsitek tangerang, renovasi rumah tangerang, renovasi rumah bogor, kontraktor bangun gudang' }),
       },
     }),
     homePage: singleton({
@@ -243,6 +257,17 @@ export default config({
         heroEyebrow: fields.text({ label: 'Hero Eyebrow', defaultValue: 'CREATIVA STUDIO — KONTRAKTOR & ARSITEKTUR' }),
         heroTitle: fields.text({ label: 'Hero Title', defaultValue: 'STRUKTUR PRESTISIUS, ARSITEKTUR & JASA KONTRAKTOR.' }),
         heroTagline: fields.text({ label: 'Hero Tagline', multiline: true, defaultValue: 'Kami merancang, merencana, dan membangun residensial serta komersial premium — menghadirkan integrasi arsitektur visioner dengan eksekusi kontraktor yang presisi.' }),
+        heroImages: fields.array(
+          fields.object({
+            title: fields.text({ label: 'Judul Gambar' }),
+            category: fields.text({ label: 'Kategori' }),
+            imageUrl: fields.text({ label: 'URL Gambar' }),
+          }),
+          {
+            label: 'Daftar Gambar Hero',
+            itemLabel: (props) => props.fields.title.value || 'Gambar Hero',
+          }
+        ),
         
         philosophySubtitle: fields.text({ label: 'Filosofi Subtitle', defaultValue: 'FILOSOFI KAMI' }),
         philosophyTitle: fields.text({ label: 'Filosofi Title (gunakan <br/> untuk baris baru)', defaultValue: 'DESAIN VISIONER<br/>& EKSEKUSI PRESISI' }),

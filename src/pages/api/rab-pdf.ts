@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     const { 
-      clientName = 'Klien Creativa Studio', 
+      clientName = 'Klien PT. Dicko Jaya Construction', 
       projectLocation = 'Indonesia', 
       projectArea = 0, 
       items = [], 
@@ -77,7 +77,7 @@ export const POST: APIRoute = async ({ request }) => {
       status: 200,
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="RAB_CreativaStudio_${clientName.replace(/\s+/g, '_')}.pdf"`,
+        'Content-Disposition': `attachment; filename="RAB_DickoJaya_${clientName.replace(/\s+/g, '_')}.pdf"`,
         'Content-Length': arrayBuffer.byteLength.toString(),
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate'
       }

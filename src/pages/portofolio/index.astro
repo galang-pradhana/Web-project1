@@ -20,7 +20,7 @@ const layouts = [
 ---
 
 <BaseLayout 
-  title="Portofolio Kontraktor & Arsitektur — Creativa Studio"
+  title="Portofolio Kontraktor & Arsitektur — PT. Dicko Jaya Construction"
   heroFullBleed={true}
   hideFooter={true}
 >
@@ -29,7 +29,7 @@ const layouts = [
     
     <!-- Stuck Intro Section (Tetap berada di kiri layar) -->
     <div class="stuck-intro absolute left-[8vw] top-1/2 -translate-y-1/2 w-[280px] md:w-[400px] z-10 flex flex-col justify-center pr-8 space-y-6 pointer-events-none">
-      <span class="font-sans text-[10px] font-semibold tracking-[0.25em] text-accent uppercase block">CREATIVA STUDIO</span>
+      <span class="font-sans text-[10px] font-semibold tracking-[0.25em] text-accent uppercase block">PT. DICKO JAYA CONSTRUCTION</span>
       <h2 class="font-serif text-3xl md:text-5xl font-light text-stone-900 leading-tight">
         KURASI KARYA <br/><span class="italic text-accent font-normal">ARSITEKTUR & RAB</span>
       </h2>
@@ -51,8 +51,7 @@ const layouts = [
         return (
           <div class={`flex-shrink-0 flex flex-col justify-center project-item`}>
             <a href={`/portofolio/${proj.slug}`} class="group block cursor-pointer">
-              
-              <!-- Image element with premium transition styling -->
+              <!-- Image & Video element with premium transition styling -->
               <div class={`${layout.container} overflow-hidden bg-stone-100 relative`}>
                 <img 
                   src={proj.coverImage} 
@@ -60,6 +59,16 @@ const layouts = [
                   class="w-full h-full object-cover filter brightness-[0.96] contrast-[1.02] sepia-[0.08] hover:sepia-0 hover:brightness-100 transition-all duration-1000 group-hover:scale-[1.03]"
                   loading="lazy"
                 />
+                {proj.coverVideo && (
+                  <video
+                    data-src={proj.coverVideo}
+                    class="lazy-portfolio-video absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-1000 group-hover:scale-[1.03] pointer-events-none"
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                  />
+                )}
                 <!-- Subtle overlay shade -->
                 <div class="absolute inset-0 bg-stone-900/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
               </div>
@@ -179,6 +188,42 @@ const layouts = [
       scrollTween.scrollTrigger?.kill();
       scrollTween.kill();
     });
+  }
+
+  // Lazy load and autoplay/pause horizontal cover videos when they enter the viewport
+  if ('IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target as HTMLVideoElement;
+        if (entry.isIntersecting) {
+          if (!video.src && video.dataset.src) {
+            video.src = video.dataset.src;
+            video.load();
+          }
+          video.play()
+            .then(() => {
+              video.style.opacity = '1';
+            })
+            .catch(() => {});
+        } else {
+          video.pause();
+          video.style.opacity = '0';
+        }
+      });
+    }, {
+      root: null, // viewport
+      threshold: 0.05 // play when 5% visible
+    });
+
+    const videos = document.querySelectorAll('.lazy-portfolio-video');
+    videos.forEach((video) => {
+      videoObserver.observe(video);
+    });
+
+    // Clean up observer on Astro navigation
+    document.addEventListener('astro:before-preparation', () => {
+      videoObserver.disconnect();
+    }, { once: true });
   }
 </script>
 

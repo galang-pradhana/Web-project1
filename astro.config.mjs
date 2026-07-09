@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import keystatic from '@keystatic/astro';
 import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -27,6 +28,7 @@ function getJsonFiles(dir) {
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://djckontraktor.com',
   output: 'static',
   adapter: vercel({
     webAnalytics: {
@@ -34,7 +36,13 @@ export default defineConfig({
     },
     includeFiles: getJsonFiles('./src/content'),
   }),
-  integrations: [react(), keystatic()],
+  integrations: [
+    react(),
+    keystatic(),
+    sitemap({
+      filter: (page) => !page.includes('/admin') && !page.includes('/keystatic') && !page.includes('/login-cms')
+    })
+  ],
   vite: {
     plugins: [tailwindcss()]
   }

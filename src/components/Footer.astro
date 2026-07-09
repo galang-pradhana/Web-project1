@@ -6,12 +6,12 @@ import keystaticConfig from '../../keystatic.config';
 const reader = createReader(process.cwd(), keystaticConfig);
 const siteSettings = await reader.singletons.siteSettings.read();
 
-const brandName = siteSettings?.brandName || 'Creativa Studio';
-const description = siteSettings?.description || 'Creativa Studio adalah perusahaan jasa arsitektur & kontraktor premium satu pintu. Kami merancang, merencanakan, dan membangun residensial serta komersial dengan standar estetika tinggi.';
-const email = siteSettings?.email || 'info@creativastudio.com';
-const whatsapp = siteSettings?.whatsapp || '628123456789';
-const address = siteSettings?.address || 'Jl. Kayu Manis No. 88, Blok Jati, Kebayoran Baru, Jakarta Selatan';
-const instagram = siteSettings?.instagram || 'https://instagram.com/creativastudio';
+const brandName = siteSettings?.brandName || 'PT. Dicko Jaya Construction';
+const description = siteSettings?.description || 'PT. DICKO JAYA CONTRUCTION adalah perusahaan kontraktor yang bergerak di bidang pembangunan dan renovasi hunian maupun bangunan komersial. Berbasis di Bogor dan Tangerang, kami memadukan teknik konstruksi yang presisi dengan nilai estetika yang tinggi untuk mewujudkan bangunan impian setiap klien.';
+const email = siteSettings?.email || 'info@djckontraktor.com';
+const whatsapp = siteSettings?.whatsapp || '6281511536230';
+const address = siteSettings?.address || 'Jl. Utama Taman Walet No.66 Blk GW, RT.003/RW.014, Sindangsari, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560';
+const instagram = siteSettings?.instagram || 'https://instagram.com/djckontraktor';
 
 // Format whatsapp number for display
 const formattedPhone = whatsapp.startsWith('62') 
@@ -99,6 +99,16 @@ const formattedPhone = whatsapp.startsWith('62')
               <span class="text-[9px] text-stone-600 font-bold font-mono">></span> Kontak
             </a>
           </li>
+          <li>
+            <a href="/kebijakan-privasi" class="hover:text-white transition-colors duration-300 flex items-center gap-1.5">
+              <span class="text-[9px] text-stone-600 font-bold font-mono">></span> Kebijakan Privasi
+            </a>
+          </li>
+          <li>
+            <a href="/syarat-ketentuan" class="hover:text-white transition-colors duration-300 flex items-center gap-1.5">
+              <span class="text-[9px] text-stone-600 font-bold font-mono">></span> Syarat & Ketentuan
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -158,20 +168,15 @@ const formattedPhone = whatsapp.startsWith('62')
       <!-- Real Estate Icon Logo and Name -->
       <div class="flex flex-col items-center justify-center space-y-3 mt-6">
         <!-- Minimalist Architect Logo (Skyline/Building Block) -->
-        <svg class="w-10 h-10 text-stone-500 hover:text-accent transition-colors duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="25" y="55" width="20" height="25" fill="currentColor" opacity="0.3"/>
-          <rect x="40" y="35" width="20" height="45" fill="currentColor" opacity="0.6"/>
-          <rect x="55" y="45" width="20" height="35" fill="currentColor" opacity="0.45"/>
-          <path d="M20 80 H80" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span class="font-serif text-[15px] font-normal tracking-[0.25em] text-white uppercase">
-          CREATIVA <span class="italic text-accent">STUDIO</span>
+        <img src="/logo-djc.png" alt="PT. Dicko Jaya Construction Logo" class="h-10 w-auto object-contain brightness-95 contrast-105" />
+        <span class="font-serif text-[14px] font-semibold tracking-[0.2em] text-white uppercase text-center">
+          DICKO JAYA <span class="italic text-accent">CONSTRUCTION</span>
         </span>
       </div>
 
       <!-- Copyright text -->
       <p class="font-sans text-[10px] text-stone-600 uppercase tracking-[0.2em] text-center mt-6">
-        © {new Date().getFullYear()} {brandName}. ALL RIGHTS RESERVED. A PRODUCT OF CREATIVASTUDIO.COM
+        © {new Date().getFullYear()} {brandName}. ALL RIGHTS RESERVED. A PRODUCT OF DJCKONTRAKTOR.COM
       </p>
     </div>
   </footer>
@@ -207,7 +212,7 @@ const formattedPhone = whatsapp.startsWith('62')
       form.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
       form.classList.add('border-stone-700/60', 'focus-within:border-accent');
       
-      const formatted = `Halo Creativa Studio,\n\n${rawMsg.trim()}`;
+      const formatted = `Halo PT. Dicko Jaya Construction,\n\n${rawMsg.trim()}`;
       const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(formatted)}`;
       window.open(waUrl, '_blank');
       

@@ -3,32 +3,143 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import siteSettings from '../content/siteSettings.json';
 
 interface Props {
   title?: string;
   description?: string;
+  keywords?: string;
   heroFullBleed?: boolean;
   hideFooter?: boolean;
+  ogImage?: string;
+  canonicalUrl?: string;
 }
 
 const { 
-  title = "Creativa Studio - Kontraktor & Arsitektur Premium", 
+  title = "PT. Dicko Jaya Construction — Kontraktor & Arsitektur Premium", 
   description = "Kontraktor pembangunan hunian mewah, renovasi komersial presisi, dan desain arsitektur premium dengan hasil akhir berkelas tinggi.",
+  keywords = siteSettings.keywords || "kontraktor bogor, kontraktor tangerang, jasa bangun rumah bogor, jasa bangun rumah tangerang",
   heroFullBleed = false,
-  hideFooter = false
+  hideFooter = false,
+  ogImage = "/logo-djc.png",
+  canonicalUrl = Astro.url.href
 } = Astro.props;
+
+const telephone = siteSettings.whatsapp ? `+${siteSettings.whatsapp}` : "+6281511536230";
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://djckontraktor.com/#organization",
+      "name": siteSettings.brandName || "PT. Dicko Jaya Construction",
+      "url": "https://djckontraktor.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://djckontraktor.com/logo-djc.png"
+      },
+      "sameAs": [
+        siteSettings.instagram || "https://instagram.com/djckontraktor"
+      ]
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://djckontraktor.com/#localbusiness",
+      "name": siteSettings.brandName || "PT. Dicko Jaya Construction",
+      "image": "https://djckontraktor.com/logo-djc.png",
+      "url": "https://djckontraktor.com",
+      "telephone": telephone,
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": siteSettings.address || "Jl. Utama Taman Walet No.66 Blk GW, RT.003/RW.014, Sindangsari, Kec. Ps. Kemis",
+        "addressLocality": "Kabupaten Tangerang",
+        "addressRegion": "Banten",
+        "postalCode": "15560",
+        "addressCountry": "ID"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -6.186675,
+        "longitude": 106.516548
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "08:00",
+        "closes": "17:00"
+      },
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Tangerang"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Bogor"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Jakarta"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Bekasi"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Depok"
+        }
+      ]
+    }
+  ]
+};
 ---
 
 <!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Dicko Jaya" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
+    
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.url.origin)} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalUrl} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(ogImage, Astro.url.origin)} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} is:inline />
 
     <!-- Theme Initialization to force Clean White (Light Mode) -->
     <script is:inline>
@@ -69,15 +180,13 @@ const {
         smoothWheel: true,
       });
 
-      function raf(time: number) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-
-      requestAnimationFrame(raf);
+      // Expose lenis instance globally to allow control from components
+      (window as any).lenis = lenis;
 
       // Bind Lenis scroll to ScrollTrigger
       lenis.on('scroll', ScrollTrigger.update);
+      
+      // Drive Lenis using GSAP ticker only (removes duplicate RAF loop)
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
       });
@@ -114,6 +223,65 @@ const {
           }
         });
       }
+    </script>
+
+    <!-- Floating Admin Bar (Visible only when logged in as admin) -->
+    <div 
+      id="floating-admin-bar" 
+      class="fixed bottom-6 right-6 z-[999] hidden bg-black text-white border border-neutral-800 px-4 py-3.5 font-mono shadow-2xl flex items-center gap-4 transition-all duration-500 transform translate-y-12 opacity-0 hover:border-neutral-500"
+      style="transform: translateY(3rem); opacity: 0;"
+    >
+      <div class="flex items-center gap-2 border-r border-neutral-800 pr-4">
+        <span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+        <span class="text-[10px] font-bold uppercase tracking-widest text-neutral-400 select-none">ADMIN ACTIVE</span>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <a href="/keystatic" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold uppercase tracking-widest hover:text-amber-400 transition-colors cursor-pointer">
+          CMS
+        </a>
+        <span class="text-neutral-700 select-none">•</span>
+        <a href="/admin/upload-media" target="_blank" rel="noopener noreferrer" class="text-[10px] font-bold uppercase tracking-widest hover:text-amber-400 transition-colors cursor-pointer">
+          MEDIA
+        </a>
+        <span class="text-neutral-700 select-none">•</span>
+        <a href="/login-cms?action=logout" class="text-[10px] font-bold uppercase tracking-widest text-red-500 hover:text-red-400 transition-colors cursor-pointer">
+          LOGOUT
+        </a>
+      </div>
+    </div>
+
+    <!-- Script to check admin cookie and activate Floating Bar -->
+    <script is:inline>
+      (function() {
+        const getCookie = (name) => {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) return parts.pop().split(';').shift();
+        };
+
+        const isAdmin = getCookie('admin-logged-in') === 'true';
+        if (isAdmin) {
+          const activateAdminBar = () => {
+            const adminBar = document.getElementById('floating-admin-bar');
+            if (adminBar) {
+              adminBar.classList.remove('hidden');
+              adminBar.classList.add('flex');
+              // Delay slightly for smoother entrance animation
+              setTimeout(() => {
+                adminBar.style.transform = 'translateY(0)';
+                adminBar.style.opacity = '1';
+              }, 150);
+            }
+          };
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', activateAdminBar);
+          } else {
+            activateAdminBar();
+          }
+        }
+      })();
     </script>
   </body>
 </html>

@@ -49,8 +49,7 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
   const [clientPhone, setClientPhone] = useState<string>('');
   const [clientEmail, setClientEmail] = useState<string>('');
   const [clientNotes, setClientNotes] = useState<string>('');
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [savedCalcId, setSavedCalcId] = useState<string | null>(null);
+
 
   // Pekerjaan multiplier
   const jobMultipliers: Record<JobType, number> = {
@@ -105,66 +104,14 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
     }
   };
 
-  const handleWhatsAppSubmit = async (e: React.FormEvent) => {
+  const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!clientName || !clientPhone) {
       alert('Nama dan nomor WhatsApp wajib diisi.');
       return;
     }
 
-    setIsSubmitting(true);
-    let calcId = savedCalcId;
-
-    if (!calcId) {
-      try {
-        // 1. Simpan data kalkulasi kasar ke Supabase
-        const calcResponse = await fetch('/api/rab-save', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            jenisPekerjaan: `${jobType} (${activePkg.namaPaket})`,
-            luasBangunan: area,
-            lokasi: 'Kalkulator Cepat (Website)',
-            paketSlug: activePkg.slug,
-            items: [
-              { label: 'Jenis Pekerjaan', value: jobType },
-              { label: 'Luas Bangunan', value: `${area} m²` },
-              { label: 'Kualitas Material', value: activePkg.namaPaket },
-              { label: 'Jumlah Lantai', value: `${floors} Lantai` }
-            ],
-            subtotal: totalCost,
-            totalCost: totalCost
-          })
-        });
-
-        if (calcResponse.ok) {
-          const calcData = await calcResponse.json();
-          calcId = calcData.id;
-          setSavedCalcId(calcId);
-
-          // 2. Simpan data lead ke Supabase
-          await fetch('/api/rab-lead', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              nama: clientName,
-              whatsapp: clientPhone,
-              email: clientEmail,
-              calculationId: calcId,
-              sumberMode: 'quick'
-            })
-          });
-        }
-      } catch (saveErr) {
-        console.warn('[QuickEstimator] Gagal menyimpan data lead:', saveErr);
-      }
-    }
-
-    setIsSubmitting(false);
-
-    // 3. Arahkan ke WhatsApp
-    const webUrl = calcId ? `${window.location.origin}/rab/hasil/${calcId}` : 'Kalkulasi Cepat';
-    const message = `Halo Creativa Studio,\nSaya *${clientName}* (${clientPhone}).\n\nSaya ingin berkonsultasi mengenai estimasi pembangunan rumah/bangunan proyek saya:\n\n*Detail Parameter:*\n- Jenis Pekerjaan: ${jobType}\n- Luas Bangunan: ${area} m²\n- Kualitas Material: ${activePkg.namaPaket}\n- Jumlah Lantai: ${floors} Lantai\n\n*Estimasi Anggaran:*\n- Range: *${formatRupiah(lowerRange)}* s.d. *${formatRupiah(upperRange)}*\n\n${clientNotes ? `*Pesan Tambahan:*\n"${clientNotes}"\n\n` : ''}Detail Lengkap Estimasi: ${webUrl}\n\nMohon hubungi saya kembali untuk mendiskusikan rancangan ini. Terima kasih!`;
+    const message = `Halo PT. Dicko Jaya Construction,\nSaya *${clientName}* (${clientPhone}).\n\nSaya ingin berkonsultasi mengenai estimasi pembangunan rumah/bangunan proyek saya:\n\n*Detail Parameter:*\n- Jenis Pekerjaan: ${jobType}\n- Luas Bangunan: ${area} m²\n- Kualitas Material: ${activePkg.namaPaket}\n- Jumlah Lantai: ${floors} Lantai\n\n*Estimasi Anggaran:*\n- Range: *${formatRupiah(lowerRange)}* s.d. *${formatRupiah(upperRange)}*\n\n${clientNotes ? `*Pesan Tambahan:*\n"${clientNotes}"\n\n` : ''}Mohon hubungi saya kembali untuk mendiskusikan rancangan ini. Terima kasih!`;
     const encodedMessage = encodeURIComponent(message);
     const waUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
     window.open(waUrl, '_blank');
@@ -506,7 +453,7 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
                 <div>
                   <h3 className="font-serif text-lg font-medium text-stone-900">Dapatkan RAB Detail Gratis</h3>
                   <p className="text-[11px] text-stone-500 mt-1 leading-relaxed">
-                    Kirimkan estimasi ini ke tim teknis Creativa Studio untuk penyusunan proposal denah dan perhitungan RAB terperinci.
+                    Kirimkan estimasi ini ke tim teknis PT. Dicko Jaya Construction untuk penyusunan proposal denah dan perhitungan RAB terperinci.
                   </p>
                 </div>
 
@@ -561,11 +508,10 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
                   <div className="pt-2">
                     <button
                       type="submit"
-                      disabled={isSubmitting}
-                      className="w-full py-3 bg-amber-800 hover:bg-amber-900 text-stone-100 font-bold rounded-lg shadow transition-colors flex items-center justify-center gap-2 tracking-wider cursor-pointer uppercase text-[11px] disabled:opacity-50"
+                      className="w-full py-3 bg-amber-800 hover:bg-amber-900 text-stone-100 font-bold rounded-lg shadow transition-colors flex items-center justify-center gap-2 tracking-wider cursor-pointer uppercase text-[11px]"
                     >
                       <PhoneCall className="w-4 h-4" />
-                      {isSubmitting ? 'Menyimpan...' : 'Konsultasi RAB via WhatsApp'}
+                      Konsultasi RAB via WhatsApp
                     </button>
                   </div>
                 </form>

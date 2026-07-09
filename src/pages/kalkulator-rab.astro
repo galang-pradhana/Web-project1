@@ -13,7 +13,7 @@ const rawWages = await reader.collections.hargaUpah.all();
 const rawPackages = await reader.collections.rabPaket.all();
 const rawSiteSettings = await reader.singletons.siteSettings.read();
 
-const whatsappNumber = rawSiteSettings?.whatsapp || '628123456789';
+const whatsappNumber = rawSiteSettings?.whatsapp || '6281511536230';
 
 // Map raw Keystatic data to types required by rab-formula / DetailEstimator
 const ahspItems = rawAHSP.map(item => ({
@@ -63,7 +63,7 @@ const packages = rawPackages.map(p => ({
 }));
 ---
 
-<BaseLayout title="Kalkulator RAB Premium — Creativa Studio">
+<BaseLayout title="Kalkulator RAB Premium — PT. Dicko Jaya Construction">
   
   <div class="py-24 px-[6vw] max-w-7xl mx-auto relative">
     
@@ -71,7 +71,7 @@ const packages = rawPackages.map(p => ({
     <div class="border-b border-stone-300 dark:border-stone-800 pb-8 mb-12">
       <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block mb-2">PRO ESTIMATOR TOOL</span>
       <h1 class="font-serif text-4xl sm:text-5xl font-normal text-text-primary leading-[1.1] mb-4">
-        KALKULATOR RAB <span class="italic text-accent">CREATIVA</span>
+        KALKULATOR RAB <span class="italic text-accent">DICKO JAYA</span>
       </h1>
       <p class="font-sans text-text-secondary text-[14px] sm:text-base max-w-3xl leading-relaxed">
         Hitung perkiraan biaya proyek arsitektur, pembangunan baru, dan renovasi rumah Anda menggunakan estimasi cepat berbasis luas bangunan atau estimasi detail berstandar nasional Indonesia (AHSP-SNI).

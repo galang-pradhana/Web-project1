@@ -8,15 +8,18 @@ const reader = createReader(process.cwd(), keystaticConfig);
 const rawSiteSettings = await reader.singletons.siteSettings.read();
 
 const siteSettings = rawSiteSettings || {
-  brandName: 'Creativa Studio',
-  email: 'info@creativastudio.com',
-  whatsapp: '628123456789',
-  address: 'Jl. Kayu Manis No. 88, Jakarta Selatan',
-  instagram: 'https://instagram.com/creativastudio'
+  brandName: 'PT. Dicko Jaya Construction',
+  email: 'info@djckontraktor.com',
+  whatsapp: '6281511536230',
+  address: 'Jl. Utama Taman Walet No.66 Blk GW, RT.003/RW.014, Sindangsari, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560',
+  instagram: 'https://instagram.com/dickojayaconstruction'
 };
 ---
 
-<BaseLayout title="Hubungi Kami — Creativa Studio">
+<BaseLayout 
+  title="Kontak & Lokasi Kantor PT. Dicko Jaya Construction | Tangerang & Bogor"
+  description="Hubungi kami untuk konsultasi pembangunan, renovasi, arsitektur, dan estimasi RAB gratis. Tim kontraktor kami siap melayani wilayah Bogor, Tangerang, dan Jabodetabek."
+>
   
   <div class="py-24 px-[6vw] max-w-7xl mx-auto relative text-text-primary">
     
@@ -27,7 +30,7 @@ const siteSettings = rawSiteSettings || {
         KONTAK & <span class="italic text-accent">LOKASI</span>
       </h1>
       <p class="font-sans text-text-secondary text-[15px] sm:text-base max-w-3xl leading-relaxed">
-        Punya ide proyek arsitektur, rencana pembangunan, atau estimasi RAB untuk proyek properti Anda? Silakan hubungi kami melalui formulir di bawah ini atau kunjungi studio kami.
+        Punya ide proyek arsitektur, rencana pembangunan, atau estimasi RAB untuk proyek properti Anda? Silakan hubungi kami melalui formulir di bawah ini atau kunjungi kantor kami.
       </p>
     </div>
 
@@ -36,13 +39,13 @@ const siteSettings = rawSiteSettings || {
       {/* Contact Details Column */}
       <div class="lg:col-span-5 space-y-8">
         <div class="border border-stone-200/80 p-8 bg-[#FAF9F6] space-y-6">
-          <h3 class="font-serif text-lg font-normal text-text-primary border-b border-stone-200 pb-3">Informasi Studio</h3>
+          <h3 class="font-serif text-lg font-normal text-text-primary border-b border-stone-200 pb-3">Informasi Kantor</h3>
           
           <div class="space-y-5 font-sans text-xs">
             <div class="flex items-start gap-4">
               <MapPin class="w-4 h-4 text-accent shrink-0 mt-0.5" />
               <div>
-                <span class="block font-semibold text-text-primary uppercase mb-1 tracking-wider">ALAMAT STUDIO</span>
+                <span class="block font-semibold text-text-primary uppercase mb-1 tracking-wider">ALAMAT KANTOR</span>
                 <span class="text-text-secondary leading-relaxed">{siteSettings.address}</span>
               </div>
             </div>
@@ -67,22 +70,23 @@ const siteSettings = rawSiteSettings || {
               <Clock class="w-4 h-4 text-accent shrink-0 mt-0.5" />
               <div>
                 <span class="block font-semibold text-text-primary uppercase mb-1 tracking-wider">JAM OPERASIONAL</span>
-                <span class="text-text-secondary">Senin - Jumat: 09:00 - 17:00 WIB</span>
+                <span class="text-text-secondary">Senin - Sabtu: 08:00 - 17:00 WIB</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Map Placeholder */}
+        {/* Interactive Google Map */}
         <div class="border border-stone-200/80 p-3 bg-[#FAF9F6]">
-          <div class="aspect-video w-full bg-stone-100 border border-stone-200 relative overflow-hidden flex items-center justify-center">
-            {/* Elegant Map Graphic using CSS */}
-            <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(139,92,26,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(139,92,26,0.05)_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] opacity-50"></div>
-            <div class="absolute w-24 h-24 bg-accent/5 border border-accent/25 animate-pulse rounded-full"></div>
-            <div class="absolute w-4 h-4 bg-accent border-2 border-stone-100 rounded-full shadow-md"></div>
-            <span class="absolute bottom-2 right-2 font-sans text-[10px] bg-[#FAF9F6] px-2 py-0.5 border border-stone-200 text-stone-500 uppercase tracking-widest">
-              Jakarta Selatan
-            </span>
+          <div class="aspect-video w-full bg-stone-100 border border-stone-200 relative overflow-hidden">
+            <iframe
+              src="https://maps.google.com/maps?q=DJC_Kontraktor%20Cabang%20Tangerang%2C%20Jl.%20Utama%20Taman%20Walet%20No.66%20Blk%20GW%2C%20Sindangsari%2C%20Kec.%20Ps.%20Kemis%2C%20Kabupaten%20Tangerang&t=&z=17&ie=UTF8&iwloc=&output=embed"
+              class="absolute inset-0 w-full h-full border-0 filter grayscale contrast-125 opacity-90 hover:filter-none transition-all duration-500"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Peta Lokasi DJC Kontraktor Cabang Tangerang"
+            ></iframe>
           </div>
         </div>
       </div>
@@ -165,7 +169,7 @@ const siteSettings = rawSiteSettings || {
         const subject = document.getElementById('form-subject').value;
         const message = document.getElementById('form-message').value;
 
-        const formatted = `Halo Creativa Studio, saya *${name}* (${email}).\n` +
+        const formatted = `Halo PT. Dicko Jaya Construction, saya *${name}* (${email}).\n` +
           `*Subjek:* ${subject}\n\n` +
           `*Pesan:*\n${message}`;
 
