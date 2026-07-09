@@ -50,5 +50,5 @@ src/content/mediaPortal.json
 # Archived projects (cadangan lokal)
 src/content/projects_archive/
 
-# Admin page (akses lokal/private)
-src/pages/admin/
+# Admin page — sudah dilindungi verifyToken, aman untuk di-push ke GitHub
+# src/pages/admin/  ← diaktifkan agar halaman upload-media tersedia di Vercel

@@ -1,0 +1,325 @@
+---
+export const prerender = false;
+import '../../styles/global.css';
+import { verifyToken } from '../../utils/auth';
+import siteSettings from '../../content/siteSettings.json';
+
+const sessionCookie = Astro.cookies.get('keystatic-auth')?.value;
+if (!sessionCookie || !verifyToken(sessionCookie)) {
+  return Astro.redirect('/login-cms?redirect=/admin/upload-media');
+}
+
+const cloudName = import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME || '';
+const uploadPreset = import.meta.env.PUBLIC_CLOUDINARY_UPLOAD_PRESET || '';
+const isConfigured = cloudName && cloudName !== 'your_cloud_name' && uploadPreset && uploadPreset !== 'your_unsigned_preset';
+---
+
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Dicko Jaya" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Media Portal — PT. Dicko Jaya Construction</title>
+    <!-- Cloudinary Upload Widget Script -->
+    {isConfigured && (
+      <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript" is:inline></script>
+    )}
+  </head>
+  <body class="bg-[var(--bg-secondary)] min-h-screen p-4 md:p-8 flex flex-col items-center justify-start selection:bg-black selection:text-white relative overflow-x-hidden font-sans">
+    
+    <!-- Decorative Grid Background -->
+    <div class="absolute inset-0 grid grid-cols-6 grid-rows-6 pointer-events-none opacity-15">
+      <div class="border-r border-b border-[var(--border-color)]"></div>
+      <div class="border-r border-b border-[var(--border-color)]"></div>
+      <div class="border-r border-b border-[var(--border-color)]"></div>
+      <div class="border-r border-b border-[var(--border-color)]"></div>
+      <div class="border-r border-b border-[var(--border-color)]"></div>
+      <div class="border-b border-[var(--border-color)]"></div>
+      {Array.from({ length: 30 }).map((_, idx) => (
+        <div key={idx} class="border-r border-b border-[var(--border-color)]"></div>
+      ))}
+    </div>
+
+    <!-- Main Container -->
+    <div class="w-full max-w-4xl bg-[var(--bg-primary)] border border-[var(--border-color)] p-6 md:p-10 relative z-10 shadow-sm rounded-none my-auto">
+      
+      <!-- Crop Marks (Brutalist Architectural Theme) -->
+      <div class="crop tl"></div>
+      <div class="crop tr"></div>
+      <div class="crop bl"></div>
+      <div class="crop br"></div>
+      
+      <!-- Header Dimension Line -->
+      <div class="flex items-center gap-2 mb-8 text-[10px] tracking-wider uppercase opacity-60 font-mono">
+        <div class="w-2 h-2 bg-black"></div>
+        <span>CMS MEDIA SERVICE GATEWAY</span>
+        <div class="flex-grow h-[1px] bg-[var(--border-color)]"></div>
+        <span>STATUS: SECURE CONNECTED</span>
+      </div>
+
+      <!-- Heading -->
+      <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[var(--border-color)] pb-6">
+        <div>
+          <h1 class="text-3xl font-extrabold uppercase tracking-tight text-black mb-1 font-sans">PORTAL MEDIA CLOUDINARY</h1>
+          <p class="text-xs text-[var(--text-secondary)] uppercase tracking-widest font-mono">Unggah, Optimasi, dan Salin Aset untuk Keystatic CMS</p>
+        </div>
+        <div class="flex gap-3">
+          <a href="/keystatic" class="btn-brutal text-[10px] py-2 px-4 font-bold tracking-wider font-mono">
+            ← MASUK CMS
+          </a>
+          <a href="/login-cms?action=logout" class="btn-brutal text-[10px] py-2 px-4 font-bold tracking-wider font-mono bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-900 border-red-200">
+            LOGOUT
+          </a>
+        </div>
+      </div>
+
+      {!isConfigured ? (
+        <!-- Warning State when Cloudinary is not configured -->
+        <div class="border-2 border-dashed border-red-300 bg-red-50 p-6 md:p-8 text-red-800 relative">
+          <div class="flex items-start gap-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-1"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <div class="space-y-4">
+              <h2 class="text-lg font-bold uppercase tracking-wide">Cloudinary Belum Terkonfigurasi</h2>
+              <p class="text-sm leading-relaxed">
+                Portal media ini memerlukan variabel kredensial Cloudinary yang valid di file lingkungan <code class="bg-red-100 px-1 py-0.5 font-mono text-xs">.env</code> Anda. Silakan hubungi developer atau atur variabel berikut:
+              </p>
+              <div class="bg-neutral-900 text-neutral-200 p-4 font-mono text-xs overflow-x-auto space-y-1 select-all">
+                <p>PUBLIC_CLOUDINARY_CLOUD_NAME="nama_cloud_cloudinary_anda"</p>
+                <p>PUBLIC_CLOUDINARY_UPLOAD_PRESET="nama_unsigned_preset_anda"</p>
+              </div>
+              <p class="text-xs leading-normal opacity-80">
+                * Pastikan mode Preset yang dibuat adalah <strong>Unsigned</strong> agar dapat diunggah langsung dari frontend browser secara aman.
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <!-- Main Application Workspace -->
+        <div class="space-y-8">
+          
+          <!-- Upload Trigger Box -->
+          <div 
+            id="cloudinary-config" 
+            data-cloud-name={cloudName} 
+            data-upload-preset={uploadPreset}
+            class="border border-dashed border-[var(--border-color)] bg-[var(--bg-secondary)] p-8 md:p-12 text-center relative hover:bg-neutral-50 transition-colors cursor-pointer group flex flex-col items-center justify-center gap-4"
+          >
+            <div class="w-16 h-16 rounded-none bg-black flex items-center justify-center text-white transition-transform group-hover:scale-105 duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            
+            <div class="space-y-2">
+              <h3 class="text-lg font-bold uppercase tracking-tight text-black">Unggah File Portofolio</h3>
+              <p class="text-xs text-[var(--text-secondary)] uppercase tracking-wider font-mono max-w-md mx-auto leading-relaxed">
+                Mendukung Gambar (WebP, JPG, PNG) & Video (MP4). File akan dikompresi & dioptimalkan secara otomatis oleh Cloudinary.
+              </p>
+            </div>
+
+            <button 
+              id="upload-button" 
+              class="btn-brutal btn-brutal-accent mt-4 py-3 px-8 text-xs font-bold tracking-widest uppercase hover:shadow-md"
+            >
+              PILIH MEDIA
+            </button>
+          </div>
+
+          <!-- Uploaded Items List -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-[var(--border-color)] pb-3">
+              <h4 class="text-xs font-bold uppercase tracking-widest text-black font-mono">Daftar Berkas Terunggah Sesi Ini</h4>
+              <span id="items-count" class="text-[10px] font-mono bg-black text-white px-2 py-0.5">0 BERKAS</span>
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="text-center py-12 border border-[var(--border-color)] bg-neutral-50/50 text-[var(--text-secondary)]">
+              <p class="text-xs uppercase tracking-widest font-mono">Belum ada berkas terunggah. Silakan klik tombol di atas.</p>
+            </div>
+
+            <!-- Items container -->
+            <div id="uploaded-items" class="space-y-4 max-h-[450px] overflow-y-auto pr-2">
+              <!-- JS will inject items here dynamically -->
+            </div>
+          </div>
+
+          <!-- Bottom Guidelines Info -->
+          <div class="border border-[var(--border-color)] p-5 bg-neutral-50 space-y-3 font-mono">
+            <h5 class="text-xs font-bold uppercase tracking-wider text-black flex items-center gap-2">
+              <span class="w-1.5 h-1.5 bg-black inline-block"></span>
+              CARA MENGGUNAKAN DI KEYSTATIC CMS:
+            </h5>
+            <ol class="text-[10px] text-[var(--text-secondary)] uppercase leading-relaxed space-y-1.5 list-decimal list-inside">
+              <li>Klik tombol "PILIH MEDIA" untuk mengunggah gambar/video.</li>
+              <li>Tunggu hingga berkas selesai diunggah. Tautan URL teroptimasi akan otomatis muncul di bawah.</li>
+              <li>Klik tombol <strong class="text-black">"SALIN URL"</strong> pada berkas yang diinginkan.</li>
+              <li>Buka tab <strong class="text-black">Keystatic CMS</strong>, lalu tempel (Paste) URL tersebut ke kolom input URL gambar/video yang sesuai.</li>
+            </ol>
+          </div>
+
+        </div>
+      )}
+
+      <!-- Bottom metadata -->
+      <div class="mt-10 pt-6 border-t border-[var(--line)] flex justify-between items-center text-[9px] font-mono tracking-widest uppercase opacity-50">
+        <span>© 2026 {siteSettings.brandName.toUpperCase()}</span>
+        <span>ACCESS LEVEL: ADMINISTRATOR</span>
+      </div>
+    </div>
+
+    <!-- Client-Side Logic -->
+    {isConfigured && (
+      <script is:inline>
+        document.addEventListener('DOMContentLoaded', () => {
+          const configEl = document.getElementById('cloudinary-config');
+          const cloudName = configEl.dataset.cloudName;
+          const uploadPreset = configEl.dataset.uploadPreset;
+
+          const uploadBtn = document.getElementById('upload-button');
+          const emptyState = document.getElementById('empty-state');
+          const uploadedItemsContainer = document.getElementById('uploaded-items');
+          const itemsCount = document.getElementById('items-count');
+
+          let uploadedCount = 0;
+
+          // Initialize Cloudinary Widget
+          const myWidget = cloudinary.createUploadWidget({
+            cloudName: cloudName,
+            uploadPreset: uploadPreset,
+            sources: ['local', 'url', 'camera'],
+            multiple: true,
+            defaultSource: 'local',
+            styles: {
+              palette: {
+                window: '#FFFFFF',
+                windowBorder: '#121212',
+                tabIcon: '#121212',
+                menuIcons: '#121212',
+                textDark: '#121212',
+                textLight: '#FFFFFF',
+                link: '#121212',
+                action: '#121212',
+                activeTabIcon: '#121212',
+                inactiveTabIcon: '#5A5A5A',
+                error: '#E53E3E',
+                inProgress: '#3182CE',
+                complete: '#38A169',
+                sourceBg: '#F8F9FA'
+              },
+              fonts: {
+                default: null,
+                '"Plus Jakarta Sans", sans-serif': 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap'
+              }
+            }
+          }, (error, result) => {
+            if (!error && result && result.event === "success") {
+              // Hide empty state
+              if (emptyState) emptyState.style.display = 'none';
+
+              // Extract upload details
+              const info = result.info;
+              const resourceType = info.resource_type; // 'image' or 'video'
+              const format = info.format || (resourceType === 'video' ? 'mp4' : 'webp');
+              
+              // Build Optimized URL
+              // Parameter f_auto,q_auto ditambahkan di path upload/ untuk kompresi otomatis berkualitas tinggi
+              const baseUrl = `https://res.cloudinary.com/${cloudName}/${resourceType}/upload`;
+              const optimizedUrl = `${baseUrl}/f_auto,q_auto/v${info.version}/${info.public_id}.${format}`;
+              const displayName = info.original_filename + '.' + format;
+              const fileSizeMB = (info.bytes / (1024 * 1024)).toFixed(2);
+
+              // Increment counter
+              uploadedCount++;
+              itemsCount.textContent = `${uploadedCount} BERKAS`;
+
+              // Render item row
+              const itemRow = document.createElement('div');
+              itemRow.className = 'flex flex-col md:flex-row items-stretch md:items-center justify-between border border-[var(--border-color)] p-4 gap-4 bg-[var(--bg-primary)] hover:border-black transition-colors relative';
+              
+              // Determine preview (thumbnail / icon)
+              let previewHtml = '';
+              if (resourceType === 'image') {
+                previewHtml = `<img src="${baseUrl}/c_fill,w_100,h_100,g_auto/v${info.version}/${info.public_id}.${format}" alt="${displayName}" class="w-12 h-12 object-cover border border-[var(--border-color)]" />`;
+              } else {
+                previewHtml = `
+                  <div class="w-12 h-12 bg-neutral-100 flex items-center justify-center border border-[var(--border-color)] text-neutral-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                  </div>
+                `;
+              }
+
+              itemRow.innerHTML = `
+                <div class="flex items-center gap-3 flex-grow min-w-0">
+                  ${previewHtml}
+                  <div class="min-w-0 flex-grow">
+                    <h5 class="text-xs font-bold truncate text-black uppercase font-mono">${displayName}</h5>
+                    <p class="text-[9px] text-[var(--text-secondary)] font-mono uppercase mt-0.5">${resourceType} • ${fileSizeMB} MB</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-center gap-2 w-full md:w-auto">
+                  <input 
+                    type="text" 
+                    value="${optimizedUrl}" 
+                    readonly 
+                    class="flex-grow md:w-80 px-3 py-2 bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[10px] font-mono focus:outline-none focus:border-black"
+                  />
+                  <button 
+                    class="copy-btn btn-brutal py-2 px-4 text-[10px] font-bold tracking-wider font-mono bg-black text-white hover:bg-neutral-800 shrink-0"
+                    data-url="${optimizedUrl}"
+                  >
+                    SALIN URL
+                  </button>
+                </div>
+              `;
+
+              // Prepend newly uploaded item to list
+              uploadedItemsContainer.insertBefore(itemRow, uploadedItemsContainer.firstChild);
+
+              // Add copy listener
+              const copyBtn = itemRow.querySelector('.copy-btn');
+              copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(optimizedUrl).then(() => {
+                  // Feedback state
+                  copyBtn.textContent = 'TERSALIN! ✔';
+                  copyBtn.style.backgroundColor = '#22C55E'; // green
+                  copyBtn.style.borderColor = '#22C55E';
+                  copyBtn.style.color = '#FFFFFF';
+                  
+                  // Flash input border
+                  const input = itemRow.querySelector('input');
+                  input.style.borderColor = '#22C55E';
+                  input.style.backgroundColor = '#F0FDF4';
+
+                  setTimeout(() => {
+                    copyBtn.textContent = 'SALIN URL';
+                    copyBtn.style.backgroundColor = 'black';
+                    copyBtn.style.borderColor = 'var(--border-color)';
+                    copyBtn.style.color = '#FFFFFF';
+                    input.style.borderColor = 'var(--border-color)';
+                    input.style.backgroundColor = 'var(--bg-secondary)';
+                  }, 2000);
+                });
+              });
+            }
+          });
+
+          // Open widget on click of triggers
+          uploadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            myWidget.open();
+          });
+
+          configEl.addEventListener('click', () => {
+            myWidget.open();
+          });
+        });
+      </script>
+    )}
+  </body>
+</html>
