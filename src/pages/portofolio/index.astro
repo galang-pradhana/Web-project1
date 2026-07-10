@@ -12,10 +12,10 @@ const projects = rawProjects.map(p => ({
 
 // Variasi aspek rasio asimetris untuk estetika editorial premium (OH Architecture style)
 const layouts = [
-  { container: 'h-[50vh] md:h-[58vh] aspect-[3/4]', imgClass: 'aspect-[3/4]' },     // Tinggi Tegak (Vertikal)
-  { container: 'h-[38vh] md:h-[45vh] aspect-[16/10]', imgClass: 'aspect-[16/10]' }, // Lebar Sedang (Horizontal)
-  { container: 'h-[44vh] md:h-[52vh] aspect-[1/1]', imgClass: 'aspect-[1/1]' },     // Kotak (Square)
-  { container: 'h-[32vh] md:h-[38vh] aspect-[4/3]', imgClass: 'aspect-[4/3]' }      // Kecil Lebar
+  { container: 'w-full aspect-[3/4] md:h-[58vh] md:aspect-[3/4]' },     // Tinggi Tegak (Vertikal)
+  { container: 'w-full aspect-[16/10] md:h-[45vh] md:aspect-[16/10]' }, // Lebar Sedang (Horizontal)
+  { container: 'w-full aspect-[1/1] md:h-[52vh] md:aspect-[1/1]' },     // Kotak (Square)
+  { container: 'w-full aspect-[4/3] md:h-[38vh] md:aspect-[4/3]' }      // Kecil Lebar
 ];
 ---
 
@@ -25,11 +25,11 @@ const layouts = [
   heroFullBleed={true}
   hideFooter={true}
 >
-  <!-- Main Horizontal Scroll Container -->
-  <div class="horizontal-scroll-container w-full min-h-screen overflow-hidden bg-[#FAF9F6] relative flex items-center">
+  <!-- Main Scroll Container (Horizontal on Desktop, Vertical on Mobile) -->
+  <div class="horizontal-scroll-container w-full min-h-screen md:overflow-hidden bg-[#FAF9F6] relative flex flex-col md:flex-row md:items-center">
     
-    <!-- Stuck Intro Section (Tetap berada di kiri layar) -->
-    <div class="stuck-intro absolute left-[8vw] top-1/2 -translate-y-1/2 w-[280px] md:w-[400px] z-10 flex flex-col justify-center pr-8 space-y-6 pointer-events-none">
+    <!-- Stuck Intro Section (Fixed on desktop, static/inline on mobile) -->
+    <div class="stuck-intro md:absolute md:left-[8vw] md:top-1/2 md:-translate-y-1/2 md:w-[400px] w-full px-[8vw] pt-28 md:pt-0 pb-8 md:pb-0 z-10 flex flex-col justify-center md:pr-8 space-y-6 pointer-events-none">
       <span class="font-sans text-[10px] font-semibold tracking-[0.25em] text-accent uppercase block">PT. DICKO JAYA CONSTRUCTION</span>
       <h1 class="font-serif text-3xl md:text-5xl font-light text-stone-900 leading-tight">
         KURASI KARYA <br/><span class="italic text-accent font-normal">ARSITEKTUR & RAB</span>
@@ -39,18 +39,18 @@ const layouts = [
       </p>
     </div>
     
-    <!-- Outer horizontal track that moves -->
-    <div class="horizontal-track flex flex-row items-center gap-16 md:gap-24 px-[8vw] h-full select-none">
+    <!-- Outer track (Slides horizontally on desktop, stacks vertically on mobile) -->
+    <div class="horizontal-track flex flex-col md:flex-row items-center gap-16 md:gap-24 px-[8vw] py-12 md:py-0 h-auto md:h-full select-none w-full md:w-auto">
       
-      <!-- Spacer untuk memberi ruang bagi Intro Section yang stuck di awal -->
-      <div class="flex-shrink-0 w-[280px] md:w-[400px] mr-12 md:mr-16"></div>
+      <!-- Spacer for Intro Section (Desktop only) -->
+      <div class="hidden md:block flex-shrink-0 w-[400px] mr-16"></div>
 
       <!-- Projects Slides with asymmetric layout structure -->
       {projects.map((proj, idx) => {
         const layout = layouts[idx % layouts.length];
         
         return (
-          <div class={`flex-shrink-0 flex flex-col justify-center project-item`}>
+          <div class="w-full md:w-auto flex-shrink-0 flex flex-col justify-center project-item">
             <a href={`/portofolio/${proj.slug}`} class="group block cursor-pointer">
               <!-- Image & Video element with premium transition styling -->
               <div class={`${layout.container} overflow-hidden bg-stone-100 relative`}>
@@ -90,7 +90,7 @@ const layouts = [
       })}
 
       <!-- Final Slide: CTA to Contact -->
-      <div class="flex-shrink-0 w-[300px] md:w-[450px] flex flex-col justify-center pl-8 space-y-6 pr-[8vw]">
+      <div class="w-full md:w-[450px] flex-shrink-0 flex flex-col justify-center md:pl-8 space-y-6 pb-24 md:pb-0 pr-[8vw]">
         <span class="font-sans text-[10px] font-semibold tracking-[0.25em] text-accent uppercase block">KOLABORASI</span>
         <h2 class="font-serif text-3xl md:text-4xl font-light text-stone-900 leading-tight">
           WUJUDKAN IDE <br/><span class="italic text-accent font-normal">PROYEK ANDA</span>
@@ -109,8 +109,8 @@ const layouts = [
 
     </div>
 
-    <!-- Fixed Bottom Status Bar (OH Architecture style) -->
-    <div class="fixed bottom-0 left-0 right-0 z-20 px-[6vw] pb-8 pt-4 pointer-events-none flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+    <!-- Fixed Bottom Status Bar (Desktop only) -->
+    <div class="fixed bottom-0 left-0 right-0 z-20 px-[6vw] pb-8 pt-4 pointer-events-none hidden md:flex md:flex-row md:items-end md:justify-between gap-4">
       
       <!-- Big "WORKS" label on bottom-left (decorative) -->
       <div class="pointer-events-auto">
@@ -146,48 +146,58 @@ const layouts = [
       return track.scrollWidth - window.innerWidth;
     };
 
-    // Buat animasi horizontal slide yang dipicu oleh vertikal scroll
-    const scrollTween = gsap.to(track, {
-      x: () => -getScrollAmount(),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: container,
-        pin: true,
-        scrub: 1, // Menambahkan inersia scroll agar sangat mulus
-        start: 'top top',
-        end: () => `+=${getScrollAmount()}`,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          // Perbarui teks indikator persentase scroll
-          const pctElement = document.querySelector('.scroll-percentage');
-          if (pctElement) {
-            const pct = Math.round(self.progress * 100);
-            pctElement.textContent = `(${String(pct).padStart(2, '0')}%)`;
-          }
+    // Gunakan gsap.matchMedia() untuk performa optimal & hanya jalankan di desktop (>= 768px)
+    let mm = gsap.matchMedia();
 
-          // Efek memudar dan parallax halus untuk stuck intro saat discroll
-          if (stuckIntro) {
-            const progressThreshold = 0.15; // Selesai memudar di 15% awal perjalanan scroll
-            if (self.progress <= progressThreshold) {
-              const opacity = 1 - (self.progress / progressThreshold);
-              const xTranslate = -40 * (self.progress / progressThreshold); // Sedikit bergeser ke kiri
-              gsap.set(stuckIntro, { 
-                opacity: opacity, 
-                x: xTranslate,
-                pointerEvents: opacity < 0.1 ? 'none' : 'auto'
-              });
-            } else {
-              gsap.set(stuckIntro, { opacity: 0, x: -40 });
+    mm.add("(min-width: 768px)", () => {
+      // Buat animasi horizontal slide yang dipicu oleh vertikal scroll
+      const scrollTween = gsap.to(track, {
+        x: () => -getScrollAmount(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: container,
+          pin: true,
+          scrub: 1, // Menambahkan inersia scroll agar sangat mulus
+          start: 'top top',
+          end: () => `+=${getScrollAmount()}`,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            // Perbarui teks indikator persentase scroll
+            const pctElement = document.querySelector('.scroll-percentage');
+            if (pctElement) {
+              const pct = Math.round(self.progress * 100);
+              pctElement.textContent = `(${String(pct).padStart(2, '0')}%)`;
+            }
+
+            // Efek memudar dan parallax halus untuk stuck intro saat discroll
+            if (stuckIntro) {
+              const progressThreshold = 0.15; // Selesai memudar di 15% awal perjalanan scroll
+              if (self.progress <= progressThreshold) {
+                const opacity = 1 - (self.progress / progressThreshold);
+                const xTranslate = -40 * (self.progress / progressThreshold); // Sedikit bergeser ke kiri
+                gsap.set(stuckIntro, { 
+                  opacity: opacity, 
+                  x: xTranslate,
+                  pointerEvents: opacity < 0.1 ? 'none' : 'auto'
+                });
+              } else {
+                gsap.set(stuckIntro, { opacity: 0, x: -40 });
+              }
             }
           }
         }
-      }
+      });
+
+      return () => {
+        // Membersihkan tween dan ScrollTrigger saat media query tidak lagi cocok
+        scrollTween.scrollTrigger?.kill();
+        scrollTween.kill();
+      };
     });
 
-    // Event listener pembersihan transisi Astro
+    // Event listener pembersihan transisi Astro (untuk pembersihan penuh saat pindah halaman)
     document.addEventListener('astro:before-preparation', () => {
-      scrollTween.scrollTrigger?.kill();
-      scrollTween.kill();
+      mm.revert();
     });
   }
 

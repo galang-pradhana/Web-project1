@@ -75,7 +75,11 @@ export const EstimatorTabWrapper: React.FC<EstimatorTabWrapperProps> = ({
                 Gunakan estimasi cepat berbasis paket untuk mengetahui budget pembangunan awal secara instan.
               </p>
             </div>
-            <QuickEstimator packages={packages} whatsappNumber={whatsappNumber} />
+            <QuickEstimator 
+              packages={packages} 
+              whatsappNumber={whatsappNumber} 
+              onSwitchToDetail={() => setActiveTab('detail')}
+            />
           </div>
         ) : (
           <div className="animate-fade-in">

@@ -33,11 +33,12 @@ interface Package {
 interface QuickEstimatorProps {
   packages: Package[];
   whatsappNumber: string;
+  onSwitchToDetail?: () => void;
 }
 
 type JobType = 'Bangun Baru' | 'Renovasi Total' | 'Renovasi Sebagian' | 'Interior Saja';
 
-export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsappNumber }) => {
+export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsappNumber, onSwitchToDetail }) => {
   const [step, setStep] = useState<number>(1);
   const [jobType, setJobType] = useState<JobType>('Bangun Baru');
   const [area, setArea] = useState<number>(100);
@@ -522,9 +523,20 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
                     className="inline-flex items-center gap-1 text-[11px] text-amber-800 hover:text-amber-900 font-bold transition-colors cursor-pointer uppercase tracking-wider"
                     onClick={(e) => {
                       e.preventDefault();
-                      const detailSection = document.getElementById('calculator-detail');
-                      if (detailSection) {
-                        detailSection.scrollIntoView({ behavior: 'smooth' });
+                      if (onSwitchToDetail) {
+                        onSwitchToDetail();
+                        // Berikan jeda singkat agar DOM selesai merender DetailEstimator
+                        setTimeout(() => {
+                          const detailSection = document.getElementById('calculator-detail');
+                          if (detailSection) {
+                            detailSection.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }, 100);
+                      } else {
+                        const detailSection = document.getElementById('calculator-detail');
+                        if (detailSection) {
+                          detailSection.scrollIntoView({ behavior: 'smooth' });
+                        }
                       }
                     }}
                   >
