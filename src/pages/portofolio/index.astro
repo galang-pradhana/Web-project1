@@ -21,6 +21,7 @@ const layouts = [
 
 <BaseLayout 
   title="Portofolio Kontraktor & Arsitektur — PT. Dicko Jaya Construction"
+  description="Portofolio proyek konstruksi dan arsitektur PT. Dicko Jaya Construction — hunian minimalis, kontemporer, dan industrial di Bogor, Tangerang, dan Jabodetabek."
   heroFullBleed={true}
   hideFooter={true}
 >
@@ -30,9 +31,9 @@ const layouts = [
     <!-- Stuck Intro Section (Tetap berada di kiri layar) -->
     <div class="stuck-intro absolute left-[8vw] top-1/2 -translate-y-1/2 w-[280px] md:w-[400px] z-10 flex flex-col justify-center pr-8 space-y-6 pointer-events-none">
       <span class="font-sans text-[10px] font-semibold tracking-[0.25em] text-accent uppercase block">PT. DICKO JAYA CONSTRUCTION</span>
-      <h2 class="font-serif text-3xl md:text-5xl font-light text-stone-900 leading-tight">
+      <h1 class="font-serif text-3xl md:text-5xl font-light text-stone-900 leading-tight">
         KURASI KARYA <br/><span class="italic text-accent font-normal">ARSITEKTUR & RAB</span>
-      </h2>
+      </h1>
       <p class="font-sans text-stone-500 text-xs md:text-sm leading-relaxed font-light">
         Kumpulan proyek pilihan pembangunan hunian mewah, gedung komersial, dan renovasi presisi tinggi yang memadukan kekuatan struktur dengan keindahan visual.
       </p>
@@ -111,11 +112,11 @@ const layouts = [
     <!-- Fixed Bottom Status Bar (OH Architecture style) -->
     <div class="fixed bottom-0 left-0 right-0 z-20 px-[6vw] pb-8 pt-4 pointer-events-none flex flex-col md:flex-row md:items-end md:justify-between gap-4">
       
-      <!-- Big "WORKS" label on bottom-left -->
+      <!-- Big "WORKS" label on bottom-left (decorative) -->
       <div class="pointer-events-auto">
-        <h1 class="font-sans text-[10vw] md:text-[7vw] font-bold tracking-tighter leading-none text-stone-900/90 select-none uppercase">
+        <span aria-hidden="true" class="font-sans text-[10vw] md:text-[7vw] font-bold tracking-tighter leading-none text-stone-900/90 select-none uppercase block">
           WORKS
-        </h1>
+        </span>
       </div>
 
       <!-- Center Scroll Percentage Indicator -->

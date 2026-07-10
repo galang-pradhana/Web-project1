@@ -13,6 +13,7 @@ interface Props {
   hideFooter?: boolean;
   ogImage?: string;
   canonicalUrl?: string;
+  additionalSchema?: any[];
 }
 
 const { 
@@ -22,7 +23,8 @@ const {
   heroFullBleed = false,
   hideFooter = false,
   ogImage = "/logo-djc.png",
-  canonicalUrl = Astro.url.href
+  canonicalUrl = Astro.url.href,
+  additionalSchema = []
 } = Astro.props;
 
 const telephone = siteSettings.whatsapp ? `+${siteSettings.whatsapp}` : "+6281511536230";
@@ -99,7 +101,8 @@ const schemaData = {
           "name": "Depok"
         }
       ]
-    }
+    },
+    ...additionalSchema
   ]
 };
 ---

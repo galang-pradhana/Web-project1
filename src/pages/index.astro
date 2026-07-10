@@ -61,12 +61,26 @@ const iconMap = {
   'Calculator': Calculator,
   'Wrench': Wrench
 };
+
+// Format FAQPage schema dynamically from CMS data
+const faqSchema = (homePage.faqs && homePage.faqs.length > 0) ? [{
+  "@type": "FAQPage",
+  "mainEntity": homePage.faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+}] : [];
 ---
 
 <BaseLayout 
   title={`${siteSettings.brandName} — Jasa Kontraktor & Arsitektur Premium`} 
   description={siteSettings.description}
   heroFullBleed={true}
+  additionalSchema={faqSchema}
 >
   
   <!-- Hero: STICKY so it stays fixed while content section slides over it -->

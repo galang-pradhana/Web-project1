@@ -327,7 +327,7 @@ const getVideoCaption = (slug: string, idx: number, fallback: string) => {
                 <div class="w-full h-full overflow-hidden bg-stone-100 relative">
                   <img 
                     src={item.imageUrl} 
-                    alt={`${project.title} Gallery ${idx + 1}`}
+                    alt={item.caption || `Foto dokumentasi ${project.title} ${idx + 1}`}
                     class="w-full h-full object-cover filter sepia-[0.15] brightness-[0.98] hover:sepia-0 hover:scale-[1.02] transition-all duration-1000"
                     loading="lazy"
                   />

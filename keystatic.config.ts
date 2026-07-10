@@ -42,23 +42,14 @@ export default config({
         coverVideo: fields.text({
           label: 'URL Video Cover (Cloudinary MP4)',
         }),
-        gallery: fields.array(
-          fields.text({
-            label: 'URL Foto Galeri',
-          }),
-          {
-            label: 'Galeri Foto',
-            itemLabel: (props) => props.value || 'Foto URL',
-          }
-        ),
         galleryItems: fields.array(
           fields.object({
-            imageUrl: fields.text({ label: 'URL Foto' }),
+            imageUrl: fields.text({ label: 'URL Foto Galeri' }),
             caption: fields.text({ label: 'Keterangan Gambar', multiline: true }),
           }),
           {
-            label: 'Galeri Foto (dengan Keterangan)',
-            itemLabel: (props) => props.fields.caption.value || props.fields.imageUrl.value || 'Item Foto',
+            label: 'Galeri Foto',
+            itemLabel: (props) => props.fields.caption.value || props.fields.imageUrl.value || 'Tambah foto...',
           }
         ),
         videoGallery: fields.array(
