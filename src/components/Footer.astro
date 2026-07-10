@@ -168,14 +168,16 @@ const formattedPhone = whatsapp.startsWith('62')
       <!-- Real Estate Icon Logo and Name -->
       <div class="flex flex-col items-center justify-center space-y-3 mt-6">
         <!-- Minimalist Architect Logo (Skyline/Building Block) -->
-        <img src="/logo-djc.png" alt="PT. Dicko Jaya Construction Logo" class="h-10 w-auto object-contain brightness-95 contrast-105" />
+        <div class="rounded-full p-1 bg-[#161412] border border-[#C5A078]/30 shadow-lg flex items-center justify-center">
+          <img src="/logo-djc.png" alt="PT. Dicko Jaya Construction Logo" class="h-10 w-10 object-contain rounded-full brightness-105" />
+        </div>
         <span class="font-serif text-[14px] font-semibold tracking-[0.2em] text-white uppercase text-center">
-          DICKO JAYA <span class="italic text-accent">CONSTRUCTION</span>
+          DICKO JAYA <span class="italic text-[#C5A078]">CONSTRUCTION</span>
         </span>
       </div>
 
       <!-- Copyright text -->
-      <p class="font-sans text-[10px] text-stone-600 uppercase tracking-[0.2em] text-center mt-6">
+      <p class="font-sans text-[10px] text-stone-500 uppercase tracking-[0.2em] text-center mt-6">
         © {new Date().getFullYear()} {brandName}. ALL RIGHTS RESERVED. A PRODUCT OF DJCKONTRAKTOR.COM
       </p>
     </div>
