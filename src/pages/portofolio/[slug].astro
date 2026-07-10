@@ -305,24 +305,28 @@ const getVideoCaption = (slug: string, idx: number, fallback: string) => {
     {/* 3. Bottom Section (3-Column Galleries) */}
     
     {/* Photo Gallery Grid */}
-    {project.gallery && project.gallery.length > 0 && (
+    {((project.galleryItems && project.galleryItems.length > 0) || (project.gallery && project.gallery.length > 0)) && (
       <div class="space-y-10 pt-16 border-t border-stone-200">
         <div class="flex justify-between items-baseline pb-4 border-b border-stone-200">
           <h2 class="font-serif text-2xl lg:text-3xl font-light text-stone-900">
             Dokumentasi Detail Pengerjaan
           </h2>
           <span class="font-sans text-[10px] text-stone-400 tracking-widest uppercase">
-            {project.gallery.length} FOTO KARYA
+            {(project.galleryItems && project.galleryItems.length > 0 ? project.galleryItems.length : (project.gallery?.length || 0))} FOTO KARYA
           </span>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {project.gallery.map((img: string, idx: number) => (
+          {/* Gunakan galleryItems (CMS baru) jika ada, fallback ke gallery lama */}
+          {(project.galleryItems && project.galleryItems.length > 0
+            ? project.galleryItems
+            : (project.gallery || []).map((img: string, i: number) => ({ imageUrl: img, caption: getGalleryCaption(slug, i, `Detail dokumentasi ${i + 1}`) }))
+          ).map((item: { imageUrl: string; caption: string }, idx: number) => (
             <div class="space-y-3">
               <div class="border border-stone-200/80 p-2 bg-[#FAF9F6] shadow-sm group hover:border-stone-900/40 transition-colors duration-500 w-full aspect-[3/2]">
                 <div class="w-full h-full overflow-hidden bg-stone-100 relative">
                   <img 
-                    src={img} 
+                    src={item.imageUrl} 
                     alt={`${project.title} Gallery ${idx + 1}`}
                     class="w-full h-full object-cover filter sepia-[0.15] brightness-[0.98] hover:sepia-0 hover:scale-[1.02] transition-all duration-1000"
                     loading="lazy"
@@ -334,7 +338,7 @@ const getVideoCaption = (slug: string, idx: number, fallback: string) => {
                 </div>
               </div>
               <p class="font-sans text-[11px] text-stone-500 leading-relaxed tracking-wide italic">
-                {getGalleryCaption(slug, idx, `Detail dokumentasi ${idx + 1}`)}
+                {item.caption}
               </p>
             </div>
           ))}

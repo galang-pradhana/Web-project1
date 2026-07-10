@@ -51,6 +51,16 @@ export default config({
             itemLabel: (props) => props.value || 'Foto URL',
           }
         ),
+        galleryItems: fields.array(
+          fields.object({
+            imageUrl: fields.text({ label: 'URL Foto' }),
+            caption: fields.text({ label: 'Keterangan Gambar', multiline: true }),
+          }),
+          {
+            label: 'Galeri Foto (dengan Keterangan)',
+            itemLabel: (props) => props.fields.caption.value || props.fields.imageUrl.value || 'Item Foto',
+          }
+        ),
         videoGallery: fields.array(
           fields.text({
             label: 'URL Video Galeri',
@@ -234,6 +244,30 @@ export default config({
     }),
   },
   singletons: {
+    tentangKami: singleton({
+      label: 'Halaman Tentang Kami',
+      path: 'src/content/tentangKami',
+      format: { data: 'json' },
+      schema: {
+        headerEyebrow: fields.text({ label: 'Eyebrow Header (misal: PROFIL PERUSAHAAN)', defaultValue: 'PROFIL PERUSAHAAN' }),
+        headerTitle: fields.text({ label: 'Judul Halaman (misal: PRESISI & ESTETIKA)', defaultValue: 'PRESISI & ESTETIKA' }),
+        headerDescription: fields.text({ label: 'Deskripsi Header Halaman', multiline: true }),
+
+        visiTitle: fields.text({ label: 'Judul Bagian Visi', defaultValue: 'VISI & DEDIKASI KAMI' }),
+        visiImageUrl: fields.text({ label: 'URL Gambar Visi', defaultValue: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800' }),
+        visiParagraph1: fields.text({ label: 'Paragraf Visi 1', multiline: true }),
+        visiParagraph2: fields.text({ label: 'Paragraf Visi 2', multiline: true }),
+        visiParagraph3: fields.text({ label: 'Paragraf Visi 3', multiline: true }),
+
+        statTahunBerdiri: fields.text({ label: 'Statistik: Tahun Berdiri', defaultValue: '2012' }),
+        statProyekSelesai: fields.text({ label: 'Statistik: Jumlah Proyek Selesai', defaultValue: '100+' }),
+        statKotaOperasional: fields.text({ label: 'Statistik: Jumlah Kota Operasional', defaultValue: '2+' }),
+
+        k3ImageUrl: fields.text({ label: 'URL Gambar K3', defaultValue: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800' }),
+        k3Description: fields.text({ label: 'Deskripsi Bagian K3', multiline: true }),
+        k3Quote: fields.text({ label: 'Kutipan K3', multiline: true }),
+      },
+    }),
     siteSettings: singleton({
       label: 'Pengaturan Situs',
       path: 'src/content/siteSettings',
