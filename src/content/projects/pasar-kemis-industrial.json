@@ -21,7 +21,8 @@
     }
   ],
   "videoGallery": [
-    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783567619/thyouvb2orprj33w51mj.mp4"
+    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783567619/thyouvb2orprj33w51mj.mp4",
+    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783566575/itkniqz2y3vhtyy5hjlt.mp4"
   ],
   "area": 180,
   "location": "Pasar Kemis, Tangerang",
@@ -30,5 +31,6 @@
   "budgetRange": "Rp 1.4M - Rp 1.7M",
   "testimonialContent": "Hasil pengerjaan dinding semen ekspos dan struktur baja hitamnya sangat rapi. Memberikan getaran maskulin dan modern industrial yang nyata sesuai impian kami.",
   "testimonialAuthor": "Bpk. Gunawan",
-  "description": "Hunian bertema Industrial Modern di Pasar Kemis, Tangerang. Menampilkan ekspos material mentah seperti dinding plester semen terpoles, aksen besi hitam/baja struktural, serta bata ekspos merah yang dipadukan secara estetis dengan tata lampu hangat untuk menciptakan nuansa ruang yang unik dan kontras."
+  "description": "Hunian bertema Industrial Modern di Pasar Kemis, Tangerang. Menampilkan ekspos material mentah seperti dinding plester semen terpoles, aksen besi hitam/baja struktural, serta bata ekspos merah yang dipadukan secara estetis dengan tata lampu hangat untuk menciptakan nuansa ruang yang unik dan kontras.",
+  "isArchived": false
 }
