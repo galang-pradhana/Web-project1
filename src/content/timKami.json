@@ -1,0 +1,56 @@
+{
+  "headerEyebrow": "STRUKTUR ORGANISASI",
+  "headerTitle": "Keahlian Teknik & Visi Konstruksi",
+  "headerDescription": "Di balik setiap proyek yang kokoh dan estetis, terdapat dedikasi dari para profesional berpengalaman yang mengutamakan keselamatan kerja, keterbukaan biaya, dan presisi di lapangan.",
+  "members": [
+    {
+      "id": "muhammad-maulana",
+      "name": "Muhammad Maulana",
+      "role": "Founder",
+      "image": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783746368/ge2ujjvadyzrcqfq3err.png",
+      "description": "Mendirikan PT. Dicko Jaya Construction dengan visi menghadirkan konstruksi berkualitas tinggi yang memadukan keahlian teknik presisi dan keindahan desain arsitektur modern. Beliau memimpin arah strategis perusahaan, menjamin komitmen pada kekuatan struktur, serta memastikan kepuasan klien di setiap skala pembangunan."
+    },
+    {
+      "id": "dhiva-rizki",
+      "name": "Dhiva Rizki Firdaus S.T.",
+      "role": "Desainer",
+      "image": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783746441/kevyf9gne47ibtpafscy.png",
+      "description": "Merancang konsep arsitektur dan visualisasi 3D yang estetis, fungsional, dan inovatif. Memastikan setiap desain bangunan tidak hanya memiliki nilai seni tinggi dan tampak modern, tetapi juga dapat diimplementasikan secara teknis dengan presisi serta sesuai dengan preferensi unik setiap klien."
+    },
+    {
+      "id": "devin-rizky",
+      "name": "Devin Rizky",
+      "role": "Admin",
+      "image": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783745556/l2g02duks5mjuqbnmzmv.png",
+      "description": "Mengelola administrasi proyek, alur keuangan, dan jembatan komunikasi dengan klien. Memastikan seluruh kebutuhan dokumen kontrak, tagihan, dan koordinasi administratif berjalan transparan, terstruktur, serta tepat waktu untuk mendukung kelancaran proyek."
+    },
+    {
+      "id": "muhidin",
+      "name": "Muhidin",
+      "role": "Pelaksana & K3",
+      "image": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783745552/fge3sxxzepcphhib2a8v.png",
+      "description": "Bertanggung jawab penuh atas pelaksanaan teknis di lapangan sekaligus menegakkan protokol Keselamatan dan Kesehatan Kerja (K3). Memastikan setiap proses pembangunan berjalan sesuai standar keselamatan industri demi melindungi tim kerja dan menjaga zero-accident."
+    },
+    {
+      "id": "junaedi",
+      "name": "Junaedi",
+      "role": "Pengawas Lapangan",
+      "image": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783745548/nfrac0dbp0x1lzh41rg3.png",
+      "description": "Mengawasi jalannya konstruksi harian secara detail di lapangan. Memastikan pelaksanaan pengerjaan sesuai dengan cetak biru (blueprint) arsitektur, spesifikasi material yang disetujui, dan standar mutu tinggi dari PT. Dicko Jaya Construction."
+    },
+    {
+      "id": "yanto",
+      "name": "Yanto",
+      "role": "Pengawas Lapangan",
+      "image": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783745549/ncc4nmf5vzmhhvjbtpfo.jpg",
+      "description": "Memantau kemajuan fisik proyek, melakukan kontrol kualitas (QC) material masuk di lokasi, dan mengoordinasikan jadwal kerja harian para pekerja lapangan agar deviasi target pembangunan dapat dihindari."
+    },
+    {
+      "id": "yasin",
+      "name": "Yasin",
+      "role": "Pengawas Lapangan",
+      "image": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1783745547/qo6uwifvhzcfzgczrirq.jpg",
+      "description": "Mengontrol ketepatan konstruksi sipil dan struktur bangunan di lokasi proyek. Melakukan deteksi dini terhadap potensi kendala teknis dan memastikan hasil akhir pekerjaan selesai dengan presisi serta sesuai timeline proyek."
+    }
+  ]
+}

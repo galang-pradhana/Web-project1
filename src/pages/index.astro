@@ -41,7 +41,7 @@ const rawProjects = await reader.collections.projects.all();
 const projects = rawProjects.map(p => ({
   slug: p.slug,
   ...p.entry
-})).slice(0, 3); // Take top 3 projects for homepage showcase
+})).filter(p => !p.isArchived).slice(0, 3); // Take top 3 active projects for homepage showcase
 
 const rawServices = await reader.collections.services.all();
 const services = rawServices.map(s => ({

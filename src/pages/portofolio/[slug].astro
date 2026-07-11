@@ -7,7 +7,7 @@ import { MapPin, Ruler, CalendarDays, User, Layers, ArrowLeft, Quote } from 'luc
 export async function getStaticPaths() {
   const reader = createReader(process.cwd(), keystaticConfig);
   const projects = await reader.collections.projects.all();
-  return projects.map(p => ({
+  return projects.filter(p => !p.entry.isArchived).map(p => ({
     params: { slug: p.slug },
     props: { project: p.entry }
   }));

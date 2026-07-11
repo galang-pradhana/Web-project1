@@ -69,6 +69,10 @@ export default config({
         testimonialContent: fields.text({ label: 'Isi Testimoni Klien', multiline: true }),
         testimonialAuthor: fields.text({ label: 'Nama Pemberi Testimoni' }),
         description: fields.text({ label: 'Deskripsi Proyek', multiline: true }),
+        isArchived: fields.checkbox({
+          label: 'Arsipkan Proyek (Sembunyikan dari Website)',
+          defaultValue: false,
+        }),
       },
     }),
     services: collection({
@@ -235,6 +239,29 @@ export default config({
     }),
   },
   singletons: {
+    timKami: singleton({
+      label: 'Halaman Tim Kami',
+      path: 'src/content/timKami',
+      format: { data: 'json' },
+      schema: {
+        headerEyebrow: fields.text({ label: 'Eyebrow Header', defaultValue: 'STRUKTUR ORGANISASI' }),
+        headerTitle: fields.text({ label: 'Judul Halaman', defaultValue: 'Keahlian Teknik & Visi Konstruksi' }),
+        headerDescription: fields.text({ label: 'Deskripsi Header Halaman', multiline: true, defaultValue: 'Di balik setiap proyek yang kokoh dan estetis, terdapat dedikasi dari para profesional berpengalaman yang mengutamakan keselamatan kerja, keterbukaan biaya, dan presisi di lapangan.' }),
+        members: fields.array(
+          fields.object({
+            id: fields.text({ label: 'ID Unik (contoh: muhammad-maulana, gunakan huruf kecil dan tanda hubung)' }),
+            name: fields.text({ label: 'Nama Lengkap' }),
+            role: fields.text({ label: 'Jabatan / Peran' }),
+            image: fields.text({ label: 'Path Foto Profil (contoh: /images/team/Muhammad maulana - Founder.png atau URL luar)' }),
+            description: fields.text({ label: 'Deskripsi Profil / Biografi', multiline: true }),
+          }),
+          {
+            label: 'Daftar Anggota Tim',
+            itemLabel: (props) => props.fields.name.value || 'Anggota Baru',
+          }
+        ),
+      },
+    }),
     tentangKami: singleton({
       label: 'Halaman Tentang Kami',
       path: 'src/content/tentangKami',
