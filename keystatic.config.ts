@@ -16,6 +16,15 @@ export default config({
   cloud: {
     project: 'creativa-studio/web-kontraktor',
   },
+  ui: {
+    brand: { name: 'CMS PT. Dicko Jaya' },
+    navigation: {
+      'Proyek & Layanan': ['projects', 'services'],
+      'Halaman Website': ['homePage', 'tentangKami', 'timKami'],
+      'Manajemen RAB': ['hargaBahan', 'hargaUpah', 'ahspItem', 'rabPaket'],
+      'Pengaturan': ['siteSettings'],
+    },
+  },
   collections: {
     projects: collection({
       label: 'Proyek Portofolio',
