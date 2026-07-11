@@ -1,0 +1,18 @@
+{
+  "namaPaket": "Paket Luxury",
+  "jenisPekerjaan": "Bangun Baru",
+  "hargaPerM2": 7500000,
+  "persenStruktur": 30,
+  "persenDinding": 25,
+  "persenAtap": 15,
+  "persenFinishing": 20,
+  "persenMEP": 10,
+  "persenLainnya": 0,
+  "deskripsi": "Spesifikasi tingkat tinggi dengan desain mewah, material premium impor, dan finishing eksklusif berkualitas terbaik.",
+  "contohMaterial": [
+    "Semen Premium",
+    "Batu Alam Import",
+    "Lantai Marmer",
+    "Smart Home System"
+  ]
+}

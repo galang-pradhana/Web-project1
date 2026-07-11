@@ -329,18 +329,6 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
                       <span className="block text-[11px] font-bold text-amber-800 mt-1">{formatRupiah(adjustedPrice)}/m²</span>
                       <p className="text-[10px] text-stone-500 mt-2 leading-relaxed">{pkg.deskripsi}</p>
                     </div>
-
-                    <div className="border-t border-stone-200/60 mt-4 pt-3 space-y-1">
-                      <span className="block text-[8px] font-bold tracking-wider text-stone-500 uppercase">CONTOH MATERIAL:</span>
-                      <div className="space-y-0.5">
-                        {pkg.contohMaterial.slice(0, 3).map((mat, i) => (
-                          <div key={i} className="flex items-center gap-1.5 text-[9px] text-stone-600">
-                            <span className="w-1 h-1 bg-amber-700 rounded-full shrink-0"></span>
-                            <span className="truncate">{mat}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
                   </button>
                 );
               })}
