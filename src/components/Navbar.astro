@@ -1,5 +1,17 @@
 ---
-// Navbar.astro
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const siteSettings = await reader.singletons.siteSettings.read();
+
+const instagram = siteSettings?.instagram || 'https://instagram.com/djckontraktor';
+const showInstagram = siteSettings?.showInstagram !== false;
+const facebook = siteSettings?.facebook || 'https://facebook.com/djckontraktor';
+const showFacebook = siteSettings?.showFacebook ?? false;
+const tiktok = siteSettings?.tiktok || 'https://tiktok.com/@djckontraktor';
+const showTiktok = siteSettings?.showTiktok ?? false;
+
 const currentPath = Astro.url.pathname;
 const isHomepage = currentPath === '/';
 ---
@@ -158,8 +170,16 @@ const isHomepage = currentPath === '/';
 
   <!-- Overlay Footer Info (Left-aligned & minimal) -->
   <div class="px-[6vw] pb-12 pt-4 flex flex-col gap-6 flex-shrink-0 font-sans text-[11px] font-bold tracking-widest text-white">
-    <div class="footer-item">
-      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">INSTAGRAM</a>
+    <div class="footer-item flex flex-wrap gap-x-6 gap-y-2 items-center">
+      {showInstagram && (
+        <a href={instagram} target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">INSTAGRAM</a>
+      )}
+      {showFacebook && (
+        <a href={facebook} target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">FACEBOOK</a>
+      )}
+      {showTiktok && (
+        <a href={tiktok} target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">TIKTOK</a>
+      )}
     </div>
     <div class="footer-item flex flex-col gap-1 text-white/50">
       <a href="/kebijakan-privasi" class="hover:text-white transition-colors">PRIVACY POLICY</a>

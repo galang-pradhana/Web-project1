@@ -29,6 +29,17 @@ const {
 
 const telephone = siteSettings.whatsapp ? `+${siteSettings.whatsapp}` : "+6281511536230";
 
+const sameAsList = [];
+if (siteSettings.showInstagram !== false) {
+  sameAsList.push(siteSettings.instagram || "https://instagram.com/djckontraktor");
+}
+if (siteSettings.showFacebook) {
+  sameAsList.push(siteSettings.facebook || "https://facebook.com/djckontraktor");
+}
+if (siteSettings.showTiktok) {
+  sameAsList.push(siteSettings.tiktok || "https://tiktok.com/@djckontraktor");
+}
+
 const schemaData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -41,9 +52,7 @@ const schemaData = {
         "@type": "ImageObject",
         "url": "https://djckontraktor.com/logo-djc.png"
       },
-      "sameAs": [
-        siteSettings.instagram || "https://instagram.com/djckontraktor"
-      ]
+      "sameAs": sameAsList
     },
     {
       "@type": "LocalBusiness",
