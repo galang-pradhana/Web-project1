@@ -83,12 +83,12 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
 
   // Breakdown pembagian anggaran
   const costBreakdown = [
-    { name: 'Pekerjaan Struktur', percentage: activePkg.persenStruktur, cost: totalCost * (activePkg.persenStruktur / 100), color: '#854d0e' }, // Warm timber
-    { name: 'Pekerjaan Dinding & Lantai', percentage: activePkg.persenDinding, cost: totalCost * (activePkg.persenDinding / 100), color: '#a16207' },
-    { name: 'Atap & Plafon', percentage: activePkg.persenAtap, cost: totalCost * (activePkg.persenAtap / 100), color: '#ca8a04' },
-    { name: 'Finishing & Kusen', percentage: activePkg.persenFinishing, cost: totalCost * (activePkg.persenFinishing / 100), color: '#d97706' },
-    { name: 'Mekanikal Elektrikal (MEP)', percentage: activePkg.persenMEP, cost: totalCost * (activePkg.persenMEP / 100), color: '#eab308' },
-    { name: 'Lainnya / Persiapan', percentage: activePkg.persenLainnya, cost: totalCost * (activePkg.persenLainnya / 100), color: '#f59e0b' }
+    { name: 'Pekerjaan Struktur', percentage: activePkg.persenStruktur ?? 0, cost: totalCost * ((activePkg.persenStruktur ?? 0) / 100), color: '#854d0e' }, // Warm timber
+    { name: 'Pekerjaan Dinding & Lantai', percentage: activePkg.persenDinding ?? 0, cost: totalCost * ((activePkg.persenDinding ?? 0) / 100), color: '#a16207' },
+    { name: 'Atap & Plafon', percentage: activePkg.persenAtap ?? 0, cost: totalCost * ((activePkg.persenAtap ?? 0) / 100), color: '#ca8a04' },
+    { name: 'Finishing & Kusen', percentage: activePkg.persenFinishing ?? 0, cost: totalCost * ((activePkg.persenFinishing ?? 0) / 100), color: '#d97706' },
+    { name: 'Mekanikal Elektrikal (MEP)', percentage: activePkg.persenMEP ?? 0, cost: totalCost * ((activePkg.persenMEP ?? 0) / 100), color: '#eab308' },
+    { name: 'Lainnya / Persiapan', percentage: activePkg.persenLainnya ?? 0, cost: totalCost * ((activePkg.persenLainnya ?? 0) / 100), color: '#f59e0b' }
   ];
 
   const handleNext = () => {

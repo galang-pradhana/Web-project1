@@ -372,6 +372,10 @@ export default config({
         showTiktok: fields.checkbox({ label: 'Tampilkan TikTok', defaultValue: true }),
         mapsLink: fields.text({ label: 'Link Google Maps', defaultValue: 'https://maps.google.com' }),
         keywords: fields.text({ label: 'Kata Kunci SEO (pisahkan dengan koma)', defaultValue: 'kontraktor bogor, kontraktor tangerang, jasa bangun rumah bogor, jasa bangun rumah tangerang, kontraktor bangun ruko, jasa arsitek bogor, jasa arsitek tangerang, renovasi rumah tangerang, renovasi rumah bogor, kontraktor bangun gudang' }),
+        googleSiteVerification: fields.text({
+          label: 'Google Site Verification',
+          description: 'Kode verifikasi Google Search Console (untuk metode HTML Tag, ambil isi dari attribute content saja)',
+        }),
       },
     }),
     homePage: singleton({

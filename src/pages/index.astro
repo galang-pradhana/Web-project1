@@ -50,9 +50,19 @@ const services = rawServices.map(s => ({
 }));
 
 const rawPackages = await reader.collections.rabPaket.all();
-const packages = rawPackages.map(pkg => ({
-  slug: pkg.slug,
-  ...pkg.entry
+const packages = rawPackages.map(p => ({
+  slug: p.slug,
+  namaPaket: p.entry.namaPaket,
+  jenisPekerjaan: p.entry.jenisPekerjaan,
+  hargaPerM2: p.entry.hargaPerM2 || 0,
+  persenStruktur: p.entry.persenStruktur || 0,
+  persenDinding: p.entry.persenDinding || 0,
+  persenAtap: p.entry.persenAtap || 0,
+  persenFinishing: p.entry.persenFinishing || 0,
+  persenMEP: p.entry.persenMEP || 0,
+  persenLainnya: p.entry.persenLainnya || 0,
+  deskripsi: p.entry.deskripsi || '',
+  contohMaterial: p.entry.contohMaterial || []
 }));
 
 // Helper to map icon names to Lucide Icon components

@@ -136,6 +136,9 @@ const schemaData = {
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <link rel="canonical" href={canonicalUrl} />
+    {siteSettings.googleSiteVerification && (
+      <meta name="google-site-verification" content={siteSettings.googleSiteVerification} />
+    )}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />

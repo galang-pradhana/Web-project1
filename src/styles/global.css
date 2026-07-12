@@ -92,17 +92,29 @@ h1, h2, h3, h4, h5, h6 {
 
 #ruler-label {
   position: fixed;
-  top: 14px;
-  right: 1.5vw;
+  bottom: 24px;
+  left: 24px;
   z-index: 999;
   font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 11px;
   letter-spacing: .08em;
-  padding: 3px 8px;
+  padding: 4px 10px;
   background: var(--text-primary);
   color: var(--bg-primary);
   opacity: 0.9;
   transition: background-color 0.4s ease, color 0.4s ease;
+  pointer-events: none;
+  font-weight: 500;
+  border: 1px solid var(--line);
+}
+
+@media (max-width: 768px) {
+  #ruler-label {
+    bottom: 16px;
+    left: 16px;
+    font-size: 10px;
+    padding: 3px 8px;
+  }
 }
 
 /* Crop marks styling */

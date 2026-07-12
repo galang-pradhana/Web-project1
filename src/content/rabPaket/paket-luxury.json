@@ -5,9 +5,9 @@
   "persenStruktur": 30,
   "persenDinding": 25,
   "persenAtap": 15,
-  "persenFinishing": 20,
+  "persenFinishing": 15,
   "persenMEP": 10,
-  "persenLainnya": 0,
+  "persenLainnya": 5,
   "contohMaterial": [
     "Semen Premium",
     "Batu Alam Import",
