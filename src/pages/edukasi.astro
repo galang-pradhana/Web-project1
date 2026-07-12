@@ -78,19 +78,13 @@ const jsonLd = JSON.stringify({
   '@graph': graphItems,
 });
 
-// Tentukan ukuran bento berdasarkan posisi index
-function getBentoSize(index: number): 'large' | 'small' {
-  const pattern = [0, 3, 6, 9]; // index ke-0, ke-3, ke-6, dst -> large
-  return pattern.some(p => index % 9 === p) ? 'large' : 'small';
-}
-
 // Strategi Performa: Render 12 item pertama secara static (server-side),
 // sisanya di-append secara progresif pada client-side (Infinite Scroll).
 const itemsPerPage = 12;
 const initialPosts = posts.slice(0, itemsPerPage);
 const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
   const actualIndex = itemsPerPage + index;
-  const size = getBentoSize(actualIndex);
+  const size = post.entry.gridFormat || 'square';
   const preset = seoPresetMap[post.entry.seoPreset || 'dokumentasi-proyek'];
   return {
     imageUrl: post.entry.imageUrl.startsWith('http') ? post.entry.imageUrl : `/${post.entry.imageUrl}`,
@@ -134,7 +128,7 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
 
         <div class="bento-grid" id="grid-container">
           {initialPosts.map((post, index) => {
-            const size = getBentoSize(index);
+            const size = post.entry.gridFormat || 'square';
             const imageUrl = post.entry.imageUrl.startsWith('http')
               ? post.entry.imageUrl
               : `/${post.entry.imageUrl}`;
@@ -150,71 +144,73 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
                 style={`--delay: ${(index % itemsPerPage) * 80}ms`}
                 data-index={index}
               >
-                {mediaUrl ? (
-                  isDirectVideo ? (
-                    <button
-                      class="card-link video-trigger"
-                      data-video-url={mediaUrl}
-                      aria-label={preset.name}
-                    >
-                      <img
-                        src={imageUrl}
-                        alt={preset.name}
-                        class="card-img"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <div class="card-overlay">
-                        <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                          <path d="M8 5v14l11-7z"/>
-                        </svg>
-                      </div>
-                    </button>
-                  ) : (
-                    <a
-                      href={mediaUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="card-link"
-                      aria-label={preset.name}
-                    >
-                      <img
-                        src={imageUrl}
-                        alt={preset.name}
-                        class="card-img"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <div class="card-overlay">
-                        {isVideo ? (
+                <div class="bento-card-inner">
+                  {mediaUrl ? (
+                    isDirectVideo ? (
+                      <button
+                        class="card-link video-trigger"
+                        data-video-url={mediaUrl}
+                        aria-label={preset.name}
+                      >
+                        <img
+                          src={imageUrl}
+                          alt={preset.name}
+                          class="card-img"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div class="card-overlay">
                           <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.67a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"/>
+                            <path d="M8 5v14l11-7z"/>
                           </svg>
-                        ) : isIG ? (
-                          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                            <circle cx="12" cy="12" r="4"/>
-                            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
-                          </svg>
-                        ) : (
-                          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
-                          </svg>
-                        )}
-                      </div>
-                    </a>
-                  )
-                ) : (
-                  <div class="card-link card-no-link" aria-label={preset.name}>
-                    <img
-                      src={imageUrl}
-                      alt={preset.name}
-                      class="card-img"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                )}
+                        </div>
+                      </button>
+                    ) : (
+                      <a
+                        href={mediaUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="card-link"
+                        aria-label={preset.name}
+                      >
+                        <img
+                          src={imageUrl}
+                          alt={preset.name}
+                          class="card-img"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <div class="card-overlay">
+                          {isVideo ? (
+                            <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.67a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"/>
+                            </svg>
+                          ) : isIG ? (
+                            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                              <circle cx="12" cy="12" r="4"/>
+                              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+                            </svg>
+                          ) : (
+                            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+                            </svg>
+                          )}
+                        </div>
+                      </a>
+                    )
+                  ) : (
+                    <div class="card-link card-no-link" aria-label={preset.name}>
+                      <img
+                        src={imageUrl}
+                        alt={preset.name}
+                        class="card-img"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  )}
+                </div>
               </article>
             );
           })}
@@ -280,11 +276,13 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
   const initialFadeItems = document.querySelectorAll('.fade-item');
   initFadeAnimation(Array.from(initialFadeItems));
 
+
+
   // ==========================================
-  // 2. INFINITE SCROLL (Progressive Loading)
+  // 3. INFINITE SCROLL (Progressive Loading)
   // ==========================================
-  const scriptTag = document.getElementById('remaining-posts');
   const gridContainer = document.getElementById('grid-container');
+  const scriptTag = document.getElementById('remaining-posts');
   const sentinel = document.getElementById('sentinel');
 
   if (scriptTag && gridContainer && sentinel) {
@@ -293,7 +291,7 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
       mediaUrl: string | null;
       contentType: string;
       presetName: string;
-      size: 'large' | 'small';
+      size: string;
       index: number;
     }> = JSON.parse(scriptTag.textContent || '[]');
 
@@ -331,23 +329,29 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
               if (post.mediaUrl) {
                 if (post.contentType === 'video') {
                   article.innerHTML = `
-                    <button class="card-link video-trigger" data-video-url="${post.mediaUrl}" aria-label="${post.presetName}">
-                      <img src="${post.imageUrl}" alt="${post.presetName}" class="card-img" loading="lazy" decoding="async" />
-                      <div class="card-overlay">${iconSvg}</div>
-                    </button>
+                    <div class="bento-card-inner">
+                      <button class="card-link video-trigger" data-video-url="${post.mediaUrl}" aria-label="${post.presetName}">
+                        <img src="${post.imageUrl}" alt="${post.presetName}" class="card-img" loading="lazy" decoding="async" />
+                        <div class="card-overlay">${iconSvg}</div>
+                      </button>
+                    </div>
                   `;
                 } else {
                   article.innerHTML = `
-                    <a href="${post.mediaUrl}" target="_blank" rel="noopener noreferrer" class="card-link" aria-label="${post.presetName}">
-                      <img src="${post.imageUrl}" alt="${post.presetName}" class="card-img" loading="lazy" decoding="async" />
-                      <div class="card-overlay">${iconSvg}</div>
-                    </a>
+                    <div class="bento-card-inner">
+                      <a href="${post.mediaUrl}" target="_blank" rel="noopener noreferrer" class="card-link" aria-label="${post.presetName}">
+                        <img src="${post.imageUrl}" alt="${post.presetName}" class="card-img" loading="lazy" decoding="async" />
+                        <div class="card-overlay">${iconSvg}</div>
+                      </a>
+                    </div>
                   `;
                 }
               } else {
                 article.innerHTML = `
-                  <div class="card-link card-no-link" aria-label="${post.presetName}">
-                    <img src="${post.imageUrl}" alt="${post.presetName}" class="card-img" loading="lazy" decoding="async" />
+                  <div class="bento-card-inner">
+                    <div class="card-link card-no-link" aria-label="${post.presetName}">
+                      <img src="${post.imageUrl}" alt="${post.presetName}" class="card-img" loading="lazy" decoding="async" />
+                    </div>
                   </div>
                 `;
               }
@@ -460,24 +464,31 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
 
   /* ==============================
      BENTO GRID
-     ============================== */
+     ============================= */
   .bento-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 260px;
-    gap: 3px;
+    grid-auto-flow: dense;
+    gap: 2px;
   }
 
-  /* Large card: spans 2 cols + 2 rows */
-  .bento-large {
+  /* Bento sizes berdasarkan gridFormat */
+  .bento-landscape {
     grid-column: span 2;
-    grid-row: span 2;
+    grid-row: span 1;
+    aspect-ratio: 3 / 2;
   }
 
-  /* Small card: 1x1 */
-  .bento-small {
+  .bento-portrait {
     grid-column: span 1;
     grid-row: span 1;
+    aspect-ratio: 3 / 4;
+  }
+
+  .bento-square {
+    grid-column: span 1;
+    grid-row: span 1;
+    aspect-ratio: 1 / 1;
   }
 
   /* ==============================
@@ -487,6 +498,13 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
     position: relative;
     overflow: hidden;
     background: #e8e5df;
+    width: 100%;
+    height: 100%;
+  }
+
+  .bento-card-inner {
+    width: 100%;
+    height: 100%;
   }
 
   .card-link {
@@ -510,8 +528,8 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
   .card-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     display: block;
+    object-fit: cover;
     transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
   }
@@ -678,12 +696,7 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
   @media (max-width: 1024px) {
     .bento-grid {
       grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 240px;
-    }
-
-    .bento-large {
-      grid-column: span 2;
-      grid-row: span 1;
+      gap: 2px;
     }
   }
 
@@ -705,13 +718,7 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
 
     .bento-grid {
       grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 180px;
       gap: 2px;
-    }
-
-    .bento-large {
-      grid-column: span 2;
-      grid-row: span 1;
     }
   }
 

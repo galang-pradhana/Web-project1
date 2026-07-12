@@ -1,6 +1,7 @@
 {
   "imageUrl": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80",
   "contentType": "foto",
+  "gridFormat": "portrait",
   "mediaUrl": "",
   "publishedAt": "2025-07-08",
   "seoPreset": "proses-bangun",

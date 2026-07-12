@@ -46,6 +46,16 @@ export default config({
           ],
           defaultValue: 'foto',
         }),
+        gridFormat: fields.select({
+          label: 'Ukuran / Orientasi Grid',
+          description: 'Pilih rasio tampilan grid untuk konten ini.',
+          options: [
+            { label: 'Landscape (Lebar - 3:2)', value: 'landscape' },
+            { label: 'Portrait (Tinggi - 3:4)', value: 'portrait' },
+            { label: 'Square (Kotak - 1:1)', value: 'square' },
+          ],
+          defaultValue: 'square',
+        }),
         mediaUrl: fields.text({
           label: 'Link Sumber (URL TikTok / Instagram / Video Cloudinary)',
           description: 'Opsional — Untuk TikTok/Instagram masukkan link postingan. Untuk Video Cloudinary masukkan link file .mp4. Biarkan kosong jika hanya foto.',
