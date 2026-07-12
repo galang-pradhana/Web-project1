@@ -1,8 +1,8 @@
 {
-  "imageUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80",
-  "contentType": "foto",
-  "mediaUrl": "",
+  "imageUrl": "",
+  "contentType": "video",
+  "mediaUrl": "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1783832102/txo8br59feftrn1dev3v.mp4",
   "publishedAt": "2025-07-01",
-  "seoPreset": "proses-bangun",
+  "seoPreset": "tips-renovasi",
   "isPublished": true
 }
