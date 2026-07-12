@@ -47,6 +47,7 @@ const isHomepage = currentPath === '/';
       <a href="/layanan" class="navbar-link transition-colors duration-200">LAYANAN</a>
       <a href="/tentang" class="navbar-link transition-colors duration-200">TENTANG KAMI</a>
       <a href="/tim" class="navbar-link transition-colors duration-200">TIM KAMI</a>
+      <a href="/edukasi" class="navbar-link transition-colors duration-200">EDUKASI</a>
       <a href="/kontak" class="navbar-link transition-colors duration-200">KONTAK</a>
     </nav>
 
@@ -114,7 +115,7 @@ const isHomepage = currentPath === '/';
     <div class="flex flex-col gap-2 max-w-4xl">
       <!-- Link 1 -->
       <div class="flex items-start group/item menu-item">
-        <a href="/" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+        <a href="/" class="roll-link font-sans font-normal text-2xl sm:text-3xl md:text-4xl tracking-tight text-white uppercase leading-[1.15]">
           <span class="roll-wrapper">
             <span class="roll-text" data-text="HOME">HOME</span>
           </span>
@@ -123,7 +124,7 @@ const isHomepage = currentPath === '/';
 
       <!-- Link 2 -->
       <div class="flex items-start group/item menu-item">
-        <a href="/portofolio" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+        <a href="/portofolio" class="roll-link font-sans font-normal text-2xl sm:text-3xl md:text-4xl tracking-tight text-white uppercase leading-[1.15]">
           <span class="roll-wrapper">
             <span class="roll-text" data-text="PORTOFOLIO">PORTOFOLIO</span>
           </span>
@@ -132,7 +133,7 @@ const isHomepage = currentPath === '/';
 
       <!-- Link 3 -->
       <div class="flex items-start group/item menu-item">
-        <a href="/layanan" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+        <a href="/layanan" class="roll-link font-sans font-normal text-2xl sm:text-3xl md:text-4xl tracking-tight text-white uppercase leading-[1.15]">
           <span class="roll-wrapper">
             <span class="roll-text" data-text="LAYANAN">LAYANAN</span>
           </span>
@@ -141,7 +142,7 @@ const isHomepage = currentPath === '/';
 
       <!-- Link 4 -->
       <div class="flex items-start group/item menu-item">
-        <a href="/tentang" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+        <a href="/tentang" class="roll-link font-sans font-normal text-2xl sm:text-3xl md:text-4xl tracking-tight text-white uppercase leading-[1.15]">
           <span class="roll-wrapper">
             <span class="roll-text" data-text="TENTANG KAMI">TENTANG KAMI</span>
           </span>
@@ -150,16 +151,25 @@ const isHomepage = currentPath === '/';
 
       <!-- Link Tim -->
       <div class="flex items-start group/item menu-item">
-        <a href="/tim" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+        <a href="/tim" class="roll-link font-sans font-normal text-2xl sm:text-3xl md:text-4xl tracking-tight text-white uppercase leading-[1.15]">
           <span class="roll-wrapper">
             <span class="roll-text" data-text="TIM KAMI">TIM KAMI</span>
           </span>
         </a>
       </div>
 
+      <!-- Link EDUKASI -->
+      <div class="flex items-start group/item menu-item">
+        <a href="/edukasi" class="roll-link font-sans font-normal text-2xl sm:text-3xl md:text-4xl tracking-tight text-white uppercase leading-[1.15]">
+          <span class="roll-wrapper">
+            <span class="roll-text" data-text="EDUKASI">EDUKASI</span>
+          </span>
+        </a>
+      </div>
+
       <!-- Link 5 -->
       <div class="flex items-start group/item menu-item">
-        <a href="/kontak" class="roll-link font-sans font-normal text-3xl sm:text-4xl md:text-5xl tracking-tight text-white uppercase leading-[1.15]">
+        <a href="/kontak" class="roll-link font-sans font-normal text-2xl sm:text-3xl md:text-4xl tracking-tight text-white uppercase leading-[1.15]">
           <span class="roll-wrapper">
             <span class="roll-text" data-text="KONTAK">KONTAK</span>
           </span>
@@ -503,7 +513,7 @@ const isHomepage = currentPath === '/';
     transition-delay: 150ms;
   }
 
-  /* Menu Links (1 to 5) stagger */
+  /* Menu Links (1 to 6) stagger */
   #menu-overlay.menu-active .menu-item:nth-child(1) {
     transition-delay: 200ms;
   }
@@ -519,13 +529,16 @@ const isHomepage = currentPath === '/';
   #menu-overlay.menu-active .menu-item:nth-child(5) {
     transition-delay: 400ms;
   }
+  #menu-overlay.menu-active .menu-item:nth-child(6) {
+    transition-delay: 450ms;
+  }
 
   /* Footer Items stagger */
   #menu-overlay.menu-active .footer-item:nth-child(1) {
-    transition-delay: 450ms;
+    transition-delay: 500ms;
   }
   #menu-overlay.menu-active .footer-item:nth-child(2) {
-    transition-delay: 500ms;
+    transition-delay: 550ms;
   }
 
   /* Hide page scroll progress indicator (ruler & label) when menu is active */

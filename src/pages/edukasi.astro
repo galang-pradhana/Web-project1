@@ -1,0 +1,729 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const allPosts = await reader.collections.edukasiPosts.all();
+
+// Filter hanya yang published, sort terbaru dulu
+const posts = allPosts
+  .filter(p => p.entry.isPublished)
+  .sort((a, b) => (b.entry.publishedAt || '').localeCompare(a.entry.publishedAt || ''));
+
+// Map SEO preset ke label + keywords
+const seoPresetMap: Record<string, { name: string; description: string; keywords: string }> = {
+  'tips-renovasi':      { name: 'Tips Renovasi Rumah Profesional dari DJC', description: 'Tips dan panduan renovasi rumah dari tim profesional PT. Dicko Jaya Construction.', keywords: 'tips renovasi rumah, renovasi rumah profesional, kontraktor renovasi' },
+  'proses-bangun':      { name: 'Proses Pembangunan Rumah Step by Step', description: 'Dokumentasi proses pembangunan rumah dari awal hingga selesai oleh PT. Dicko Jaya Construction.', keywords: 'proses bangun rumah, konstruksi rumah baru, kontraktor bogor tangerang' },
+  'material-bangunan':  { name: 'Pilihan Material Bangunan Berkualitas', description: 'Referensi material bangunan berkualitas tinggi yang digunakan dalam proyek PT. Dicko Jaya Construction.', keywords: 'material bangunan berkualitas, bahan konstruksi, material renovasi' },
+  'before-after':       { name: 'Transformasi Sebelum & Sesudah Renovasi', description: 'Hasil nyata transformasi renovasi rumah sebelum dan sesudah oleh tim DJC.', keywords: 'before after renovasi, transformasi rumah, hasil renovasi nyata' },
+  'desain-interior':    { name: 'Inspirasi Desain Interior Modern', description: 'Koleksi inspirasi desain interior modern dan minimalis dari proyek PT. Dicko Jaya Construction.', keywords: 'desain interior modern, interior minimalis, inspirasi ruangan' },
+  'dokumentasi-proyek': { name: 'Dokumentasi Proyek Terbaru DJC', description: 'Dokumentasi foto dan video proyek terbaru yang dikerjakan oleh PT. Dicko Jaya Construction.', keywords: 'dokumentasi proyek konstruksi, kontraktor bogor, kontraktor tangerang' },
+  'tips-konstruksi':    { name: 'Tips & Trik Konstruksi dari Tim Ahli', description: 'Tips dan trik konstruksi bangunan dari para ahli PT. Dicko Jaya Construction.', keywords: 'tips konstruksi bangunan, trik bangun rumah, panduan konstruksi' },
+  'inspirasi-rumah':    { name: 'Inspirasi Hunian Impian', description: 'Kumpulan inspirasi hunian impian bergaya modern dan minimalis dari DJC.', keywords: 'inspirasi hunian impian, rumah modern minimalis, desain rumah' },
+};
+
+// Bangun JSON-LD @graph untuk seluruh posts agar Google mengindeks semuanya
+const siteUrl = 'https://djckontraktor.com';
+const graphItems = [
+  {
+    '@type': 'CollectionPage',
+    '@id': `${siteUrl}/edukasi`,
+    name: 'Edukasi & Inspirasi — PT. Dicko Jaya Construction',
+    description: 'Kumpulan konten edukasi, dokumentasi proyek, dan inspirasi konstruksi dari PT. Dicko Jaya Construction.',
+    url: `${siteUrl}/edukasi`,
+    publisher: {
+      '@type': 'Organization',
+      name: 'PT. Dicko Jaya Construction',
+      url: siteUrl,
+    },
+  },
+  ...posts.map(p => {
+    const preset = seoPresetMap[p.entry.seoPreset || 'dokumentasi-proyek'];
+    const imageUrl = p.entry.imageUrl.startsWith('http') ? p.entry.imageUrl : `${siteUrl}${p.entry.imageUrl}`;
+    const mediaUrl = p.entry.mediaUrl || imageUrl;
+
+    if (p.entry.contentType === 'tiktok' || p.entry.contentType === 'video') {
+      return {
+        '@type': 'VideoObject',
+        name: preset.name,
+        description: preset.description,
+        thumbnailUrl: imageUrl,
+        uploadDate: p.entry.publishedAt,
+        contentUrl: mediaUrl,
+        publisher: {
+          '@type': 'Organization',
+          name: 'PT. Dicko Jaya Construction',
+        },
+      };
+    } else {
+      return {
+        '@type': 'ImageObject',
+        name: preset.name,
+        description: preset.description,
+        contentUrl: imageUrl,
+        url: mediaUrl || imageUrl,
+        datePublished: p.entry.publishedAt,
+        author: {
+          '@type': 'Organization',
+          name: 'PT. Dicko Jaya Construction',
+        },
+      };
+    }
+  }),
+];
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': graphItems,
+});
+
+// Tentukan ukuran bento berdasarkan posisi index
+function getBentoSize(index: number): 'large' | 'small' {
+  const pattern = [0, 3, 6, 9]; // index ke-0, ke-3, ke-6, dst -> large
+  return pattern.some(p => index % 9 === p) ? 'large' : 'small';
+}
+
+// Strategi Performa: Render 12 item pertama secara static (server-side),
+// sisanya di-append secara progresif pada client-side (Infinite Scroll).
+const itemsPerPage = 12;
+const initialPosts = posts.slice(0, itemsPerPage);
+const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
+  const actualIndex = itemsPerPage + index;
+  const size = getBentoSize(actualIndex);
+  const preset = seoPresetMap[post.entry.seoPreset || 'dokumentasi-proyek'];
+  return {
+    imageUrl: post.entry.imageUrl.startsWith('http') ? post.entry.imageUrl : `/${post.entry.imageUrl}`,
+    mediaUrl: post.entry.mediaUrl || null,
+    contentType: post.entry.contentType,
+    presetName: preset.name,
+    size,
+    index: actualIndex,
+  };
+});
+---
+
+<BaseLayout
+  title="Edukasi & Inspirasi | PT. Dicko Jaya Construction"
+  description="Kumpulan konten edukasi, dokumentasi proyek, dan inspirasi konstruksi dari PT. Dicko Jaya Construction — kontraktor terpercaya di Bogor dan Tangerang."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={jsonLd}></script>
+  </Fragment>
+
+  <!-- Pure Visual Gallery — Zero Visible Text -->
+  <div class="edukasi-gallery" id="edukasi-gallery">
+    {posts.length === 0 ? (
+      <div class="empty-state">
+        <span class="empty-dot"></span>
+        <span class="empty-dot"></span>
+        <span class="empty-dot"></span>
+      </div>
+    ) : (
+      <div class="bento-container">
+        {/* Page Header */}
+        <div class="gallery-header border-b border-[var(--border-color)] pb-8 mb-12 px-4 sm:px-6 md:px-8">
+          <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block mb-2">EDUKASI & INSPIRASI</span>
+          <h1 class="font-serif text-4xl sm:text-5xl font-normal text-text-primary leading-[1.1] mb-4">
+            GALERI PROSES <span class="italic text-accent">& DOKUMENTASI</span>
+          </h1>
+          <p class="font-sans text-text-secondary text-[15px] sm:text-base max-w-3xl leading-relaxed">
+            Melihat lebih dekat proses pembangunan, tips konstruksi, referensi material bangunan, serta inspirasi desain interior dari portofolio proyek PT. Dicko Jaya Construction.
+          </p>
+        </div>
+
+        <div class="bento-grid" id="grid-container">
+          {initialPosts.map((post, index) => {
+            const size = getBentoSize(index);
+            const imageUrl = post.entry.imageUrl.startsWith('http')
+              ? post.entry.imageUrl
+              : `/${post.entry.imageUrl}`;
+            const mediaUrl = post.entry.mediaUrl || null;
+            const isVideo = post.entry.contentType === 'tiktok';
+            const isIG = post.entry.contentType === 'instagram';
+            const isDirectVideo = post.entry.contentType === 'video';
+            const preset = seoPresetMap[post.entry.seoPreset || 'dokumentasi-proyek'];
+
+            return (
+              <article
+                class={`bento-card bento-${size} fade-item`}
+                style={`--delay: ${(index % itemsPerPage) * 80}ms`}
+                data-index={index}
+              >
+                {mediaUrl ? (
+                  isDirectVideo ? (
+                    <button
+                      class="card-link video-trigger"
+                      data-video-url={mediaUrl}
+                      aria-label={preset.name}
+                    >
+                      <img
+                        src={imageUrl}
+                        alt={preset.name}
+                        class="card-img"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div class="card-overlay">
+                        <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </div>
+                    </button>
+                  ) : (
+                    <a
+                      href={mediaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="card-link"
+                      aria-label={preset.name}
+                    >
+                      <img
+                        src={imageUrl}
+                        alt={preset.name}
+                        class="card-img"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div class="card-overlay">
+                        {isVideo ? (
+                          <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.67a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"/>
+                          </svg>
+                        ) : isIG ? (
+                          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+                          </svg>
+                        ) : (
+                          <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+                          </svg>
+                        )}
+                      </div>
+                    </a>
+                  )
+                ) : (
+                  <div class="card-link card-no-link" aria-label={preset.name}>
+                    <img
+                      src={imageUrl}
+                      alt={preset.name}
+                      class="card-img"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </div>
+
+        {/* Sentinel untuk Infinite Scroll & Loading Indicator */}
+        <div id="sentinel" class="sentinel py-12" style={remainingPosts.length > 0 ? "display: flex;" : "display: none;"}>
+          <span class="empty-dot"></span>
+          <span class="empty-dot"></span>
+          <span class="empty-dot"></span>
+        </div>
+      </div>
+    )}
+  </div>
+
+  <!-- Lightbox Modal for Video Cloudinary -->
+  <div id="video-lightbox" class="video-lightbox" aria-hidden="true" role="dialog">
+    <button class="lightbox-close" aria-label="Tutup video">&times;</button>
+    <div class="lightbox-content">
+      <video id="lightbox-player" controls playsinline class="lightbox-video"></video>
+    </div>
+  </div>
+
+  {/* Payload sisa data untuk client-side appending */}
+  <script id="remaining-posts" type="application/json" set:html={JSON.stringify(remainingPosts)}></script>
+</BaseLayout>
+
+<script>
+  // ==========================================
+  // 1. ANIMASI FADE-UP (Intersection Observer)
+  // ==========================================
+  const activeObserver = new Map();
+
+  function initFadeAnimation(elements: NodeListOf<Element> | Element[]) {
+    if (typeof IntersectionObserver === 'undefined') {
+      elements.forEach(item => (item as HTMLElement).classList.add('visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            const delay = el.style.getPropertyValue('--delay') || '0ms';
+            el.style.transitionDelay = delay;
+            el.classList.add('visible');
+            observer.unobserve(el);
+            activeObserver.delete(el);
+          }
+        });
+      },
+      { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }
+    );
+
+    elements.forEach(item => {
+      observer.observe(item);
+      activeObserver.set(item, observer);
+    });
+  }
+
+  // Jalankan animasi fade-up pada initial posts
+  const initialFadeItems = document.querySelectorAll('.fade-item');
+  initFadeAnimation(Array.from(initialFadeItems));
+
+  // ==========================================
+  // 2. INFINITE SCROLL (Progressive Loading)
+  // ==========================================
+  const scriptTag = document.getElementById('remaining-posts');
+  const gridContainer = document.getElementById('grid-container');
+  const sentinel = document.getElementById('sentinel');
+
+  if (scriptTag && gridContainer && sentinel) {
+    let remainingPosts: Array<{
+      imageUrl: string;
+      mediaUrl: string | null;
+      contentType: string;
+      presetName: string;
+      size: 'large' | 'small';
+      index: number;
+    }> = JSON.parse(scriptTag.textContent || '[]');
+
+    const batchSize = 9; // Muat 9 item lagi setiap scroll
+
+    if (remainingPosts.length > 0) {
+      const sentinelObserver = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (entry.isIntersecting) {
+            // Ambil batch berikutnya
+            const currentBatch = remainingPosts.slice(0, batchSize);
+            remainingPosts = remainingPosts.slice(batchSize);
+
+            // Buat HTML elements
+            const newCards: HTMLElement[] = [];
+            
+            currentBatch.forEach((post, i) => {
+              const article = document.createElement('article');
+              article.className = `bento-card bento-${post.size} fade-item`;
+              article.style.setProperty('--delay', `${(i % batchSize) * 80}ms`);
+              article.setAttribute('data-index', post.index.toString());
+
+              let iconSvg = '';
+              if (post.contentType === 'tiktok') {
+                iconSvg = `<svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.67a8.18 8.18 0 004.78 1.52V6.74a4.85 4.85 0 01-1.01-.05z"/></svg>`;
+              } else if (post.contentType === 'instagram') {
+                iconSvg = `<svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg>`;
+              } else if (post.contentType === 'video') {
+                iconSvg = `<svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>`;
+              } else {
+                iconSvg = `<svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>`;
+              }
+
+              if (post.mediaUrl) {
+                if (post.contentType === 'video') {
+                  article.innerHTML = `
+                    <button class="card-link video-trigger" data-video-url="${post.mediaUrl}" aria-label="${post.presetName}">
+                      <img src="${post.imageUrl}" alt="${post.presetName}" class="card-img" loading="lazy" decoding="async" />
+                      <div class="card-overlay">${iconSvg}</div>
+                    </button>
+                  `;
+                } else {
+                  article.innerHTML = `
+                    <a href="${post.mediaUrl}" target="_blank" rel="noopener noreferrer" class="card-link" aria-label="${post.presetName}">
+                      <img src="${post.imageUrl}" alt="${post.presetName}" class="card-img" loading="lazy" decoding="async" />
+                      <div class="card-overlay">${iconSvg}</div>
+                    </a>
+                  `;
+                }
+              } else {
+                article.innerHTML = `
+                  <div class="card-link card-no-link" aria-label="${post.presetName}">
+                    <img src="${post.imageUrl}" alt="${post.presetName}" class="card-img" loading="lazy" decoding="async" />
+                  </div>
+                `;
+              }
+
+              gridContainer.appendChild(article);
+              newCards.push(article);
+            });
+
+            // Jalankan animasi fade-up pada card yang baru di-append
+            initFadeAnimation(newCards);
+
+            // Jika sudah tidak ada sisa data, matikan observer & sembunyikan loader
+            if (remainingPosts.length === 0) {
+              sentinelObserver.unobserve(sentinel);
+              sentinel.style.display = 'none';
+            }
+          }
+        },
+        { rootMargin: '200px' } // Load content lebih awal sebelum menyentuh batas bawah
+      );
+
+      sentinelObserver.observe(sentinel);
+    }
+  }
+
+  // ==========================================
+  // 3. LIGHTBOX VIDEO PLAYER
+  // ==========================================
+  const lightbox = document.getElementById('video-lightbox');
+  const lightboxPlayer = document.getElementById('lightbox-player') as HTMLVideoElement | null;
+  const closeBtn = document.querySelector('.lightbox-close');
+
+  function openLightbox(videoUrl: string) {
+    if (!lightbox || !lightboxPlayer) return;
+    lightboxPlayer.src = videoUrl;
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    
+    // Play video
+    lightboxPlayer.play().catch(err => {
+      console.warn("Autoplay was prevented by browser policies:", err);
+    });
+  }
+
+  function closeLightbox() {
+    if (!lightbox || !lightboxPlayer) return;
+    lightboxPlayer.pause();
+    lightboxPlayer.src = ''; // reset source to stop download
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Delegate event listener to the grid container to support dynamically loaded cards
+  if (gridContainer) {
+    gridContainer.addEventListener('click', (e) => {
+      const trigger = (e.target as HTMLElement).closest('.video-trigger');
+      if (trigger) {
+        e.preventDefault();
+        const videoUrl = trigger.getAttribute('data-video-url');
+        if (videoUrl) {
+          openLightbox(videoUrl);
+        }
+      }
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeLightbox);
+  }
+
+  if (lightbox) {
+    // Close when clicking outside content (on the lightbox background)
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    // Close on Escape key press
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        closeLightbox();
+      }
+    });
+  }
+</script>
+
+<style>
+  /* ==============================
+     GALLERY WRAPPER
+     ============================== */
+  .edukasi-gallery {
+    min-height: 100vh;
+    background: #FAF9F6;
+    padding: 120px 0 32px; /* top padding for navbar breathing room */
+    transition: background-color 0.4s ease;
+  }
+
+  [data-theme="dark"] .edukasi-gallery {
+    background: var(--bg-primary);
+  }
+
+  .bento-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 3px;
+  }
+
+  /* ==============================
+     BENTO GRID
+     ============================== */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 260px;
+    gap: 3px;
+  }
+
+  /* Large card: spans 2 cols + 2 rows */
+  .bento-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* Small card: 1x1 */
+  .bento-small {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  /* ==============================
+     CARD BASE
+     ============================== */
+  .bento-card {
+    position: relative;
+    overflow: hidden;
+    background: #e8e5df;
+  }
+
+  .card-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    outline: none;
+  }
+
+  .card-no-link {
+    cursor: default;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+
+  /* ==============================
+     HOVER OVERLAY
+     ============================== */
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.35s ease;
+  }
+
+  .card-link:hover .card-overlay {
+    background: rgba(0, 0, 0, 0.38);
+  }
+
+  .card-link:hover .card-img {
+    transform: scale(1.04);
+  }
+
+  .card-icon {
+    width: 28px;
+    height: 28px;
+    color: white;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .card-link:hover .card-icon {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* ==============================
+     FADE-UP ANIMATION
+     ============================== */
+  .fade-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .fade-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ==============================
+     SENTINEL & LOADING STATE
+     ============================== */
+  .sentinel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 60vh;
+  }
+
+  .empty-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #C5A078;
+    opacity: 0.4;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .empty-dot:nth-child(2) { animation-delay: 0.3s; }
+  .empty-dot:nth-child(3) { animation-delay: 0.6s; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  /* ==============================
+     LIGHTBOX MODAL
+     ============================== */
+  .video-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 24px;
+  }
+
+  .video-lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 3rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1010;
+  }
+
+  .lightbox-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .lightbox-content {
+    width: 100%;
+    max-width: 960px;
+    aspect-ratio: 16/9;
+    background: black;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .video-lightbox.active .lightbox-content {
+    transform: scale(1);
+  }
+
+  .lightbox-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    outline: none;
+  }
+
+  /* ==============================
+     RESPONSIVE
+     ============================== */
+  @media (max-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 240px;
+    }
+
+    .bento-large {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .video-lightbox {
+      padding: 12px;
+    }
+    .lightbox-close {
+      top: 16px;
+      right: 16px;
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .edukasi-gallery {
+      padding: 100px 0 24px;
+    }
+
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 180px;
+      gap: 2px;
+    }
+
+    .bento-large {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .fade-item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .card-img {
+      transition: none;
+    }
+  }
+</style>

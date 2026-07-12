@@ -22,10 +22,59 @@ export default config({
       'Proyek & Layanan': ['projects', 'services'],
       'Halaman Website': ['homePage', 'tentangKami', 'timKami'],
       'Manajemen RAB': ['hargaBahan', 'hargaUpah', 'ahspItem', 'rabPaket'],
+      'Konten & Edukasi': ['edukasiPosts'],
       'Pengaturan': ['siteSettings'],
     },
   },
   collections: {
+    edukasiPosts: collection({
+      label: 'Konten Edukasi & Lainnya',
+      slugField: 'imageUrl',
+      path: 'src/content/edukasiPosts/*',
+      format: { data: 'json' },
+      schema: {
+        imageUrl: fields.slug({
+          name: { label: 'URL Gambar / Thumbnail' },
+        }),
+        contentType: fields.select({
+          label: 'Tipe Konten',
+          options: [
+            { label: 'TikTok (Video)', value: 'tiktok' },
+            { label: 'Instagram (Foto)', value: 'instagram' },
+            { label: 'Foto Dokumentasi', value: 'foto' },
+            { label: 'Video Dokumentasi (Cloudinary/Direct)', value: 'video' },
+          ],
+          defaultValue: 'foto',
+        }),
+        mediaUrl: fields.text({
+          label: 'Link Sumber (URL TikTok / Instagram / Video Cloudinary)',
+          description: 'Opsional — Untuk TikTok/Instagram masukkan link postingan. Untuk Video Cloudinary masukkan link file .mp4. Biarkan kosong jika hanya foto.',
+        }),
+        publishedAt: fields.text({
+          label: 'Tanggal Upload (format: YYYY-MM-DD)',
+          defaultValue: new Date().toISOString().split('T')[0],
+        }),
+        seoPreset: fields.select({
+          label: 'Preset SEO',
+          description: 'Pilih tema konten — digunakan untuk SEO otomatis, tidak tampil di website.',
+          options: [
+            { label: 'Tips Renovasi Rumah', value: 'tips-renovasi' },
+            { label: 'Proses Pembangunan', value: 'proses-bangun' },
+            { label: 'Pilihan Material Bangunan', value: 'material-bangunan' },
+            { label: 'Before & After Renovasi', value: 'before-after' },
+            { label: 'Inspirasi Desain Interior', value: 'desain-interior' },
+            { label: 'Dokumentasi Proyek', value: 'dokumentasi-proyek' },
+            { label: 'Tips & Trik Konstruksi', value: 'tips-konstruksi' },
+            { label: 'Inspirasi Hunian Impian', value: 'inspirasi-rumah' },
+          ],
+          defaultValue: 'dokumentasi-proyek',
+        }),
+        isPublished: fields.checkbox({
+          label: 'Tampilkan di Website',
+          defaultValue: true,
+        }),
+      },
+    }),
     projects: collection({
       label: 'Proyek Portofolio',
       slugField: 'title',
