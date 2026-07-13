@@ -36,14 +36,28 @@ const siteDescription = `${siteSettings.description || "Jasa kontraktor & arsite
 
 
 const rawHomePage = await reader.singletons.homePage.read();
-const homePage = rawHomePage || {
+const homePage = {
   heroEyebrow: 'PT. DICKO JAYA CONSTRUCTION — JASA KONTRAKTOR & ARSITEKTUR',
   heroTitle: 'STRUKTUR PRESTISIUS,\nARSITEKTUR &\nJASA KONTRAKTOR.',
   heroTagline: 'Kami merancang, merencana, dan membangun residensial serta komersial premium — menghadirkan integrasi arsitektur visioner dengan eksekusi kontraktor yang presisi.',
   philosophySubtitle: 'FILOSOFI KAMI',
   philosophyTitle: 'DESAIN VISIONER<br/>& EKSEKUSI PRESISI',
   philosophyDescription: 'Bagi kami, arsitektur adalah seni menyelaraskan ruang dengan alam dan penghuninya. Kami merancang arsitektur tropis modern yang tidak hanya estetik, tetapi juga fungsional dan adaptif terhadap iklim lokal. Melalui perencanaan matang dan eksekusi yang presisi, kami menghadirkan hunian premium yang tak lekang oleh waktu.',
-  faqs: []
+  coverageEyebrow: 'CAKUPAN LAYANAN',
+  coverageTitle: 'SPESIALISASI & CAKUPAN',
+  coverageDescription: 'PT. Dicko Jaya Construction menghadirkan layanan kontraktor dan perencanaan arsitektur profesional di wilayah Jabodetabek. Kami memadukan standar konstruksi bersertifikasi dengan efisiensi biaya melalui estimasi RAB yang transparan untuk hunian tinggal, bangunan komersial, ruko, hingga pergudangan.',
+  coverageTags: [
+    'Jasa Bangun Rumah Mewah Klasik Jabodetabek',
+    'Kontraktor Spesialis Rumah Modern Jabodetabek',
+    'Jasa Bangun Ruko Minimalis Jabodetabek',
+    'Kontraktor Bangun Gudang Jabodetabek',
+    'Renovasi Rumah Tropis Modern Jabodetabek',
+    'Jasa Pembuatan RAB Rumah Jabodetabek',
+    'Jasa Arsitek Rumah Mewah Jabodetabek',
+    'Jasa Kontraktor Rumah Industrial Jabodetabek'
+  ],
+  faqs: [],
+  ...(rawHomePage || {})
 };
 
 const rawProjects = await reader.collections.projects.all();
@@ -265,40 +279,21 @@ const faqSchema = (homePage.faqs && homePage.faqs.length > 0) ? [{
         <!-- Kolom Kiri: Judul & Deskripsi SEO -->
         <div class="lg:col-span-5 space-y-6">
           <div class="space-y-2">
-            <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block">CAKUPAN LAYANAN</span>
-            <h2 class="font-serif text-3xl sm:text-4xl font-normal text-text-primary">SPESIALISASI & CAKUPAN</h2>
+            <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block">{homePage.coverageEyebrow}</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-normal text-text-primary">{homePage.coverageTitle}</h2>
           </div>
           <p class="font-sans text-xs sm:text-[13px] text-text-secondary leading-relaxed max-w-md">
-            <strong>PT. Dicko Jaya Construction</strong> menghadirkan layanan kontraktor dan perencanaan arsitektur profesional di wilayah <strong>Bogor</strong>, <strong>Tangerang</strong>, dan area Jabodetabek. Kami memadukan standar konstruksi bersertifikasi dengan efisiensi biaya melalui estimasi RAB yang transparan untuk hunian tinggal, bangunan komersial, ruko, hingga pergudangan.
+            {homePage.coverageDescription}
           </p>
         </div>
 
         <!-- Kolom Kanan: Grid Long-Tail SEO Keywords dengan Tampilan Premium -->
         <div class="lg:col-span-7 flex flex-wrap gap-3 items-start content-start">
-          <div class="py-2.5 px-4 bg-[#FAF9F6] border border-stone-300/60 text-stone-700 font-sans text-[11px] tracking-wide rounded-sm hover:border-[#C5A078] hover:text-[#C5A078] transition-all duration-300">
-            Jasa Bangun Rumah Mewah Klasik Bogor
-          </div>
-          <div class="py-2.5 px-4 bg-[#FAF9F6] border border-stone-300/60 text-stone-700 font-sans text-[11px] tracking-wide rounded-sm hover:border-[#C5A078] hover:text-[#C5A078] transition-all duration-300">
-            Kontraktor Spesialis Rumah Modern Tangerang
-          </div>
-          <div class="py-2.5 px-4 bg-[#FAF9F6] border border-stone-300/60 text-stone-700 font-sans text-[11px] tracking-wide rounded-sm hover:border-[#C5A078] hover:text-[#C5A078] transition-all duration-300">
-            Jasa Bangun Ruko Minimalis Tangerang
-          </div>
-          <div class="py-2.5 px-4 bg-[#FAF9F6] border border-stone-300/60 text-stone-700 font-sans text-[11px] tracking-wide rounded-sm hover:border-[#C5A078] hover:text-[#C5A078] transition-all duration-300">
-            Kontraktor Bangun Gudang Banten
-          </div>
-          <div class="py-2.5 px-4 bg-[#FAF9F6] border border-stone-300/60 text-stone-700 font-sans text-[11px] tracking-wide rounded-sm hover:border-[#C5A078] hover:text-[#C5A078] transition-all duration-300">
-            Renovasi Rumah Tropis Modern Bogor
-          </div>
-          <div class="py-2.5 px-4 bg-[#FAF9F6] border border-stone-300/60 text-stone-700 font-sans text-[11px] tracking-wide rounded-sm hover:border-[#C5A078] hover:text-[#C5A078] transition-all duration-300">
-            Jasa Pembuatan RAB Rumah Tangerang
-          </div>
-          <div class="py-2.5 px-4 bg-[#FAF9F6] border border-stone-300/60 text-stone-700 font-sans text-[11px] tracking-wide rounded-sm hover:border-[#C5A078] hover:text-[#C5A078] transition-all duration-300">
-            Jasa Arsitek Rumah Mewah Bogor
-          </div>
-          <div class="py-2.5 px-4 bg-[#FAF9F6] border border-stone-300/60 text-stone-700 font-sans text-[11px] tracking-wide rounded-sm hover:border-[#C5A078] hover:text-[#C5A078] transition-all duration-300">
-            Jasa Kontraktor Rumah Industrial Tangerang
-          </div>
+          {homePage.coverageTags?.map((tag: string) => (
+            <div class="py-2.5 px-4 bg-[#FAF9F6] border border-stone-300/60 text-stone-700 font-sans text-[11px] tracking-wide rounded-sm hover:border-[#C5A078] hover:text-[#C5A078] transition-all duration-300">
+              {tag}
+            </div>
+          ))}
         </div>
       </section>
 

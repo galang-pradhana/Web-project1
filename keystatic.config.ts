@@ -352,6 +352,17 @@ export default config({
         k3ImageUrl: fields.text({ label: 'URL Gambar K3', defaultValue: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800' }),
         k3Description: fields.text({ label: 'Deskripsi Bagian K3', multiline: true }),
         k3Quote: fields.text({ label: 'Kutipan K3', multiline: true }),
+
+        coverageEyebrow: fields.text({ label: 'Cakupan Layanan: Eyebrow', defaultValue: 'CAKUPAN LAYANAN' }),
+        coverageTitle: fields.text({ label: 'Cakupan Layanan: Judul', defaultValue: 'TIPE PROYEK YANG KAMI KERJAKAN' }),
+        coverageBuildingTypes: fields.array(fields.text({ label: 'Tipe Bangunan' }), {
+          label: 'Daftar Tipe Bangunan',
+          itemLabel: (props) => props.value || 'Tipe Bangunan Baru',
+        }),
+        coverageArchitecturalStyles: fields.array(fields.text({ label: 'Gaya Arsitektur' }), {
+          label: 'Daftar Gaya Arsitektur',
+          itemLabel: (props) => props.value || 'Gaya Arsitektur Baru',
+        }),
       },
     }),
     siteSettings: singleton({
@@ -400,8 +411,23 @@ export default config({
         
         philosophySubtitle: fields.text({ label: 'Filosofi Subtitle', defaultValue: 'FILOSOFI KAMI' }),
         philosophyTitle: fields.text({ label: 'Filosofi Title (gunakan <br/> untuk baris baru)', defaultValue: 'DESAIN VISIONER<br/>& EKSEKUSI PRESISI' }),
-        philosophyDescription: fields.text({ label: 'Filosofi Deskripsi', multiline: true, defaultValue: 'Bagi kami, arsitektur adalah seni menyelaraskan ruang dengan alam dan penghuninya. Kami merancang arsitektur tropis modern yang tidak hanya estetik, tetapi juga fungsional dan adaptif terhadap iklim lokal. Melalui perencanaan matang dan eksekusi yang presisi, kami menghadirkan hunian premium yang tak lekang oleh waktu.' }),
+        philosophyDescription: fields.text({ label: 'Filosofi Deskripsi', multiline: true, defaultValue: 'Bagi kami, arsitektur adalah seni menyelaraskan ruang dengan alam and penghuninya. Kami merancang arsitektur tropis modern yang tidak hanya estetik, tetapi juga fungsional dan adaptif terhadap iklim lokal. Melalui perencanaan matang dan eksekusi yang presisi, kami menghadirkan hunian premium yang tak lekang oleh waktu.' }),
         
+        coverageEyebrow: fields.text({ label: 'Cakupan Layanan Eyebrow', defaultValue: 'CAKUPAN LAYANAN' }),
+        coverageTitle: fields.text({ label: 'Cakupan Layanan Title', defaultValue: 'SPESIALISASI & CAKUPAN' }),
+        coverageDescription: fields.text({
+          label: 'Cakupan Layanan Deskripsi',
+          multiline: true,
+          defaultValue: 'PT. Dicko Jaya Construction menghadirkan layanan kontraktor dan perencanaan arsitektur profesional di wilayah Jabodetabek. Kami memadukan standar konstruksi bersertifikasi dengan efisiensi biaya melalui estimasi RAB yang transparan untuk hunian tinggal, bangunan komersial, ruko, hingga pergudangan.'
+        }),
+        coverageTags: fields.array(
+          fields.text({ label: 'Tag / Keyword' }),
+          {
+            label: 'Daftar Tag / Keyword SEO',
+            itemLabel: (props) => props.value || 'Tag / Keyword',
+          }
+        ),
+
         faqs: fields.array(
           fields.object({
             question: fields.text({ label: 'Pertanyaan' }),

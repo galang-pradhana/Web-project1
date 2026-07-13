@@ -10,7 +10,7 @@ const tentangData = await reader.singletons.tentangKami.read();
 // Fallback values jika CMS belum diisi
 const headerEyebrow = tentangData?.headerEyebrow || 'PROFIL PERUSAHAAN';
 const headerTitle = tentangData?.headerTitle || 'PRESISI & ESTETIKA';
-const headerDescription = tentangData?.headerDescription || 'PT. DICKO JAYA CONSTRUCTION adalah perusahaan kontraktor tepercaya yang bergerak di bidang pembangunan dan renovasi hunian maupun bangunan komersial. Berdiri sejak 2012, berbasis di Bogor dan Tangerang, kami memadukan teknik konstruksi yang presisi dengan nilai estetika yang tinggi untuk mewujudkan bangunan impian setiap klien.';
+const headerDescription = tentangData?.headerDescription || 'PT. DICKO JAYA CONSTRUCTION adalah perusahaan kontraktor tepercaya yang bergerak di bidang pembangunan dan renovasi hunian maupun bangunan komersial. Berdiri sejak 2012, berbasis di Jabodetabek, kami memadukan teknik konstruksi yang presisi dengan nilai estetika yang tinggi untuk mewujudkan bangunan impian setiap klien.';
 
 const visiTitle = tentangData?.visiTitle || 'VISI & DEDIKASI KAMI';
 const visiImageUrl = tentangData?.visiImageUrl || 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800';
@@ -25,11 +25,20 @@ const statKotaOperasional = tentangData?.statKotaOperasional || '2+';
 const k3ImageUrl = tentangData?.k3ImageUrl || 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800';
 const k3Description = tentangData?.k3Description || 'PT. Dicko Jaya Construction menjadikan Keselamatan dan Kesehatan Kerja (K3) sebagai prioritas utama, bukan sekadar formalitas. Setiap proyek yang kami tangani dilaksanakan dengan prosedur keselamatan yang ketat untuk melindungi seluruh tim pelaksana dan memastikan lingkungan kerja yang aman.';
 const k3Quote = tentangData?.k3Quote || 'Keselamatan di proyek bukan hanya tanggung jawab pekerja, tetapi merupakan tanggung jawab kami sebagai kontraktor kepada seluruh tim dan lingkungan sekitar.';
+
+const coverageEyebrow = tentangData?.coverageEyebrow || 'CAKUPAN LAYANAN';
+const coverageTitle = tentangData?.coverageTitle || 'TIPE PROYEK YANG KAMI KERJAKAN';
+const coverageBuildingTypes = tentangData?.coverageBuildingTypes || [
+  'Rumah Tinggal', 'Kos-kosan', 'Ruko', 'Gedung', 'Kantor', 'Villa'
+];
+const coverageArchitecturalStyles = tentangData?.coverageArchitecturalStyles || [
+  'Minimalis', 'Klasik Modern/Eropa', 'Kontemporer', 'Japandi', 'Scandinavian', 'Dan lainnya'
+];
 ---
 
 <BaseLayout 
   title="Tentang PT. Dicko Jaya Construction | Kontraktor & Arsitektur Terpercaya"
-  description="Pelajari visi, dedikasi, dan komitmen PT. Dicko Jaya Construction sebagai kontraktor bangunan dan penyedia jasa arsitektur tropis modern di Bogor dan Tangerang."
+  description="Pelajari visi, dedikasi, dan komitmen PT. Dicko Jaya Construction sebagai kontraktor bangunan dan penyedia jasa arsitektur tropis modern di wilayah Jabodetabek."
 >
   
   <div class="py-24 px-[6vw] max-w-7xl mx-auto space-y-32 text-text-primary relative">
@@ -242,17 +251,15 @@ const k3Quote = tentangData?.k3Quote || 'Keselamatan di proyek bukan hanya tangg
     {/* Service Types Section */}
     <div class="space-y-16">
       <div class="border-b border-stone-300 pb-6">
-        <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block mb-2">CAKUPAN LAYANAN</span>
-        <h2 class="font-serif text-3xl font-normal text-text-primary">TIPE PROYEK YANG KAMI KERJAKAN</h2>
+        <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block mb-2">{coverageEyebrow}</span>
+        <h2 class="font-serif text-3xl font-normal text-text-primary">{coverageTitle}</h2>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div class="space-y-6">
           <h3 class="font-serif text-xl font-normal text-text-primary border-b border-stone-200 pb-3">Tipe Bangunan</h3>
           <div class="grid grid-cols-2 gap-3">
-            {[
-              'Rumah Tinggal', 'Kos-kosan', 'Ruko', 'Gedung', 'Kantor', 'Villa'
-            ].map(type => (
+            {coverageBuildingTypes.map(type => (
               <div class="flex items-center gap-2 font-sans text-sm text-text-secondary">
                 <span class="w-1.5 h-1.5 bg-accent rounded-full flex-shrink-0"></span>
                 {type}
@@ -264,9 +271,7 @@ const k3Quote = tentangData?.k3Quote || 'Keselamatan di proyek bukan hanya tangg
         <div class="space-y-6">
           <h3 class="font-serif text-xl font-normal text-text-primary border-b border-stone-200 pb-3">Gaya Arsitektur</h3>
           <div class="grid grid-cols-2 gap-3">
-            {[
-              'Minimalis', 'Klasik Modern/Eropa', 'Kontemporer', 'Japandi', 'Scandinavian', 'Dan lainnya'
-            ].map(style => (
+            {coverageArchitecturalStyles.map(style => (
               <div class="flex items-center gap-2 font-sans text-sm text-text-secondary">
                 <span class="w-1.5 h-1.5 bg-accent rounded-full flex-shrink-0"></span>
                 {style}

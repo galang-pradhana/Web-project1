@@ -1,7 +1,7 @@
 {
   "headerEyebrow": "PROFIL PERUSAHAAN",
   "headerTitle": "PRESISI & ESTETIKA",
-  "headerDescription": "PT. DICKO JAYA CONSTRUCTION adalah perusahaan kontraktor tepercaya yang bergerak di bidang pembangunan dan renovasi hunian maupun bangunan komersial. Berdiri sejak 2012, berbasis di JABODETABEK, kami memadukan teknik konstruksi yang presisi dengan nilai estetika yang tinggi untuk mewujudkan bangunan impian setiap klien.",
+  "headerDescription": "PT. DICKO JAYA CONSTRUCTION adalah perusahaan kontraktor tepercaya yang bergerak di bidang pembangunan dan renovasi hunian maupun bangunan komersial. Berdiri sejak 2012, berbasis di Jabodetabek, kami memadukan teknik konstruksi yang presisi dengan nilai estetika yang tinggi untuk mewujudkan bangunan impian setiap klien.",
   "visiTitle": "VISI & DEDIKASI KAMI",
   "visiImageUrl": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800",
   "visiParagraph1": "Didirikan sejak tahun 2012, PT. Dicko Jaya Construction telah mendedikasikan diri untuk menghadirkan layanan konstruksi bermutu tinggi di wilayah JABODETABEK. Visi utama kami adalah menjadi mitra konstruksi terpercaya yang memberikan solusi pembangunan berkualitas dengan mengutamakan ketepatan waktu, efisiensi biaya, dan kepuasan pelanggan di setiap detail pekerjaan.",
@@ -12,5 +12,23 @@
   "statKotaOperasional": "5+",
   "k3ImageUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800",
   "k3Description": "PT. Dicko Jaya Construction menjadikan Keselamatan dan Kesehatan Kerja (K3) sebagai prioritas utama, bukan sekadar formalitas. Setiap proyek yang kami tangani dilaksanakan dengan prosedur keselamatan yang ketat untuk melindungi seluruh tim pelaksana dan memastikan lingkungan kerja yang aman.",
-  "k3Quote": "Keselamatan di proyek bukan hanya tanggung jawab pekerja, tetapi merupakan tanggung jawab kami sebagai kontraktor kepada seluruh tim dan lingkungan sekitar."
+  "k3Quote": "Keselamatan di proyek bukan hanya tanggung jawab pekerja, tetapi merupakan tanggung jawab kami sebagai kontraktor kepada seluruh tim dan lingkungan sekitar.",
+  "coverageEyebrow": "CAKUPAN LAYANAN",
+  "coverageTitle": "TIPE PROYEK YANG KAMI KERJAKAN",
+  "coverageBuildingTypes": [
+    "Rumah Tinggal",
+    "Kos-kosan",
+    "Ruko",
+    "Gedung",
+    "Kantor",
+    "Villa"
+  ],
+  "coverageArchitecturalStyles": [
+    "Minimalis",
+    "Klasik Modern/Eropa",
+    "Kontemporer",
+    "Japandi",
+    "Scandinavian",
+    "Dan lainnya"
+  ]
 }
