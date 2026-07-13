@@ -10,11 +10,11 @@ const tentangData = await reader.singletons.tentangKami.read();
 // Fallback values jika CMS belum diisi
 const headerEyebrow = tentangData?.headerEyebrow || 'PROFIL PERUSAHAAN';
 const headerTitle = tentangData?.headerTitle || 'PRESISI & ESTETIKA';
-const headerDescription = tentangData?.headerDescription || 'PT. DICKO JAYA CONSTRUCTION adalah perusahaan kontraktor tepercaya yang bergerak di bidang pembangunan dan renovasi hunian maupun bangunan komersial. Berdiri sejak 2012, berbasis di Jabodetabek, kami memadukan teknik konstruksi yang presisi dengan nilai estetika yang tinggi untuk mewujudkan bangunan impian setiap klien.';
+const headerDescription = tentangData?.headerDescription || 'PT. DJC kontraktor adalah perusahaan kontraktor tepercaya yang bergerak di bidang pembangunan dan renovasi hunian maupun bangunan komersial. Berdiri sejak 2012, berbasis di Jabodetabek, kami memadukan teknik konstruksi yang presisi dengan nilai estetika yang tinggi untuk mewujudkan bangunan impian setiap klien.';
 
 const visiTitle = tentangData?.visiTitle || 'VISI & DEDIKASI KAMI';
 const visiImageUrl = tentangData?.visiImageUrl || 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800';
-const visiParagraph1 = tentangData?.visiParagraph1 || 'Didirikan sejak tahun 2012, PT. Dicko Jaya Construction telah mendedikasikan diri untuk menghadirkan layanan konstruksi bermutu tinggi di wilayah Jabodetabek. Visi utama kami adalah menjadi mitra konstruksi terpercaya yang memberikan solusi pembangunan berkualitas dengan mengutamakan ketepatan waktu, efisiensi biaya, dan kepuasan pelanggan di setiap detail pekerjaan.';
+const visiParagraph1 = tentangData?.visiParagraph1 || 'Didirikan sejak tahun 2012, PT. DJC kontraktor telah mendedikasikan diri untuk menghadirkan layanan konstruksi bermutu tinggi di wilayah Jabodetabek. Visi utama kami adalah menjadi mitra konstruksi terpercaya yang memberikan solusi pembangunan berkualitas dengan mengutamakan ketepatan waktu, efisiensi biaya, dan kepuasan pelanggan di setiap detail pekerjaan.';
 const visiParagraph2 = tentangData?.visiParagraph2 || 'Kami melayani jasa bangun baru dan renovasi untuk berbagai tipe properti — mulai dari hunian pribadi (rumah, villa), kos-kosan, ruko, gedung kantor, hingga bangunan komersial lainnya. Skala besar maupun kecil kami kerjakan dengan komitmen yang sama terhadap kekuatan struktur dan keindahan visual.';
 const visiParagraph3 = tentangData?.visiParagraph3 || 'Setiap proyek dikerjakan dengan pendekatan personal untuk memastikan karakter bangunan selaras dengan visi klien. Konsep arsitektur yang kami tawarkan sangat beragam: minimalis, klasik modern/Eropa, kontemporer, Japandi, Scandinavian, dan berbagai variasi lain sesuai kebutuhan.';
 
@@ -23,7 +23,7 @@ const statProyekSelesai = tentangData?.statProyekSelesai || '100+';
 const statKotaOperasional = tentangData?.statKotaOperasional || '2+';
 
 const k3ImageUrl = tentangData?.k3ImageUrl || 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=800';
-const k3Description = tentangData?.k3Description || 'PT. Dicko Jaya Construction menjadikan Keselamatan dan Kesehatan Kerja (K3) sebagai prioritas utama, bukan sekadar formalitas. Setiap proyek yang kami tangani dilaksanakan dengan prosedur keselamatan yang ketat untuk melindungi seluruh tim pelaksana dan memastikan lingkungan kerja yang aman.';
+const k3Description = tentangData?.k3Description || 'PT. DJC kontraktor menjadikan Keselamatan dan Kesehatan Kerja (K3) sebagai prioritas utama, bukan sekadar formalitas. Setiap proyek yang kami tangani dilaksanakan dengan prosedur keselamatan yang ketat untuk melindungi seluruh tim pelaksana dan memastikan lingkungan kerja yang aman.';
 const k3Quote = tentangData?.k3Quote || 'Keselamatan di proyek bukan hanya tanggung jawab pekerja, tetapi merupakan tanggung jawab kami sebagai kontraktor kepada seluruh tim dan lingkungan sekitar.';
 
 const coverageEyebrow = tentangData?.coverageEyebrow || 'CAKUPAN LAYANAN';
@@ -37,8 +37,8 @@ const coverageArchitecturalStyles = tentangData?.coverageArchitecturalStyles || 
 ---
 
 <BaseLayout 
-  title="Tentang PT. Dicko Jaya Construction | Kontraktor & Arsitektur Terpercaya"
-  description="Pelajari visi, dedikasi, dan komitmen PT. Dicko Jaya Construction sebagai kontraktor bangunan dan penyedia jasa arsitektur tropis modern di wilayah Jabodetabek."
+  title="Tentang PT. DJC kontraktor | Kontraktor & Arsitektur Terpercaya"
+  description="Pelajari visi, dedikasi, dan komitmen PT. DJC kontraktor sebagai kontraktor bangunan dan penyedia jasa arsitektur tropis modern di wilayah Jabodetabek."
 >
   
   <div class="py-24 px-[6vw] max-w-7xl mx-auto space-y-32 text-text-primary relative">
@@ -65,7 +65,7 @@ const coverageArchitecturalStyles = tentangData?.coverageArchitecturalStyles || 
         <div class="aspect-[4/3] w-full overflow-hidden bg-stone-100 border border-stone-200">
           <img 
             src={visiImageUrl} 
-            alt="Tim PT. Dicko Jaya Construction merencanakan proyek konstruksi bangunan" 
+            alt="Tim PT. DJC kontraktor merencanakan proyek konstruksi bangunan" 
             class="w-full h-full object-cover filter sepia-[0.1]"
             loading="lazy"
           />
@@ -177,7 +177,7 @@ const coverageArchitecturalStyles = tentangData?.coverageArchitecturalStyles || 
           <div class="aspect-[4/3] overflow-hidden bg-stone-100 border border-stone-200">
             <img 
               src={k3ImageUrl} 
-              alt="Penerapan standar keselamatan K3 pada proyek konstruksi PT. Dicko Jaya Construction" 
+              alt="Penerapan standar keselamatan K3 pada proyek konstruksi PT. DJC kontraktor" 
               class="w-full h-full object-cover filter sepia-[0.1]"
               loading="lazy"
             />
@@ -242,7 +242,7 @@ const coverageArchitecturalStyles = tentangData?.coverageArchitecturalStyles || 
             <p class="font-sans text-sm text-text-secondary leading-relaxed italic">
               "{k3Quote}"
             </p>
-            <span class="font-sans text-xs text-accent uppercase tracking-widest font-semibold mt-2 block">— PT. Dicko Jaya Construction</span>
+            <span class="font-sans text-xs text-accent uppercase tracking-widest font-semibold mt-2 block">— PT. DJC kontraktor</span>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ export default config({
     project: 'creativa-studio/web-kontraktor',
   },
   ui: {
-    brand: { name: 'CMS PT. Dicko Jaya' },
+    brand: { name: 'CMS PT. DJC kontraktor' },
     navigation: {
       'Proyek & Layanan': ['projects', 'services'],
       'Halaman Website': ['homePage', 'tentangKami', 'timKami'],
@@ -418,7 +418,7 @@ export default config({
         coverageDescription: fields.text({
           label: 'Cakupan Layanan Deskripsi',
           multiline: true,
-          defaultValue: 'PT. Dicko Jaya Construction menghadirkan layanan kontraktor dan perencanaan arsitektur profesional di wilayah Jabodetabek. Kami memadukan standar konstruksi bersertifikasi dengan efisiensi biaya melalui estimasi RAB yang transparan untuk hunian tinggal, bangunan komersial, ruko, hingga pergudangan.'
+          defaultValue: 'PT. DJC kontraktor menghadirkan layanan kontraktor dan perencanaan arsitektur profesional di wilayah Jabodetabek. Kami memadukan standar konstruksi bersertifikasi dengan efisiensi biaya melalui estimasi RAB yang transparan untuk hunian tinggal, bangunan komersial, ruko, hingga pergudangan.'
         }),
         coverageTags: fields.array(
           fields.text({ label: 'Tag / Keyword' }),

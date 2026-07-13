@@ -183,7 +183,7 @@ export const DetailEstimator: React.FC<DetailEstimatorProps> = ({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          clientName: clientName || 'Klien PT. Dicko Jaya Construction',
+          clientName: clientName || 'Klien PT. DJC kontraktor',
           projectLocation: projectLocation || 'Indonesia',
           projectArea: projectArea || 0,
           items: selectedItems,
@@ -218,7 +218,7 @@ export const DetailEstimator: React.FC<DetailEstimatorProps> = ({
       return;
     }
 
-    const message = `Halo PT. Dicko Jaya Construction, nama saya *${clientName}* (${clientWhatsapp}).\nSaya telah menghitung estimasi RAB detail untuk proyek pembangunan dengan parameter berikut:\n\n` +
+    const message = `Halo PT. DJC kontraktor, nama saya *${clientName}* (${clientWhatsapp}).\nSaya telah menghitung estimasi RAB detail untuk proyek pembangunan dengan parameter berikut:\n\n` +
       `*Detail Proyek:*\n` +
       `- Lokasi: ${projectLocation || '-'}\n` +
       `- Luas Bangunan: ${projectArea || '-'} m²\n` +

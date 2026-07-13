@@ -6,8 +6,8 @@ import keystaticConfig from '../../keystatic.config';
 const reader = createReader(process.cwd(), keystaticConfig);
 const siteSettings = await reader.singletons.siteSettings.read();
 
-const brandName = siteSettings?.brandName || 'PT. Dicko Jaya Construction';
-const description = siteSettings?.description || 'PT. DICKO JAYA CONSTRUCTION adalah perusahaan kontraktor yang bergerak di bidang pembangunan dan renovasi hunian maupun bangunan komersial. Berbasis di Jabodetabek, kami memadukan teknik konstruksi yang presisi dengan nilai estetika yang tinggi untuk mewujudkan bangunan impian setiap klien.';
+const brandName = siteSettings?.brandName || 'PT. DJC kontraktor';
+const description = siteSettings?.description || 'PT. DJC kontraktor adalah perusahaan kontraktor yang bergerak di bidang pembangunan dan renovasi hunian maupun bangunan komersial. Berbasis di Jabodetabek, kami memadukan teknik konstruksi yang presisi dengan nilai estetika yang tinggi untuk mewujudkan bangunan impian setiap klien.';
 const email = siteSettings?.email || 'info@djckontraktor.com';
 const whatsapp = siteSettings?.whatsapp || '6281511536230';
 const address = siteSettings?.address || 'Jl. Utama Taman Walet No.66 Blk GW, RT.003/RW.014, Sindangsari, Kec. Ps. Kemis, Kabupaten Tangerang, Banten 15560';
@@ -190,10 +190,10 @@ const formattedPhone = whatsapp.startsWith('62')
       <div class="flex flex-col items-center justify-center space-y-3 mt-6">
         <!-- Minimalist Architect Logo (Skyline/Building Block) -->
         <div class="rounded-full p-1 bg-[#161412] border border-[#C5A078]/30 shadow-lg flex items-center justify-center">
-          <img src="/logo-djc.png" alt="PT. Dicko Jaya Construction Logo" class="h-10 w-10 object-contain rounded-full brightness-105" />
+          <img src="/logo-djc.png" alt="PT. DJC kontraktor Logo" class="h-10 w-10 object-contain rounded-full brightness-105" />
         </div>
         <span class="font-serif text-[14px] font-semibold tracking-[0.2em] text-white uppercase text-center">
-          DICKO JAYA <span class="italic text-[#C5A078]">CONSTRUCTION</span>
+          DJC KONTRAKTOR <span class="italic text-[#C5A078]">CONSTRUCTION</span>
         </span>
       </div>
 
@@ -235,7 +235,7 @@ const formattedPhone = whatsapp.startsWith('62')
       form.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
       form.classList.add('border-stone-700/60', 'focus-within:border-accent');
       
-      const formatted = `Halo PT. Dicko Jaya Construction,\n\n${rawMsg.trim()}`;
+      const formatted = `Halo PT. DJC kontraktor,\n\n${rawMsg.trim()}`;
       const waUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(formatted)}`;
       window.open(waUrl, '_blank');
       

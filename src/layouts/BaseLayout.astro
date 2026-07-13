@@ -17,7 +17,7 @@ interface Props {
 }
 
 const { 
-  title = "PT. Dicko Jaya Construction — Kontraktor & Arsitektur Premium", 
+  title = "PT. DJC kontraktor — Kontraktor & Arsitektur Premium", 
   description = "Kontraktor pembangunan hunian mewah, renovasi komersial presisi, dan desain arsitektur premium dengan hasil akhir berkelas tinggi.",
   keywords = siteSettings.keywords || "kontraktor bogor, kontraktor tangerang, jasa bangun rumah bogor, jasa bangun rumah tangerang",
   heroFullBleed = false,
@@ -26,6 +26,10 @@ const {
   canonicalUrl = Astro.url.href,
   additionalSchema = []
 } = Astro.props;
+
+// Ganti nama PT di title & description khusus untuk link sharing / metadata
+const shareTitle = title.replace(/PT\.\s*Dicko\s*Jaya\s*Construction/gi, "PT. DJC kontraktor").replace(/PT\.\s*DJC kontraktor/gi, "PT. DJC kontraktor");
+const shareDescription = description.replace(/PT\.\s*Dicko\s*Jaya\s*Construction/gi, "PT. DJC kontraktor").replace(/PT\.\s*DJC kontraktor/gi, "PT. DJC kontraktor");
 
 const telephone = siteSettings.whatsapp ? `+${siteSettings.whatsapp}` : "+6281511536230";
 
@@ -46,7 +50,7 @@ const schemaData = {
     {
       "@type": "Organization",
       "@id": "https://djckontraktor.com/#organization",
-      "name": siteSettings.brandName || "PT. Dicko Jaya Construction",
+      "name": siteSettings.brandName || "PT. DJC kontraktor",
       "url": "https://djckontraktor.com",
       "logo": {
         "@type": "ImageObject",
@@ -57,7 +61,7 @@ const schemaData = {
     {
       "@type": "LocalBusiness",
       "@id": "https://djckontraktor.com/#localbusiness",
-      "name": siteSettings.brandName || "PT. Dicko Jaya Construction",
+      "name": siteSettings.brandName || "PT. DJC kontraktor",
       "image": "https://djckontraktor.com/logo-djc.png",
       "url": "https://djckontraktor.com",
       "telephone": telephone,
@@ -120,20 +124,19 @@ const schemaData = {
 <html lang="id">
   <head>
     <meta charset="utf-8" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Dicko Jaya" />
+    <meta name="apple-mobile-web-app-title" content="PT. DJC kontraktor" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
     
     <!-- Primary Meta Tags -->
-    <title>{title}</title>
-    <meta name="title" content={title} />
-    <meta name="description" content={description} />
+    <title>{shareTitle}</title>
+    <meta name="title" content={shareTitle} />
+    <meta name="description" content={shareDescription} />
     <meta name="keywords" content={keywords} />
     <link rel="canonical" href={canonicalUrl} />
     {siteSettings.googleSiteVerification && (
@@ -143,15 +146,15 @@ const schemaData = {
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={shareTitle} />
+    <meta property="og:description" content={shareDescription} />
     <meta property="og:image" content={new URL(ogImage, Astro.url.origin)} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalUrl} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
+    <meta property="twitter:title" content={shareTitle} />
+    <meta property="twitter:description" content={shareDescription} />
     <meta property="twitter:image" content={new URL(ogImage, Astro.url.origin)} />
 
     <!-- JSON-LD Structured Data -->

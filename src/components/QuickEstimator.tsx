@@ -111,7 +111,7 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
       return;
     }
 
-    const message = `Halo PT. Dicko Jaya Construction,\nSaya *${clientName}* (${clientPhone}).\n\nSaya ingin berkonsultasi mengenai estimasi pembangunan rumah/bangunan proyek saya:\n\n*Detail Parameter:*\n- Jenis Pekerjaan: ${jobType}\n- Luas Bangunan: ${area} m²\n- Kualitas Material: ${activePkg.namaPaket}\n- Jumlah Lantai: ${floors} Lantai\n\n*Estimasi Anggaran:*\n- Range: *${formatRupiah(lowerRange)}* s.d. *${formatRupiah(upperRange)}*\n\n${clientNotes ? `*Pesan Tambahan:*\n"${clientNotes}"\n\n` : ''}Mohon hubungi saya kembali untuk mendiskusikan rancangan ini. Terima kasih!`;
+    const message = `Halo PT. DJC kontraktor,\nSaya *${clientName}* (${clientPhone}).\n\nSaya ingin berkonsultasi mengenai estimasi pembangunan rumah/bangunan proyek saya:\n\n*Detail Parameter:*\n- Jenis Pekerjaan: ${jobType}\n- Luas Bangunan: ${area} m²\n- Kualitas Material: ${activePkg.namaPaket}\n- Jumlah Lantai: ${floors} Lantai\n\n*Estimasi Anggaran:*\n- Range: *${formatRupiah(lowerRange)}* s.d. *${formatRupiah(upperRange)}*\n\n${clientNotes ? `*Pesan Tambahan:*\n"${clientNotes}"\n\n` : ''}Mohon hubungi saya kembali untuk mendiskusikan rancangan ini. Terima kasih!`;
     const encodedMessage = encodeURIComponent(message);
     const waUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
     window.open(waUrl, '_blank');
@@ -441,7 +441,7 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
                 <div>
                   <h3 className="font-serif text-lg font-medium text-stone-900">Dapatkan RAB Detail Gratis</h3>
                   <p className="text-[11px] text-stone-500 mt-1 leading-relaxed">
-                    Kirimkan estimasi ini ke tim teknis PT. Dicko Jaya Construction untuk penyusunan proposal denah dan perhitungan RAB terperinci.
+                    Kirimkan estimasi ini ke tim teknis PT. DJC kontraktor untuk penyusunan proposal denah dan perhitungan RAB terperinci.
                   </p>
                 </div>
 

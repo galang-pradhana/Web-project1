@@ -19,7 +19,7 @@ const reader = createReader(process.cwd(), keystaticConfig);
 // Load data from Keystatic CMS
 const rawSiteSettings = await reader.singletons.siteSettings.read();
 const siteSettings = rawSiteSettings || {
-  brandName: 'PT. Dicko Jaya Construction',
+  brandName: 'PT. DJC kontraktor',
   description: 'Jasa kontraktor & arsitektur profesional spesialis pembangunan & renovasi.',
   whatsapp: '6281511536230',
   email: 'info@djckontraktor.com',
@@ -37,7 +37,7 @@ const siteDescription = `${siteSettings.description || "Jasa kontraktor & arsite
 
 const rawHomePage = await reader.singletons.homePage.read();
 const homePage = {
-  heroEyebrow: 'PT. DICKO JAYA CONSTRUCTION — JASA KONTRAKTOR & ARSITEKTUR',
+  heroEyebrow: 'PT. DJC kontraktor — JASA KONTRAKTOR & ARSITEKTUR',
   heroTitle: 'STRUKTUR PRESTISIUS,\nARSITEKTUR &\nJASA KONTRAKTOR.',
   heroTagline: 'Kami merancang, merencana, dan membangun residensial serta komersial premium — menghadirkan integrasi arsitektur visioner dengan eksekusi kontraktor yang presisi.',
   philosophySubtitle: 'FILOSOFI KAMI',
@@ -45,7 +45,7 @@ const homePage = {
   philosophyDescription: 'Bagi kami, arsitektur adalah seni menyelaraskan ruang dengan alam dan penghuninya. Kami merancang arsitektur tropis modern yang tidak hanya estetik, tetapi juga fungsional dan adaptif terhadap iklim lokal. Melalui perencanaan matang dan eksekusi yang presisi, kami menghadirkan hunian premium yang tak lekang oleh waktu.',
   coverageEyebrow: 'CAKUPAN LAYANAN',
   coverageTitle: 'SPESIALISASI & CAKUPAN',
-  coverageDescription: 'PT. Dicko Jaya Construction menghadirkan layanan kontraktor dan perencanaan arsitektur profesional di wilayah Jabodetabek. Kami memadukan standar konstruksi bersertifikasi dengan efisiensi biaya melalui estimasi RAB yang transparan untuk hunian tinggal, bangunan komersial, ruko, hingga pergudangan.',
+  coverageDescription: 'PT. DJC kontraktor menghadirkan layanan kontraktor dan perencanaan arsitektur profesional di wilayah Jabodetabek. Kami memadukan standar konstruksi bersertifikasi dengan efisiensi biaya melalui estimasi RAB yang transparan untuk hunian tinggal, bangunan komersial, ruko, hingga pergudangan.',
   coverageTags: [
     'Jasa Bangun Rumah Mewah Klasik Jabodetabek',
     'Kontraktor Spesialis Rumah Modern Jabodetabek',
@@ -307,7 +307,7 @@ const faqSchema = (homePage.faqs && homePage.faqs.length > 0) ? [{
           <span class="font-sans text-[11px] font-semibold tracking-[0.2em] text-accent uppercase block">FAQS</span>
           <h2 class="font-serif text-3xl sm:text-4xl font-normal text-text-primary uppercase leading-tight">PERTANYAAN<br/>UMUM</h2>
           <p class="font-sans text-xs text-text-secondary leading-relaxed max-w-sm">
-            Temukan jawaban dari pertanyaan yang sering diajukan mengenai proses kerja, garansi, estimasi biaya, dan layanan arsitektur/konstruksi PT. Dicko Jaya Construction.
+            Temukan jawaban dari pertanyaan yang sering diajukan mengenai proses kerja, garansi, estimasi biaya, dan layanan arsitektur/konstruksi PT. DJC kontraktor.
           </p>
         </div>
 

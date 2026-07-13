@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     const { 
-      clientName = 'Klien PT. Dicko Jaya Construction', 
+      clientName = 'Klien PT. DJC kontraktor', 
       projectLocation = 'Indonesia', 
       projectArea = 0, 
       items = [], 

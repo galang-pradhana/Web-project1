@@ -101,7 +101,7 @@ const whatsapp = siteSettings?.whatsapp || '628123456789';
     const phone = document.getElementById('cta-phone').value;
     const message = document.getElementById('cta-message').value;
     
-    const formattedText = `Halo PT. Dicko Jaya Construction, saya *${name}* (${phone}). Ingin berkonsultasi mengenai proyek: \n\n${message}`;
+    const formattedText = `Halo PT. DJC kontraktor, saya *${name}* (${phone}). Ingin berkonsultasi mengenai proyek: \n\n${message}`;
     const encodedText = encodeURIComponent(formattedText);
     const waUrl = `https://wa.me/${whatsappNumber}?text=${encodedText}`;
     

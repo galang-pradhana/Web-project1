@@ -13,13 +13,13 @@ const posts = allPosts
 
 // Map SEO preset ke label + keywords
 const seoPresetMap: Record<string, { name: string; description: string; keywords: string }> = {
-  'tips-renovasi':      { name: 'Tips Renovasi Rumah Profesional dari DJC', description: 'Tips dan panduan renovasi rumah dari tim profesional PT. Dicko Jaya Construction.', keywords: 'tips renovasi rumah, renovasi rumah profesional, kontraktor renovasi' },
-  'proses-bangun':      { name: 'Proses Pembangunan Rumah Step by Step', description: 'Dokumentasi proses pembangunan rumah dari awal hingga selesai oleh PT. Dicko Jaya Construction.', keywords: 'proses bangun rumah, konstruksi rumah baru, kontraktor bogor tangerang' },
-  'material-bangunan':  { name: 'Pilihan Material Bangunan Berkualitas', description: 'Referensi material bangunan berkualitas tinggi yang digunakan dalam proyek PT. Dicko Jaya Construction.', keywords: 'material bangunan berkualitas, bahan konstruksi, material renovasi' },
+  'tips-renovasi':      { name: 'Tips Renovasi Rumah Profesional dari DJC', description: 'Tips dan panduan renovasi rumah dari tim profesional PT. DJC kontraktor.', keywords: 'tips renovasi rumah, renovasi rumah profesional, kontraktor renovasi' },
+  'proses-bangun':      { name: 'Proses Pembangunan Rumah Step by Step', description: 'Dokumentasi proses pembangunan rumah dari awal hingga selesai oleh PT. DJC kontraktor.', keywords: 'proses bangun rumah, konstruksi rumah baru, kontraktor bogor tangerang' },
+  'material-bangunan':  { name: 'Pilihan Material Bangunan Berkualitas', description: 'Referensi material bangunan berkualitas tinggi yang digunakan dalam proyek PT. DJC kontraktor.', keywords: 'material bangunan berkualitas, bahan konstruksi, material renovasi' },
   'before-after':       { name: 'Transformasi Sebelum & Sesudah Renovasi', description: 'Hasil nyata transformasi renovasi rumah sebelum dan sesudah oleh tim DJC.', keywords: 'before after renovasi, transformasi rumah, hasil renovasi nyata' },
-  'desain-interior':    { name: 'Inspirasi Desain Interior Modern', description: 'Koleksi inspirasi desain interior modern dan minimalis dari proyek PT. Dicko Jaya Construction.', keywords: 'desain interior modern, interior minimalis, inspirasi ruangan' },
-  'dokumentasi-proyek': { name: 'Dokumentasi Proyek Terbaru DJC', description: 'Dokumentasi foto dan video proyek terbaru yang dikerjakan oleh PT. Dicko Jaya Construction.', keywords: 'dokumentasi proyek konstruksi, kontraktor bogor, kontraktor tangerang' },
-  'tips-konstruksi':    { name: 'Tips & Trik Konstruksi dari Tim Ahli', description: 'Tips dan trik konstruksi bangunan dari para ahli PT. Dicko Jaya Construction.', keywords: 'tips konstruksi bangunan, trik bangun rumah, panduan konstruksi' },
+  'desain-interior':    { name: 'Inspirasi Desain Interior Modern', description: 'Koleksi inspirasi desain interior modern dan minimalis dari proyek PT. DJC kontraktor.', keywords: 'desain interior modern, interior minimalis, inspirasi ruangan' },
+  'dokumentasi-proyek': { name: 'Dokumentasi Proyek Terbaru DJC', description: 'Dokumentasi foto dan video proyek terbaru yang dikerjakan oleh PT. DJC kontraktor.', keywords: 'dokumentasi proyek konstruksi, kontraktor bogor, kontraktor tangerang' },
+  'tips-konstruksi':    { name: 'Tips & Trik Konstruksi dari Tim Ahli', description: 'Tips dan trik konstruksi bangunan dari para ahli PT. DJC kontraktor.', keywords: 'tips konstruksi bangunan, trik bangun rumah, panduan konstruksi' },
   'inspirasi-rumah':    { name: 'Inspirasi Hunian Impian', description: 'Kumpulan inspirasi hunian impian bergaya modern dan minimalis dari DJC.', keywords: 'inspirasi hunian impian, rumah modern minimalis, desain rumah' },
 };
 
@@ -29,12 +29,12 @@ const graphItems = [
   {
     '@type': 'CollectionPage',
     '@id': `${siteUrl}/edukasi`,
-    name: 'Edukasi & Inspirasi — PT. Dicko Jaya Construction',
-    description: 'Kumpulan konten edukasi, dokumentasi proyek, dan inspirasi konstruksi dari PT. Dicko Jaya Construction.',
+    name: 'Edukasi & Inspirasi — PT. DJC kontraktor',
+    description: 'Kumpulan konten edukasi, dokumentasi proyek, dan inspirasi konstruksi dari PT. DJC kontraktor.',
     url: `${siteUrl}/edukasi`,
     publisher: {
       '@type': 'Organization',
-      name: 'PT. Dicko Jaya Construction',
+      name: 'PT. DJC kontraktor',
       url: siteUrl,
     },
   },
@@ -53,7 +53,7 @@ const graphItems = [
         contentUrl: mediaUrl,
         publisher: {
           '@type': 'Organization',
-          name: 'PT. Dicko Jaya Construction',
+          name: 'PT. DJC kontraktor',
         },
       };
     } else {
@@ -66,7 +66,7 @@ const graphItems = [
         datePublished: p.entry.publishedAt,
         author: {
           '@type': 'Organization',
-          name: 'PT. Dicko Jaya Construction',
+          name: 'PT. DJC kontraktor',
         },
       };
     }
@@ -98,8 +98,8 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
 ---
 
 <BaseLayout
-  title="Edukasi & Inspirasi | PT. Dicko Jaya Construction"
-  description="Kumpulan konten edukasi, dokumentasi proyek, dan inspirasi konstruksi dari PT. Dicko Jaya Construction — kontraktor terpercaya di Jabodetabek."
+  title="Edukasi & Inspirasi | PT. DJC kontraktor"
+  description="Kumpulan konten edukasi, dokumentasi proyek, dan inspirasi konstruksi dari PT. DJC kontraktor — kontraktor terpercaya di Jabodetabek."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={jsonLd}></script>
@@ -122,7 +122,7 @@ const remainingPosts = posts.slice(itemsPerPage).map((post, index) => {
             GALERI PROSES <span class="italic text-accent">& DOKUMENTASI</span>
           </h1>
           <p class="font-sans text-text-secondary text-[15px] sm:text-base max-w-3xl leading-relaxed">
-            Melihat lebih dekat proses pembangunan, tips konstruksi, referensi material bangunan, serta inspirasi desain interior dari portofolio proyek PT. Dicko Jaya Construction.
+            Melihat lebih dekat proses pembangunan, tips konstruksi, referensi material bangunan, serta inspirasi desain interior dari portofolio proyek PT. DJC kontraktor.
           </p>
         </div>
 
