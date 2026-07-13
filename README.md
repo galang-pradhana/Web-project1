@@ -1,6 +1,6 @@
-# PT. Dicko Jaya Construction - Website Kontraktor
+# PT. DJC kontraktor - Website Kontraktor
 
-Website resmi PT. Dicko Jaya Construction dibangun menggunakan Astro, React, Tailwind CSS, dan Keystatic CMS.
+Website resmi PT. DJC kontraktor dibangun menggunakan Astro, React, Tailwind CSS, dan Keystatic CMS.
 
 ## 🚀 Perintah Lokal
 

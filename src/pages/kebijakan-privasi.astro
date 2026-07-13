@@ -1,6 +1,9 @@
 ---
 // kebijakan-privasi.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+import siteSettings from '../content/siteSettings.json';
+
+const email = siteSettings.email || 'djckontraktor@gmail.com';
 ---
 
 <BaseLayout title="Kebijakan Privasi — PT. DJC kontraktor">
@@ -85,7 +88,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           6. Hubungi Kami
         </h2>
         <p>
-          Jika Anda memiliki pertanyaan mengenai Kebijakan Privasi ini, silakan hubungi tim administrasi kami melalui email di <a href="mailto:info@dickojayaconstruction.com" class="text-accent underline hover:opacity-80">info@dickojayaconstruction.com</a> atau melalui WhatsApp di nomor resmi perusahaan.
+          Jika Anda memiliki pertanyaan mengenai Kebijakan Privasi ini, silakan hubungi tim administrasi kami melalui email di <a href={`mailto:${email}`} class="text-accent underline hover:opacity-80">{email}</a> atau melalui WhatsApp di nomor resmi perusahaan.
         </p>
       </section>
     </div>
