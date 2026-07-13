@@ -8,7 +8,6 @@ import {
   ChevronLeft, 
   Plus, 
   Minus, 
-  Sparkles, 
   ArrowRight,
   Info,
   PhoneCall
@@ -181,7 +180,7 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
           <div className="space-y-6">
             <div className="text-center md:text-left">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200/60 rounded-full font-bold text-[10px] text-amber-800 tracking-wider uppercase mb-2">
-                <Sparkles className="w-3.5 h-3.5" /> Quick Estimator — Langkah 1
+                Quick Estimator — Langkah 1
               </span>
               <h2 className="font-serif text-2xl md:text-3xl font-medium text-stone-900 leading-tight">Apa jenis pekerjaan konstruksi Anda?</h2>
               <p className="text-xs text-stone-500 mt-1.5">Pilih salah satu kategori utama untuk memulai kalkulasi biaya kasar proyek Anda.</p>
@@ -227,7 +226,7 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
           <div className="space-y-6">
             <div className="text-center md:text-left">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200/60 rounded-full font-bold text-[10px] text-amber-800 tracking-wider uppercase mb-2">
-                <Sparkles className="w-3.5 h-3.5" /> Quick Estimator — Langkah 2
+                Quick Estimator — Langkah 2
               </span>
               <h2 className="font-serif text-2xl md:text-3xl font-medium text-stone-900 leading-tight">Berapa total luas area bangunan?</h2>
               <p className="text-xs text-stone-500 mt-1.5">Masukkan total luas lantai dalam satuan meter persegi (m²).</p>
@@ -296,7 +295,7 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
           <div className="space-y-6">
             <div className="text-center md:text-left">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200/60 rounded-full font-bold text-[10px] text-amber-800 tracking-wider uppercase mb-2">
-                <Sparkles className="w-3.5 h-3.5" /> Quick Estimator — Langkah 3
+                Quick Estimator — Langkah 3
               </span>
               <h2 className="font-serif text-2xl md:text-3xl font-medium text-stone-900 leading-tight">Pilih standar kualitas material</h2>
               <p className="text-xs text-stone-500 mt-1.5">Setiap kualitas material memiliki spesifikasi bahan yang memengaruhi harga.</p>
@@ -341,7 +340,7 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
           <div className="space-y-6">
             <div className="text-center md:text-left">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200/60 rounded-full font-bold text-[10px] text-amber-800 tracking-wider uppercase mb-2">
-                <Sparkles className="w-3.5 h-3.5" /> Quick Estimator — Langkah 4
+                Quick Estimator — Langkah 4
               </span>
               <h2 className="font-serif text-2xl md:text-3xl font-medium text-stone-900 leading-tight">Berapa jumlah lantai bangunan?</h2>
               <p className="text-xs text-stone-500 mt-1.5">Jumlah lantai berpengaruh pada struktur fondasi dan kompleksitas struktur atas.</p>
@@ -385,7 +384,7 @@ export const QuickEstimator: React.FC<QuickEstimatorProps> = ({ packages, whatsa
           <div className="space-y-8">
             <div className="text-center">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200/60 rounded-full font-bold text-[10px] text-amber-800 tracking-wider uppercase mb-2">
-                <Sparkles className="w-3.5 h-3.5" /> HASIL ESTIMASI PENDAHULUAN
+                HASIL ESTIMASI PENDAHULUAN
               </span>
               <h2 className="font-serif text-3xl md:text-4xl font-medium text-stone-900">Kalkulasi Anggaran Kasar</h2>
               <p className="text-xs text-stone-500 mt-1 max-w-lg mx-auto">

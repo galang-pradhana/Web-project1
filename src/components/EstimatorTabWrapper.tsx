@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { QuickEstimator } from './QuickEstimator';
 import { DetailEstimator } from './DetailEstimator';
-import { Sparkles, ClipboardList } from 'lucide-react';
+import { Zap, ClipboardList } from 'lucide-react';
 
 interface Package {
   slug: string;
@@ -47,7 +47,7 @@ export const EstimatorTabWrapper: React.FC<EstimatorTabWrapperProps> = ({
               : 'flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-sans font-semibold tracking-wide transition-all duration-300 text-stone-500 hover:text-stone-800'
             }
           >
-            <Sparkles className="w-4 h-4" />
+            <Zap className="w-4 h-4" />
             Estimasi Cepat
           </button>
           <button
