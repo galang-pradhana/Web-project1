@@ -26,6 +26,15 @@ const siteSettings = rawSiteSettings || {
   address: 'Kp. Baru RT 010 / RW 003, Kel. Kosambi Dalam, Kec. Mekar Baru, Tangerang - Banten'
 };
 
+const rawPhone = siteSettings.whatsapp || "6281511536230";
+const formattedPhone = rawPhone.startsWith("62")
+  ? `+62 ${rawPhone.slice(2, 5)}-${rawPhone.slice(5, 9)}-${rawPhone.slice(9)}`
+  : `+${rawPhone}`;
+
+const siteTitle = `${siteSettings.brandName} (Telp/WA: ${formattedPhone}) — Jasa Kontraktor & Arsitektur Premium`;
+const siteDescription = `${siteSettings.description || "Jasa kontraktor & arsitektur profesional spesialis pembangunan & renovasi premium."} Hubungi kami di ${formattedPhone} untuk konsultasi & estimasi RAB gratis.`;
+
+
 const rawHomePage = await reader.singletons.homePage.read();
 const homePage = rawHomePage || {
   heroEyebrow: 'PT. DICKO JAYA CONSTRUCTION — JASA KONTRAKTOR & ARSITEKTUR',
@@ -87,8 +96,8 @@ const faqSchema = (homePage.faqs && homePage.faqs.length > 0) ? [{
 ---
 
 <BaseLayout 
-  title={`${siteSettings.brandName} — Jasa Kontraktor & Arsitektur Premium`} 
-  description={siteSettings.description}
+  title={siteTitle} 
+  description={siteDescription}
   heroFullBleed={true}
   additionalSchema={faqSchema}
 >
