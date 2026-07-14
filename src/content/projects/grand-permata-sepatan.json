@@ -2,6 +2,7 @@
   "title": "Grand permata sepatan",
   "category": "residential",
   "coverImage": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784010516/iief8w3aqud0k7mkcvk8.jpg",
+  "coverVideo": "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1784012238/ssenu0okvkgjpcztlge2.mp4",
   "galleryItems": [
     {
       "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784010516/iief8w3aqud0k7mkcvk8.jpg"
@@ -64,7 +65,9 @@
       "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784010518/mt9lvpjprumd39szrwwq.jpg"
     }
   ],
-  "videoGallery": [],
+  "videoGallery": [
+    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1784012238/ssenu0okvkgjpcztlge2.mp4"
+  ],
   "area": 210,
   "location": "Sepatan, Tangerang",
   "client": "Mrs. Mawar",
