@@ -141,6 +141,15 @@ export default config({
           label: 'Arsipkan Proyek (Sembunyikan dari Website)',
           defaultValue: false,
         }),
+        status: fields.select({
+          label: 'Status Pengerjaan',
+          options: [
+            { label: 'Completed', value: 'completed' },
+            { label: 'On Progress', value: 'on-progress' },
+            { label: 'Planned / Upcoming', value: 'planned' }
+          ],
+          defaultValue: 'completed',
+        }),
       },
     }),
     services: collection({

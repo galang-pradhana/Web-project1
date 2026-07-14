@@ -158,9 +158,18 @@ const getVideoCaption = (slug: string, idx: number, fallback: string) => {
     {/* Hero Header Section */}
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end border-b border-stone-200 pb-12">
       <div class="lg:col-span-8 space-y-4">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 flex-wrap">
           <span class="bg-accent/10 text-accent font-sans text-[9px] font-semibold uppercase tracking-[0.2em] px-3 py-1 border border-accent/20">
             {project.category}
+          </span>
+          <span class={`font-sans text-[9px] font-semibold uppercase tracking-[0.2em] px-3 py-1 border ${
+            project.status === 'on-progress'
+              ? 'border-accent/40 text-accent bg-accent/5'
+              : project.status === 'planned'
+              ? 'border-stone-300 text-stone-500 bg-stone-50 border-dashed'
+              : 'border-stone-200 text-stone-500 bg-stone-100/50'
+          }`}>
+            {project.status === 'on-progress' ? 'ON PROGRESS' : project.status === 'planned' ? 'PLANNED' : 'COMPLETED'}
           </span>
           <span class="text-stone-300 font-sans text-xs">/</span>
           <span class="font-sans text-[10px] text-stone-400 uppercase tracking-widest">PROJECT ARCHIVE</span>
@@ -171,7 +180,9 @@ const getVideoCaption = (slug: string, idx: number, fallback: string) => {
       </div>
       <div class="lg:col-span-4 lg:text-right font-sans text-[11px] tracking-widest text-stone-500 uppercase space-y-1">
         <div>Tahun Konstruksi: <span class="font-semibold text-stone-850">{project.year}</span></div>
-        <div>Status Pengerjaan: <span class="font-semibold text-stone-850 text-accent">COMPLETED // VERIFIED</span></div>
+        <div>Status Pengerjaan: <span class={`font-semibold ${project.status === 'on-progress' ? 'text-accent' : project.status === 'planned' ? 'text-stone-500' : 'text-stone-700'}`}>
+          {project.status === 'on-progress' ? 'ON PROGRESS // IN CONSTRUCTION' : project.status === 'planned' ? 'PLANNED // UPCOMING' : 'COMPLETED // VERIFIED'}
+        </span></div>
       </div>
     </div>
 
