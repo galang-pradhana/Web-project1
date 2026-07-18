@@ -27,9 +27,9 @@ const {
   additionalSchema = []
 } = Astro.props;
 
-// Ganti nama PT di title & description khusus untuk link sharing / metadata
-const shareTitle = title.replace(/PT\.\s*Dicko\s*Jaya\s*Construction/gi, "PT. DJC kontraktor").replace(/PT\.\s*DJC kontraktor/gi, "PT. DJC kontraktor");
-const shareDescription = description.replace(/PT\.\s*Dicko\s*Jaya\s*Construction/gi, "PT. DJC kontraktor").replace(/PT\.\s*DJC kontraktor/gi, "PT. DJC kontraktor");
+// Title dan description untuk metadata (sudah menggunakan brand name baru)
+const shareTitle = title;
+const shareDescription = description;
 
 const telephone = siteSettings.whatsapp ? `+${siteSettings.whatsapp}` : "+6281511536230";
 
