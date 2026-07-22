@@ -1,8 +1,66 @@
 {
   "title": "Babelan bekasi kota harapan indah",
   "category": "residential",
-  "coverImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-  "galleryItems": [],
+  "coverImage": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715483/swjumhefpqfgjisjzxag.jpg",
+  "galleryItems": [
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715483/swjumhefpqfgjisjzxag.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715483/xdwau1zkeffamz9zdkyt.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715483/wgmwpoz42lvurp4gv2o6.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715484/jey58lvizis4etdrub8i.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715483/wgtq63uggarkjm9jp04y.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715483/qjeuwj3cp0s7ua90i2ma.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715484/t0n07qpgyv53s4i6i7zg.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715484/osg7ksdylcmmu3nxhplm.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715484/lu3rw2hrcoydjbuqrilo.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715484/tdmvjov66fgfqzvw44t1.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715484/lpnlcv7arfm4pobpibao.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715485/zm0g49i1pmiqzfsx6clg.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715485/prizfzdwh5feqto5pvmi.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715485/acdh6g0aspyisanmqeid.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715485/rfn0y5vdsddzp9ns7thd.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715485/twkgo0vh4edk172kqxq0.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715485/gys7krqi6pmfynsz80kv.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715485/alncbmvozhd9sjy4hgij.jpg"
+    },
+    {
+      "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715485/eoyfnfzq2sbahdwmdgzz.jpg"
+    }
+  ],
   "videoGallery": [],
   "area": 60,
   "location": "Babelan, Bekasi",
