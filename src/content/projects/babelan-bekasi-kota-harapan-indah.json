@@ -2,6 +2,7 @@
   "title": "Babelan bekasi kota harapan indah",
   "category": "residential",
   "coverImage": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715483/swjumhefpqfgjisjzxag.jpg",
+  "coverVideo": "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1784722571/uyxi9ddiuwultglmwnrk.mp4",
   "galleryItems": [
     {
       "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715483/swjumhefpqfgjisjzxag.jpg"
@@ -61,7 +62,9 @@
       "imageUrl": "https://res.cloudinary.com/cbatrpws/image/upload/f_auto,q_auto/v1784715485/eoyfnfzq2sbahdwmdgzz.jpg"
     }
   ],
-  "videoGallery": [],
+  "videoGallery": [
+    "https://res.cloudinary.com/cbatrpws/video/upload/f_auto,q_auto/v1784722571/uyxi9ddiuwultglmwnrk.mp4"
+  ],
   "area": 60,
   "location": "Babelan, Bekasi",
   "client": "Mrs. Misgiono",
