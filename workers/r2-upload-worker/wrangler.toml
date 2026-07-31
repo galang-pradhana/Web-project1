@@ -5,9 +5,9 @@ compatibility_date = "2024-01-01"
 # Binding R2 Bucket ke Worker
 [[r2_buckets]]
 binding = 'MY_R2_BUCKET'
-bucket_name = 'djc-media'
+bucket_name = 'web-kontraktor-djc'
 
-# Environment variables
+# Environment variables (non-sensitive only)
 [vars]
-PUBLIC_R2_DOMAIN = "https://pub-xxx.r2.dev" # Ubah dengan R2 Public Domain atau Custom Domain Anda
-UPLOAD_SECRET = "archbrutal-cms-secret-key-change-this" # Sesuaikan dengan KEYSTATIC_SECRET / UPLOAD_SECRET di .env
+PUBLIC_R2_DOMAIN = "https://images.djckontraktor.com"
+# UPLOAD_SECRET dipindah ke wrangler secret (terenkripsi)
