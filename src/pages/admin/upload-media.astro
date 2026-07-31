@@ -283,6 +283,9 @@ const isConfigured = isCloudinaryConfigured || isR2Configured;
           async function handleFiles(files) {
             if (!files || files.length === 0) return;
 
+            const targetEndpoint = (r2UploadBox && r2UploadBox.dataset.workerUrl) ? r2UploadBox.dataset.workerUrl : '/api/upload-r2';
+            const uploadSecret = r2UploadBox ? r2UploadBox.dataset.secret : '';
+
             for (const file of Array.from(files)) {
               const formData = new FormData();
               formData.append('file', file);
@@ -297,11 +300,27 @@ const isConfigured = isCloudinaryConfigured || isR2Configured;
               uploadedItemsContainer.insertBefore(placeholderRow, uploadedItemsContainer.firstChild);
 
               try {
-                const res = await fetch('/api/upload-r2', {
+                const headers = {};
+                if (uploadSecret && targetEndpoint !== '/api/upload-r2') {
+                  headers['X-Admin-Secret'] = uploadSecret;
+                }
+
+                const res = await fetch(targetEndpoint, {
                   method: 'POST',
+                  headers: headers,
                   body: formData,
                 });
-                const data = await res.json();
+
+                const responseText = await res.text();
+                let data;
+                try {
+                  data = JSON.parse(responseText);
+                } catch (e) {
+                  if (res.status === 413 || responseText.includes('Request Entity Too Large')) {
+                    throw new Error(`Ukuran berkas (${fileSizeMB} MB) melebihi batas 4.5 MB Vercel Serverless Function.`);
+                  }
+                  throw new Error(`Server Error (${res.status}): ${responseText.slice(0, 120)}`);
+                }
 
                 uploadedItemsContainer.removeChild(placeholderRow);
 
@@ -314,7 +333,7 @@ const isConfigured = isCloudinaryConfigured || isR2Configured;
                 if (uploadedItemsContainer.contains(placeholderRow)) {
                   uploadedItemsContainer.removeChild(placeholderRow);
                 }
-                alert(`Gagal mengunggah ${file.name}: ${err.message}`);
+                alert(`Gagal mengunggah ${file.name}:\n${err.message}`);
               }
             }
           }
