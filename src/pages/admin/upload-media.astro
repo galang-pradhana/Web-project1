@@ -283,57 +283,103 @@ const isConfigured = isCloudinaryConfigured || isR2Configured;
           async function handleFiles(files) {
             if (!files || files.length === 0) return;
 
-            const targetEndpoint = (r2UploadBox && r2UploadBox.dataset.workerUrl) ? r2UploadBox.dataset.workerUrl : '/api/upload-r2';
+            const workerEndpoint = (r2UploadBox && r2UploadBox.dataset.workerUrl) ? r2UploadBox.dataset.workerUrl : '';
             const uploadSecret = r2UploadBox ? r2UploadBox.dataset.secret : '';
 
             for (const file of Array.from(files)) {
-              const formData = new FormData();
-              formData.append('file', file);
-
               const resourceType = file.type.startsWith('video') ? 'video' : 'image';
               const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
 
               const placeholderRow = document.createElement('div');
               placeholderRow.className = 'border border-amber-300 bg-amber-50 p-4 font-mono text-xs text-amber-900 flex items-center justify-between animate-pulse';
-              placeholderRow.innerHTML = `<span>⏳ Mengunggah <strong>${file.name}</strong> (${fileSizeMB} MB) ke Cloudflare R2...</span>`;
+              placeholderRow.innerHTML = `<span>⏳ Mengunggah <strong>${file.name}</strong> (${fileSizeMB} MB) langsung ke Cloudflare R2...</span>`;
               if (emptyState) emptyState.style.display = 'none';
               uploadedItemsContainer.insertBefore(placeholderRow, uploadedItemsContainer.firstChild);
 
               try {
-                const headers = {};
-                if (uploadSecret && targetEndpoint !== '/api/upload-r2') {
-                  headers['X-Admin-Secret'] = uploadSecret;
-                }
-
-                const res = await fetch(targetEndpoint, {
-                  method: 'POST',
-                  headers: headers,
-                  body: formData,
-                });
-
-                const responseText = await res.text();
-                let data;
-                try {
-                  data = JSON.parse(responseText);
-                } catch (e) {
-                  if (res.status === 413 || responseText.includes('Request Entity Too Large')) {
-                    throw new Error(`Ukuran berkas (${fileSizeMB} MB) melebihi batas 4.5 MB Vercel Serverless Function.`);
+                let finalUrl = '';
+                
+                // Opsi 1: Jika ada Worker URL
+                if (workerEndpoint) {
+                  const formData = new FormData();
+                  formData.append('file', file);
+                  const headers = uploadSecret ? { 'X-Admin-Secret': uploadSecret } : {};
+                  const res = await fetch(workerEndpoint, { method: 'POST', headers, body: formData });
+                  const data = await res.json();
+                  if (res.ok && data.success) {
+                    finalUrl = data.url;
+                  } else {
+                    throw new Error(data.error || 'Gagal via Worker');
                   }
-                  throw new Error(`Server Error (${res.status}): ${responseText.slice(0, 120)}`);
+                } else {
+                  // Opsi 2: Presigned Direct Upload (Browser langsung ke Cloudflare R2) - Bebas limit Vercel!
+                  const presignRes = await fetch('/api/upload-r2', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: file.name, type: file.type }),
+                  });
+
+                  if (!presignRes.ok) {
+                    const errText = await presignRes.text();
+                    throw new Error(`Gagal mendapatkan izin upload (${presignRes.status}): ${errText}`);
+                  }
+
+                  const presignData = await presignRes.json();
+                  
+                  if (!presignData.uploadUrl) {
+                    throw new Error(presignData.error || 'Gagal membuat URL presigned R2');
+                  }
+
+                  // Upload langsung dari browser ke R2 via PUT Presigned URL
+                  const directUploadRes = await fetch(presignData.uploadUrl, {
+                    method: 'PUT',
+                    headers: {
+                      'Content-Type': file.type || 'application/octet-stream',
+                    },
+                    body: file,
+                  });
+
+                  if (!directUploadRes.ok) {
+                    throw new Error(`Gagal upload berkas ke R2 (${directUploadRes.status})`);
+                  }
+
+                  finalUrl = presignData.url;
                 }
 
                 uploadedItemsContainer.removeChild(placeholderRow);
-
-                if (res.ok && data.success) {
-                  renderUploadedItem(data.url, file.name, resourceType, fileSizeMB);
-                } else {
-                  alert(`Gagal mengunggah ${file.name}: ${data.error || data.details || 'Error tidak diketahui'}`);
-                }
+                renderUploadedItem(finalUrl, file.name, resourceType, fileSizeMB);
               } catch (err) {
-                if (uploadedItemsContainer.contains(placeholderRow)) {
-                  uploadedItemsContainer.removeChild(placeholderRow);
+                // Fallback attempt: Multipart FormData ke /api/upload-r2 jika presigned gagal
+                try {
+                  const formData = new FormData();
+                  formData.append('file', file);
+                  const fallbackRes = await fetch('/api/upload-r2', { method: 'POST', body: formData });
+                  const responseText = await fallbackRes.text();
+                  let data;
+                  try {
+                    data = JSON.parse(responseText);
+                  } catch (e) {
+                    if (fallbackRes.status === 413 || responseText.includes('Request Entity Too Large')) {
+                      throw new Error(`Ukuran video (${fileSizeMB} MB) melebihi 4.5 MB Vercel. Silakan kompres di bawah 4.5 MB.`);
+                    }
+                    throw new Error(`Error (${fallbackRes.status}): ${responseText.slice(0, 100)}`);
+                  }
+
+                  if (uploadedItemsContainer.contains(placeholderRow)) {
+                    uploadedItemsContainer.removeChild(placeholderRow);
+                  }
+
+                  if (fallbackRes.ok && data.success) {
+                    renderUploadedItem(data.url, file.name, resourceType, fileSizeMB);
+                  } else {
+                    alert(`Gagal mengunggah ${file.name}:\n${err.message}`);
+                  }
+                } catch (fallbackErr) {
+                  if (uploadedItemsContainer.contains(placeholderRow)) {
+                    uploadedItemsContainer.removeChild(placeholderRow);
+                  }
+                  alert(`Gagal mengunggah ${file.name}:\n${fallbackErr.message}`);
                 }
-                alert(`Gagal mengunggah ${file.name}:\n${err.message}`);
               }
             }
           }

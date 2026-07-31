@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export const prerender = false;
 
@@ -22,6 +23,58 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    const s3Client = new S3Client({
+      region: 'auto',
+      endpoint: endpoint,
+      credentials: {
+        accessKeyId: accessKeyId,
+        secretAccessKey: secretAccessKey,
+      },
+    });
+
+    const contentTypeHeader = request.headers.get('content-type') || '';
+
+    // If client sends JSON requesting a Presigned Upload URL (Direct Browser to R2 Upload)
+    if (contentTypeHeader.includes('application/json')) {
+      const body = await request.json();
+      const { name, type } = body;
+      if (!name) {
+        return new Response(
+          JSON.stringify({ error: 'Nama berkas tidak ditemukan.' }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+
+      const fileExt = name.split('.').pop()?.toLowerCase() || 'bin';
+      const sanitizedBase = name
+        .substring(0, name.lastIndexOf('.'))
+        .replace(/[^a-zA-Z0-9_-]/g, '_');
+      
+      const fileName = `${sanitizedBase}_${Date.now()}.${fileExt}`;
+      const mimeType = type || 'application/octet-stream';
+
+      const putCommand = new PutObjectCommand({
+        Bucket: bucketName,
+        Key: fileName,
+        ContentType: mimeType,
+      });
+
+      const uploadUrl = await getSignedUrl(s3Client, putCommand, { expiresIn: 900 });
+      const filePublicUrl = publicUrl ? `${publicUrl}/${fileName}` : `${endpoint}/${bucketName}/${fileName}`;
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          presigned: true,
+          uploadUrl: uploadUrl,
+          url: filePublicUrl,
+          fileName: fileName,
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Otherwise handle direct multipart FormData fallback
     const formData = await request.formData();
     const file = formData.get('file') as File;
 
@@ -31,15 +84,6 @@ export const POST: APIRoute = async ({ request }) => {
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
-
-    const s3Client = new S3Client({
-      region: 'auto',
-      endpoint: endpoint,
-      credentials: {
-        accessKeyId: accessKeyId,
-        secretAccessKey: secretAccessKey,
-      },
-    });
 
     const fileExt = file.name.split('.').pop()?.toLowerCase() || 'bin';
     const sanitizedBase = file.name
