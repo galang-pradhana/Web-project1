@@ -1,8 +1,72 @@
 {
   "title": "Cibinong, Bogor",
   "category": "residential",
-  "coverImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-  "galleryItems": [],
+  "coverImage": "https://images.djckontraktor.com/02_1787709825118.jpg",
+  "galleryItems": [
+    {
+      "imageUrl": "https://images.djckontraktor.com/02_1787709825118.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/01_1787709824954.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/03_1787709825285.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/04_1787709825672.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/05_1787709825871.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/06_1787709826127.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/07_1787709826295.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/08_1787709826460.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/09_1787709826606.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/10_1787709826750.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/11_1787709826902.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/12_1787709827071.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/13_1787709827237.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/14_1787709827401.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/15_1787709827536.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/16_1787709827804.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/17_1787709827958.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/18_1787709828148.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/19_1787709828294.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/20_1787709828467.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/21_1787709828634.jpg"
+    }
+  ],
   "videoGallery": [],
   "location": "Cibinong, Bogor",
   "client": "Mrs. Anita",
