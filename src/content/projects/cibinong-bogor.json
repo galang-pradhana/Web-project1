@@ -2,6 +2,7 @@
   "title": "Cibinong, Bogor",
   "category": "residential",
   "coverImage": "https://images.djckontraktor.com/02_1787709825118.jpg",
+  "coverVideo": "https://images.djckontraktor.com/VideoAnimasiRumahMrsAnita-ezgif_com-resize-video_1787710368072.mp4",
   "galleryItems": [
     {
       "imageUrl": "https://images.djckontraktor.com/02_1787709825118.jpg"
@@ -67,7 +68,9 @@
       "imageUrl": "https://images.djckontraktor.com/21_1787709828634.jpg"
     }
   ],
-  "videoGallery": [],
+  "videoGallery": [
+    "https://images.djckontraktor.com/VideoAnimasiRumahMrsAnita-ezgif_com-resize-video_1787710368072.mp4"
+  ],
   "area": 60,
   "location": "Cibinong, Bogor",
   "client": "Mrs. Anita",
