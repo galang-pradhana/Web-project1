@@ -1,9 +1,11 @@
 {
   "title": "babadan asri, bogor",
   "category": "residential",
-  "coverImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+  "coverVideo": "https://images.djckontraktor.com/WhatsApp_Video_2026-08-27_at_17_41_41_1787885970771.mp4",
   "galleryItems": [],
-  "videoGallery": [],
+  "videoGallery": [
+    "https://images.djckontraktor.com/WhatsApp_Video_2026-08-27_at_17_41_41_1787885970771.mp4"
+  ],
   "area": 90,
   "location": "Babadan Asri, Bogor",
   "client": "Mrs. Nurul Huda",
