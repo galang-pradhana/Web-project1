@@ -1,8 +1,55 @@
 {
   "title": "babadan asri, bogor",
   "category": "residential",
+  "coverImage": "https://images.djckontraktor.com/01_1787886671287.jpg",
   "coverVideo": "https://images.djckontraktor.com/WhatsApp_Video_2026-08-27_at_17_41_41_1787885970771.mp4",
-  "galleryItems": [],
+  "galleryItems": [
+    {
+      "imageUrl": "https://images.djckontraktor.com/01_1787886671287.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/02_1787886671479.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/03_1787886671756.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/04_1787886671898.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/05_1787886672463.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/06_1787886672603.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/07_1787886672774.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/08_1787886672931.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/09_1787886673247.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/10_1787886673400.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/11_1787886673530.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/12_1787886673669.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/13_1787886673813.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/14_1787886673971.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/15_1787886674118.jpg"
+    }
+  ],
   "videoGallery": [
     "https://images.djckontraktor.com/WhatsApp_Video_2026-08-27_at_17_41_41_1787885970771.mp4"
   ],
