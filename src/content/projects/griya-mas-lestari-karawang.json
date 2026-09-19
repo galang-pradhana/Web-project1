@@ -2,6 +2,7 @@
   "title": "Griya Mas Lestari, Karawang",
   "category": "residential",
   "coverImage": "https://images.djckontraktor.com/01_1789795560455.jpg",
+  "coverVideo": "https://images.djckontraktor.com/VideoAnimasiRUmahMrsIntan-ezgif_com-resize-video_1789796494756.mp4",
   "galleryItems": [
     {
       "imageUrl": "https://images.djckontraktor.com/01_1789795560455.jpg"
@@ -76,7 +77,9 @@
       "imageUrl": "https://images.djckontraktor.com/24_1789795566254.jpg"
     }
   ],
-  "videoGallery": [],
+  "videoGallery": [
+    "https://images.djckontraktor.com/VideoAnimasiRUmahMrsIntan-ezgif_com-resize-video_1789796494756.mp4"
+  ],
   "area": 60,
   "location": "griya mas lestari, karawang",
   "client": "Mrs. Intan",
