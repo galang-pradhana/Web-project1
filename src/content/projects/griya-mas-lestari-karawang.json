@@ -1,8 +1,81 @@
 {
   "title": "griya mas lestari karawang",
   "category": "residential",
-  "coverImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
-  "galleryItems": [],
+  "coverImage": "https://images.djckontraktor.com/01_1789795560455.jpg",
+  "galleryItems": [
+    {
+      "imageUrl": "https://images.djckontraktor.com/01_1789795560455.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/02_1789795561154.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/03_1789795561358.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/04_1789795561580.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/05_1789795561932.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/06_1789795562180.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/07_1789795562574.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/08_1789795562759.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/09_1789795562928.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/10_1789795563119.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/11_1789795563363.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/12_1789795563572.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/13_1789795563799.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/14_1789795563981.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/15_1789795564134.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/16_1789795564295.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/17_1789795564512.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/18_1789795564675.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/19_1789795564936.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/20_1789795565216.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/21_1789795565515.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/22_1789795565829.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/23_1789795566010.jpg"
+    },
+    {
+      "imageUrl": "https://images.djckontraktor.com/24_1789795566254.jpg"
+    }
+  ],
   "videoGallery": [],
   "area": 60,
   "location": "griya mas lestari, karawang",
